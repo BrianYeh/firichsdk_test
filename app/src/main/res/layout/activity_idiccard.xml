@@ -1,33 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#aaaaaa"
+    android:orientation="vertical" >
 
-    android:orientation="vertical"
-    tools:context="firich.com.firichsdk_test.IDICCard">
 
-       <LinearLayout
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        >
         <TextView
-            android:id="@+id/textViewIDTechMiniSmartII"
+            android:id="@+id/status_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="MINISMARTII DISCONNECTED"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btn_getFirmware"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID Tech MiniSmartII Test"
-            android:textSize="14sp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Get Firmware Version" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Firmware Version Test"
-            android:id="@+id/btnGetFirmwareVersionTest"
-            android:textSize="10sp"
-            android:onClick="GetFirmwareVersionr_Test_click" />
+            android:text="ICC-Power On Test"
+            android:id="@+id/btnICCPowerOn"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="ICC_PowerOn_click" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ICC-Exchange APDU Plaintext"
+            android:id="@+id/btnICCExchangeAPDUPlaintext"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="ICC_Exchange_APDU_Plaintext" />
+        <!--
+        <Button
+            android:id="@+id/btn_StartEMV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.53"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Start EMV" />
+        <Button
+            android:id="@+id/btn_CancelEMV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.53"
+            android:text="Cancel EMV" />
+            -->
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutEditText"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#dddddd"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#ffffff" >
+            <TextView
+                android:id="@+id/lcdLog"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:typeface="monospace" >
+            </TextView>
+        </ScrollView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutEditText2"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#dddddd"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#ffffff" >
+            <TextView
+                android:id="@+id/textLog"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:typeface="monospace" >
+            </TextView>
+        </ScrollView>
+    </LinearLayout>
+
 
 </LinearLayout>

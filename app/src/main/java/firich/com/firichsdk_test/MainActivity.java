@@ -1,6 +1,7 @@
 package firich.com.firichsdk_test;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -317,6 +318,7 @@ public class MainActivity extends Activity {
     */
     }
 
+
     public void CashDrawer_Test_click(View view) {
 
 
@@ -380,7 +382,14 @@ public class MainActivity extends Activity {
 
     }
 
+    public void ID_ICCard_Test_click(View view)
+    {
+        Intent intent = new Intent(view.getContext(), IDICCard.class);
+     //   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+    //            | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        view.getContext().startActivity(intent);
 
+    }
 
 
 
