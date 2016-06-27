@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    android:orientation="vertical"
+    tools:context="firich.com.firichsdk_test.IDICCard">
+
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/textViewIDTechMiniSmartII"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID Tech MiniSmartII Test"
+            android:textSize="14sp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Firmware Version Test"
+            android:id="@+id/btnGetFirmwareVersionTest"
+            android:textSize="10sp"
+            android:onClick="GetFirmwareVersionr_Test_click" />
+    </LinearLayout>
+
+</LinearLayout>
