@@ -393,7 +393,14 @@ public class MainActivity extends Activity {
 
 
 
+    public void FingerPrinter_Test_click(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, UareUSampleJava.class);
+        //   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+        //            | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
+    }
 
 
 }

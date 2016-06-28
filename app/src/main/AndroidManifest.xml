@@ -13,6 +13,10 @@
 
     <uses-feature android:name="android.hardware.usb.host" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,6 +38,25 @@
             android:label="@string/title_activity_idiccard"
             android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+        <activity android:name=".UareUSampleJava"
+            android:exported="true"
+            android:label="FingerPrinter"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".GetReaderActivity"
+            android:label="FingerPrinterGetReader"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".VerificationActivity"
+            android:label="FingerPrinterVerification"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
