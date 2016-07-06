@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import firich.com.firichsdk.SerialPort;
@@ -229,97 +228,93 @@ public class MainActivity extends Activity {
         sp.close(intSerialPortHandle);
 
 
-        // adb shell "cat /sys/class/gpio/gpio162/value"
-        /*
+
+        return "No Cat value";
+    }
+    public void CashDrawer_Write(String echoGPIONum)
+    {
+    /*
+我们有新添加接口，节点位置：/sys/kernel/debug/cash_drawer/cashdrawer
+              控制GPIO393：write 11   Pull High   , write 10 Pull Low
+              控制GPIO346：write 21   Pull High   , write 20 Pull Low
+              获取GPIO393状态：read 此节点
+              权限都有了，直接open, write,read
+              root@cht_cr_mrd:/sys/kernel/debug/cash_drawer # ll
+              -rwxrwxrwx root     root            0 2012-01-01 21:32 cashdrawer
+              root@cht_cr_mrd:/sys/kernel/debug/cash_drawer #
+    */
+        int intReturnCode = -1;
+
+        // adb shell "echo 11 > /sys/kernel/debug/cash_drawer/cashdrawer"
+        // Open serial port
+        sp = new SerialPort();
+        String strCashDrawerPath="/sys/kernel/debug/cash_drawer/cashdrawer";
+        intSerialPortHandle = sp.openGPIO(strCashDrawerPath,bWirteForGPIO);
+
+        intReturnCode = sp.write(intSerialPortHandle,echoGPIONum.getBytes());
+        sp.close(intSerialPortHandle);
+        dump_trace("echo "+echoGPIONum + " > "+ strCashDrawerPath);
+        try {
+            sp.sleep(1*SLEEP_MSEC);
+            dump_trace("SLEEP_MSEC= 1 secs");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String CashDrawer_Read()
+    {
+// adb shell "cat /sys/kernel/debug/cash_drawer/cashdrawer"
+
         sp = new SerialPort();
         String strGPIONumValuePath = "";
-        strGPIONumValuePath = "/sys/class/gpio/gpio"+echoGPIONum+"/value";
-       // intSerialPortHandle = sp.openGPIO("/sys/class/gpio/gpio162/value",bReadFOrGPIO);
+        strGPIONumValuePath = "/sys/kernel/debug/cash_drawer/cashdrawer";
+
         intSerialPortHandle = sp.openGPIO(strGPIONumValuePath, bReadFOrGPIO);
-
         sp.setListener(splistener);
-
         try {
             sp.sleep(2*SLEEP_MSEC);
             dump_trace("SLEEP_MSEC= 2 secs");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         byte[] btyVersion_msg_received = new byte[256];
+        String strReadValue="";
         int intDataReceivedLength=0;
         intDataReceivedLength = sp.getDataReceivedLength();
         if ( intDataReceivedLength> 0) {
             btyVersion_msg_received = Arrays.copyOf(sp.getBytDataReceived(),intDataReceivedLength);
         }
-        dump_trace("cat /sys/class/gpio/gpio"+echoGPIONum+"/value  = "+ new String(btyVersion_msg_received) );
-        sp.close(intSerialPortHandle);
-        */
-        //clean up GPIO
-        // ex: echo 393 > /sys/class/gpio/unexport
-        /*
-        sp = new SerialPort();
-        intSerialPortHandle = sp.openGPIO("/sys/class/gpio/unexport",bWirteForGPIO);
-        intReturnCode = sp.write(intSerialPortHandle,echoGPIONum.getBytes());
-        sp.close(intSerialPortHandle);
-        dump_trace("Clean Up \necho "+echoGPIONum + " > "+"/sys/class/gpio/unexport");
-        */
-        //return new String(btyVersion_msg_received);
-        return "No Cat value";
-    }
-
-    //export gpio
-    public boolean activationPin(int intPin){
-
-
-
-        String command = String.format("echo %d > /sys/class/gpio/export", intPin);
-        try {
-            //Runtime.getRuntime().exec(new String[] {"su", "-c", command});
-            Runtime.getRuntime().exec(new String[] {"/system/bin/sh", "-c", command});
-            return true;
-        } catch (IOException e) {
-            return false;
+        else
+        {
+            btyVersion_msg_received[0] = 0;
         }
+       // smartCardUtil smartCardUtilTest = new smartCardUtil();
+       // strReadValue = smartCardUtilTest.hex(btyVersion_msg_received[0]);
+        strReadValue = Integer.toString(btyVersion_msg_received[0]);
 
+        dump_trace(strGPIONumValuePath+" value  = "+ strReadValue );
+        sp.close(intSerialPortHandle);
+        return strReadValue;
 
-/*
-        Process process = null;
-        Process process1 = null;
-        DataOutputStream os = null;
-        DataInputStream is = null;
-        try {
-            process = Runtime.getRuntime().exec("/system/xbin/su");
-            os = new DataOutputStream(process.getOutputStream());
-            is = new DataInputStream(process.getInputStream());
-            os.writeBytes("/system/bin/ls" + " \n");  //這裡可以執行具有root 權限的程序了
-            os.writeBytes(" exit \n");
-            os.flush();
-            process.waitFor();
-        } catch (Exception e) {
-            //
-            dump_trace("Unexpected error - Here is what I know:" + e.getMessage());
-            return false;
-            //Log.e(TAG, "Unexpected error - Here is what I know:" + e.getMessage());
-        } finally {
-            try {
-                if (os != null) {
-                    os.close();
-                }
-                if (is != null) {
-                    is.close();
-                }
-                process.destroy();
-            } catch (Exception e) {
-                return false;
-            }
-        }// get the root privileges
-       return true;
-    */
     }
 
+    public void CashDrawer_Test_346_click(View view) {
+        CashDrawer_Write("21");
+        CashDrawer_Write("20");
+        CashDrawer_Write("21");
+        CashDrawer_Write("20");
+    }
 
-    public void CashDrawer_Test_click(View view) {
+    public void CashDrawer_Test_read_334_click(View view) {
+        String strCashDrawerValue="";
+        strCashDrawerValue = CashDrawer_Read();
+
+        final TextView textViewCashDrawerValueResult = (TextView) findViewById(R.id.textViewCashDrawerValue);
+
+        textViewCashDrawerValueResult.setText("Value="+strCashDrawerValue);
+    }
+    public void CashDrawer_Test_393_click(View view) {
 
 
         dump_trace("Read_GPIO_click: Enter");
@@ -352,33 +347,19 @@ public class MainActivity extends Activity {
         //EditText editTextGPIO = (EditText)findViewById(R.id.editTextGPIO);
         //String strEditTextGPIO = editTextGPIO.getText().toString();
 
-   //     activationPin(393);
-
-        echoGPIONum = "162";
-        echoInOut ="out";
-        strSetHighORLow="1";
-        SetGPIOInOut(echoGPIONum, echoInOut, strSetHighORLow);
 /*
         echoGPIONum = "393";
         echoInOut ="out";
-        strSetHighORLow="0";
-        SetGPIOInOut(echoGPIONum, echoInOut, strSetHighORLow);
-
-        echoGPIONum = "393";
-        echoInOut ="out";
         strSetHighORLow="1";
         SetGPIOInOut(echoGPIONum, echoInOut, strSetHighORLow);
-        */
+*/
+        CashDrawer_Write("11");
+        CashDrawer_Write("10");
+        CashDrawer_Write("11");
+        CashDrawer_Write("10");
 
-       // echoGPIONum = strEditTextGPIO;
 
-        /*
-        catValue = SetGPIOInOut(echoGPIONum, echoInOut, strSetHighORLow);
 
-        final TextView textViewGPIOValue = (TextView) findViewById(R.id.textViewGPIOValue);
-
-        textViewGPIOValue.setText("Value= "+ catValue);
-        */
 
     }
 

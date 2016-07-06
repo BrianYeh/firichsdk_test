@@ -125,10 +125,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CashDrawer Test"
-        android:id="@+id/btnCashDrawer_Test"
-
-        android:onClick="CashDrawer_Test_click" />
+        android:text="CashDrawer Test(393)"
+        android:id="@+id/btnCashDrawer_Test_393"
+        android:onClick="CashDrawer_Test_393_click" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CashDrawer Test(346)"
+        android:id="@+id/btnCashDrawer_Test_346"
+        android:onClick="CashDrawer_Test_346_click" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CashDrawer Test(read 334)"
+        android:id="@+id/btnCashDrawer_Test_read_334"
+        android:onClick="CashDrawer_Test_read_334_click" />
+    <TextView
+        android:id="@+id/textViewCashDrawerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value="
+        android:textAppearance="?android:attr/textAppearanceLarge" />
         <!--
     <EditText
         android:id="@+id/editTextGPIO"
@@ -138,14 +155,7 @@
         android:inputType="text"
         android:text="" />
 
-    <TextView
-        android:id="@+id/textViewGPIOValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-
-        android:text="Value="
-        android:textAppearance="?android:attr/textAppearanceLarge" />
         -->
 
     </LinearLayout>
