@@ -104,4 +104,6 @@ public class GetReaderActivity extends Activity {
         
         super.onConfigurationChanged(newConfig);
     }
+
+
 }

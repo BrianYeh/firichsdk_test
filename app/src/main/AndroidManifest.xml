@@ -26,37 +26,46 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible">
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".IDICCard"
             android:label="@string/title_activity_idiccard"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".UareUSampleJava"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UareUSampleJava"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:label="FingerPrinter"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-        <activity android:name=".GetReaderActivity"
-            android:label="FingerPrinterGetReader"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:label="FingerPrinter"></activity>
+        <activity
+            android:name=".GetReaderActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="FingerPrinterGetReader">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VerificationActivity"
-            android:label="FingerPrinterVerification"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+        <activity
+            android:name=".VerificationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="FingerPrinterVerification">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainNFCActivity">
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
     </application>
 

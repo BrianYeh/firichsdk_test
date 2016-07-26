@@ -5,6 +5,7 @@
     android:orientation="vertical" >
     tools:context="firich.com.firichsdk_test.MainActivity">
 
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -13,7 +14,6 @@
         android:layout_height="wrap_content"
         android:text="open"
         android:id="@+id/open"
-
         android:onClick="open_click" />
     <Button
         android:layout_width="wrap_content"
@@ -28,6 +28,7 @@
         android:id="@+id/close"
         android:onClick="close_click" />
     </LinearLayout>
+    -->
 <!--
     <LinearLayout
         android:layout_width="match_parent"
@@ -181,5 +182,47 @@
             android:id="@+id/btnFingerPrinter_Test"
 
             android:onClick="FingerPrinter_Test_click" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <EditText
+            android:id="@+id/editTextTTY_LCMUSBPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="/dev/ttyUSB2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LCM Test"
+            android:id="@+id/btnLCM_Test"
+
+            android:onClick="LCM_Test_click" />
+        <!--
+        <TextView
+            android:id="@+id/textViewLCMTestResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VFD/LCM Test Result:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+            -->
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NFC Test"
+            android:id="@+id/btnNFC_Test"
+
+            android:onClick="NFC_Test_click" />
+
     </LinearLayout>
 </LinearLayout>

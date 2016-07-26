@@ -28,6 +28,7 @@ public class UareUSampleJava extends Activity {
 	
 	private TextView m_selectedDevice;
 	private Button m_getReader;
+	private boolean bReaderFound=false;
 	//private Button m_getCapabilities;
 	//private Button m_captureFingerprint;
 	//private Button m_streamImage;
@@ -119,6 +120,7 @@ public class UareUSampleJava extends Activity {
 		Intent i = new Intent(UareUSampleJava.this, GetReaderActivity.class);
 		i.putExtra("serial_number", m_sn);
 		i.putExtra("device_name", m_deviceName);
+		i.putExtra("FP_end_test",false);
 		startActivityForResult(i, 1);
 	}
 /*
@@ -156,6 +158,7 @@ public class UareUSampleJava extends Activity {
 		Intent i = new Intent(UareUSampleJava.this, VerificationActivity.class);
 		i.putExtra("serial_number", m_sn);
 		i.putExtra("device_name", m_deviceName);
+		i.putExtra("FP_end_test",false);
 		startActivityForResult(i, 1);
 	}
 /*
@@ -201,8 +204,10 @@ public class UareUSampleJava extends Activity {
 			setButtonsEnabled_Stream(m_reader.GetCapabilities().can_stream); 
 			m_reader.Close();
 			Globals.getInstance().enableCamera();
+			bReaderFound = true;
 		} catch (UareUException e1) {
 			displayReaderNotFound();
+			bReaderFound = false;
 		}
 
 	}
@@ -221,7 +226,8 @@ public class UareUSampleJava extends Activity {
 		m_sn = (String) data.getExtras().get("serial_number");
 		m_deviceName = (String) data.getExtras().get("device_name");
 		m_selectedDevice.setText("Device: " + m_deviceName);
-		
+		boolean bEndFPTest = false;
+		bEndFPTest =  (boolean) data.getExtras().getBoolean("FP_end_test");
 		switch (requestCode) {
 		case GENERAL_ACTIVITY_RESULT:
 				
@@ -242,6 +248,9 @@ public class UareUSampleJava extends Activity {
 							catch(java.lang.InterruptedException e){ e.printStackTrace(); }
 								
 							CheckDevice();
+							if (!bEndFPTest && bReaderFound) {
+								launchVerification();//Brian: go to verificaiton.
+							}
 						} else {
 							displayReaderNotFound();
 						}

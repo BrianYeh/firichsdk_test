@@ -287,6 +287,7 @@ public class VerificationActivity extends Activity {
 		Intent i = new Intent();
 		i.putExtra("serial_number", m_sn);
 		i.putExtra("device_name", m_deviceName);
+		i.putExtra("FP_end_test",true);
 		setResult(Activity.RESULT_OK, i);					
 
 //		setResult(Activity.RESULT_OK, new Intent().putExtra("serial_number", m_sn));

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#aaaaaa"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="NFC Test"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/editNFC_usb_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:ems="10"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
+            android:inputType="text"
+            android:text="/dev/ttyUSB4" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/btn_getFirmwareVer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E1:回傳軔體版本"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="NFC_GetFirmwareVer_click" />
+        <Button
+            android:id="@+id/btnA0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A0:讀取卡片並連續傳回卡號"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="NFC_A0_cmd_click" />
+        <Button
+            android:id="@+id/btnA1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A1:讀取卡片並傳回卡號"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="NFC_A1_cmd_click" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A9:讀取卡片並傳回卡號和類型"
+            android:id="@+id/btnA9"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="NFC_A9_cmd_click" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutEditText"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#dddddd"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#ffffff" >
+            <TextView
+                android:id="@+id/NFC_ReturnMessage"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:typeface="monospace" >
+            </TextView>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

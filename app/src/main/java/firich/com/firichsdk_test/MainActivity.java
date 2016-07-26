@@ -486,11 +486,13 @@ public class MainActivity extends Activity {
 
         public void LCM_Test_click(View view)
         {
-
-
-        LCM_test(btyInitialize);
-
-
+      LCM_test(btyInitialize);
         }
+    public void NFC_Test_click(View view)
+    {
+        Intent intent = new Intent(view.getContext(), MainNFCActivity.class);
 
+        view.getContext().startActivity(intent);
+
+    }
 }
