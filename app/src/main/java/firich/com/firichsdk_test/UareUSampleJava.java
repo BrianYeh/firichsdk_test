@@ -293,6 +293,16 @@ public class UareUSampleJava extends Activity {
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();		
 	}
+	public void cmdReturnPASS_Click(View view) {
+		Intent intent = getIntent();
+		setResult(1, intent); // return code = 1 -> OK
+		finish();
+	}
 
+	public void cmdReturnFAIL_Click(View view) {
+		Intent intent = getIntent();
+		setResult(0, intent); // return code = 0 -> Error
+		finish();
+	}
 
 }

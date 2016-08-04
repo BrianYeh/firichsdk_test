@@ -2,6 +2,7 @@ package firich.com.firichsdk_test;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -343,7 +344,17 @@ public class IDICCard extends Activity implements OnReceiverListener {
         // TODO Auto-generated method stub
 
     }
+    public void cmdReturnPASS_Click(View view) {
+        Intent intent = getIntent();
+        setResult(1, intent); // return code = 1 -> OK
+        finish();
+    }
 
+    public void cmdReturnFAIL_Click(View view) {
+        Intent intent = getIntent();
+        setResult(0, intent); // return code = 0 -> Error
+        finish();
+    }
 
 
 }

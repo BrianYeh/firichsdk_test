@@ -41,7 +41,7 @@ public class smartCardUtil {
 
             for (i = 0; i < intDataReceivedLength; i++) {
                 dump_trace("btyVersion_msg_received hex[" + i + "]= " + hex((int) btyVersion_msg_received[i]));
-                strOutputLRC = strOutputLRC + "Hex[" + i + "]= " + hex((int) btyVersion_msg_received[i])+"\n";
+                //strOutputLRC = strOutputLRC + "Hex[" + i + "]= " + hex((int) btyVersion_msg_received[i])+"\n";
             }
 
             for (i = 0; i < intDataReceivedLength-1; i++)
@@ -51,7 +51,8 @@ public class smartCardUtil {
                 dump_trace("TmpLRC = "+ hex(nLRC) );
             }
             dump_trace("LRC = "+ hex(nLRC) );
-            strOutputLRC = strOutputLRC + "LRC = "+ hex(nLRC) +"\n";;
+            //strOutputLRC = strOutputLRC + "LRC = "+ hex(nLRC) +"\n";
+            strOutputLRC = "LRC = "+ hex(nLRC) +"\n";
 
         /*
         if(0 != memcmp(&lrc, &buffer[recv_lenth-1],1))
@@ -62,6 +63,10 @@ public class smartCardUtil {
 
             dump_trace("btyLRC = "+ btyLRC[0] );
 
+            if (intDataReceivedLength == 0){
+                strOutputLRC = strOutputLRC + ("Test FAIL")+"\n";
+                return false;
+            }
             boolean match = (btyVersion_msg_received[intDataReceivedLength-1] == (byte)btyLRC[0]);
             dump_trace("Test PASS or NO(true/false) === "+ match);
             if (match){

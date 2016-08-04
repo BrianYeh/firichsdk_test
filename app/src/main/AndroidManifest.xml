@@ -26,7 +26,6 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible">
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,12 +35,12 @@
         <activity
             android:name=".IDICCard"
             android:label="@string/title_activity_idiccard"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UareUSampleJava"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:label="FingerPrinter"></activity>
+            android:label="FingerPrinter" />
         <activity
             android:name=".GetReaderActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -59,6 +58,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainNFCActivity">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,6 +67,12 @@
             </intent-filter>
             -->
         </activity>
+        <activity android:name=".MainThermalPrinterActivity" />
+        <activity android:name=".MainLCMActivity" />
+        <activity android:name=".MainCashDrawerActivity" />
+        <activity android:name=".MainSysKingICCardActivity" />
+        <activity android:name=".MainRFIDActivity" />
+        <activity android:name=".MainHIDActivity"></activity>
     </application>
 
 </manifest>

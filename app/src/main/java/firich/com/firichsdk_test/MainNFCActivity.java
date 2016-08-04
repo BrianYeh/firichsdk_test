@@ -1,5 +1,6 @@
 package firich.com.firichsdk_test;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -298,5 +299,34 @@ public class MainNFCActivity extends AppCompatActivity {
         //dump_trace("NFC A1 BCC="+smartCardUtil.hex(gbtyCommand[intCommandLength-1]));
         dump_trace("NFC A9 command ="+  strCommand );
         NFC_test_cmd(gbtyCommand, "A9");
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        configUtil.Device devObject;
+        configUtil configFile = new configUtil();
+        configFile.dom4jXMLParser();
+        //strSmartCardttyUSBPath
+        devObject = configFile.getDevice("NFCTest");
+        if (devObject.Dev != null && !devObject.Dev.isEmpty()) {
+            strNFCttyUSBPath = devObject.Dev;
+        }
+        EditText editTextTTYUSBPath = (EditText)findViewById(R.id.editNFC_usb_path);
+        editTextTTYUSBPath.setText(strNFCttyUSBPath);
+
+    }
+
+
+    public void cmdReturnPASS_Click(View view) {
+        Intent intent = getIntent();
+        setResult(1, intent); // return code = 1 -> OK
+        finish();
+    }
+
+    public void cmdReturnFAIL_Click(View view) {
+         Intent intent = getIntent();
+        setResult(0, intent); // return code = 0 -> Error
+        finish();
     }
 }

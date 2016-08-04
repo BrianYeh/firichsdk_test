@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#aaaaaa"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/textViewHID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="HID Input Test"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEditText"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#dddddd"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="500dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#ffffff" >
+
+            <EditText
+                android:id="@+id/editHID"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textSize="14sp"
+                android:ems="10"
+                android:background="#FFFFFF"
+                android:textColor="#000000"
+                android:inputType="text"
+                android:text="Please input some text here..." />
+        </ScrollView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutHIDPASSFAIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="5" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PASS"
+                android:textAllCaps="false"
+                android:id="@+id/cmdReturnOK"
+                android:layout_gravity="center"
+                android:onClick="cmdReturnPASS_Click" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="5" >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FAIL"
+                android:textAllCaps="false"
+                android:id="@+id/cmdReturnError"
+                android:layout_gravity="center"
+                android:onClick="cmdReturnFAIL_Click" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

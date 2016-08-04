@@ -1,10 +1,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+android:background="#aaaaaa"
 android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#aaaaaa"
     android:orientation="vertical"
     android:padding="10dp" >
 
@@ -57,5 +59,46 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:text="@string/identification" />
 -->
+    <LinearLayout
+        android:id="@+id/linearLayoutFingerPrintPASSFAIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="5" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PASS"
+                android:textAllCaps="false"
+                android:id="@+id/cmdReturnOK"
+                android:layout_gravity="center"
+                android:onClick="cmdReturnPASS_Click" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="5" >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FAIL"
+                android:textAllCaps="false"
+                android:id="@+id/cmdReturnError"
+                android:layout_gravity="center"
+                android:onClick="cmdReturnFAIL_Click" />
+        </LinearLayout>
+    </LinearLayout>
+
+
 </LinearLayout>
+
+
 </ScrollView>
