@@ -614,6 +614,7 @@ public class MainThermalPrinterD10Activity extends Activity {
         public void run() {
             // compute primes larger than minPrime
             boolean bConnectOK = false;
+            int retryTimes=0;
             do {
                 bConnectOK = connecD10PrinterFunc();
                 try {
@@ -622,7 +623,8 @@ public class MainThermalPrinterD10Activity extends Activity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-            } while (!bConnectOK);
+                retryTimes++;
+            } while (!bConnectOK && (retryTimes <10));
         }
     }
     private boolean  connecD10PrinterFunc()
@@ -649,7 +651,8 @@ public class MainThermalPrinterD10Activity extends Activity {
             if (ret == -11) {
                 msg = "Already opened port!. Please make sure the printer is ready and print it.";
             } else {
-                msg = "connect NG.[" + ret + "]";
+                //msg = "connect NG.[" + ret + "]";
+                msg = "Please wait for connecting..";
                 bConnectOK = false;
             }
         }
