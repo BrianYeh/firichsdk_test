@@ -23,7 +23,6 @@ import com.idtechproducts.device.StructConfigParameters;
 
 import java.util.Set;
 
-//public class IDICCard extends AppCompatActivity {
 public class IDICCard extends Activity implements OnReceiverListener {
 
     // declaring the instance of the MiniSmartII;

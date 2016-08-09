@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_SYSKING_IC_CARD = 6; //新精：SYSKING
     private final int TEST_ITEM_RFID = 7;
     private final int TEST_ITEM_HID = 8;
+    private final int TEST_ITEM_THERMAL_PRINTER_D10 = 9;
 
 
 
@@ -232,6 +233,16 @@ public class MainActivity extends Activity {
         intent.setComponent(cn);
         startActivityForResult(intent, requestCode);
     }
+    public void Thermal_Printer_D10_Test_click(View view)
+    {
+
+        int requestCode = TEST_ITEM_THERMAL_PRINTER_D10;
+        String strClass = PACKAGE_NAME+".MainThermalPrinterD10Activity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -267,6 +278,9 @@ public class MainActivity extends Activity {
                 break;
             case TEST_ITEM_HID:
                 txtResult = (TextView) findViewById(R.id.textViewHIDTestResult);
+                break;
+            case TEST_ITEM_THERMAL_PRINTER_D10:
+                txtResult = (TextView) findViewById(R.id.textViewThermalPrinterD10TestResult);
                 break;
 
         }

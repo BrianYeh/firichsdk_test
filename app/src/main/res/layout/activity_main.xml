@@ -21,90 +21,6 @@
 
     </LinearLayout>
 
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SC Test Version"
-        android:id="@+id/SC_Test_Version"
-        android:onClick="SC_Test_Version_click" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SC Test Activation"
-        android:id="@+id/SC_Test_Activation"
-        android:onClick="SC_Test_Activation_click" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SC Test Deactivation"
-        android:id="@+id/SC_Test_Deactivation"
-        android:onClick="SC_Test_Deactivation_click" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <EditText
-            android:id="@+id/editTextTTYUSBPath"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:ems="10"
-            android:inputType="text"
-            android:text="/dev/ttyUSB4" />
-        <TextView
-            android:id="@+id/textViewSmardCardLRCResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="IC Card Reader Test Result:"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <TextView
-            android:id="@+id/textViewChangeLine"
-            android:layout_width="78dp"
-            android:layout_height="wrap_content"
-            android:text=" "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-    -->
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CashDrawer Test(393)"
-        android:id="@+id/btnCashDrawer_Test_393"
-        android:onClick="CashDrawer_Test_393_click" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CashDrawer Test(346)"
-        android:id="@+id/btnCashDrawer_Test_346"
-        android:onClick="CashDrawer_Test_346_click" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CashDrawer Test(read 334)"
-        android:id="@+id/btnCashDrawer_Test_read_334"
-        android:onClick="CashDrawer_Test_read_334_click" />
-    <TextView
-        android:id="@+id/textViewCashDrawerValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Value="
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    </LinearLayout>
-    -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -283,4 +199,24 @@
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Thermal Printer D10 Test"
+            android:id="@+id/btnThermalPrinterD10_Test"
+            android:onClick="Thermal_Printer_D10_Test_click" />
+        <TextView
+            android:id="@+id/textViewThermalPrinterD10TestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -489,8 +489,8 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
     @Override
     protected void onStart(){
         super.onStart();
-        String strImagePath="/data/FIT/X.jpg";
-        String strImagePath2="/data/FIT/X.jpg";
+        String strImagePath="/data/fec/X.jpg";
+        String strImagePath2="/data/fec/X.jpg";
 
         configUtil.Device devObject;
         configUtil configFile = new configUtil();

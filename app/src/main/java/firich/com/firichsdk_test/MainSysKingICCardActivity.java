@@ -1,8 +1,8 @@
 package firich.com.firichsdk_test;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 import firich.com.firichsdk.SerialPort;
 
-public class MainSysKingICCardActivity extends AppCompatActivity {
+public class MainSysKingICCardActivity extends Activity {
 
     SerialPort sp;
 

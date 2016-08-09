@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="text"
-            android:text="/data/FIT/1.jpg" />
+            android:text="/data/fec/1.jpg" />
 
     </LinearLayout>
 
@@ -90,7 +90,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="text"
-            android:text="/data/FIT/2.jpg" />
+            android:text="/data/fec/2.jpg" />
 
     </LinearLayout>
 

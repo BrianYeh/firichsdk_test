@@ -1,12 +1,12 @@
 package firich.com.firichsdk_test;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainHIDActivity extends AppCompatActivity {
+public class MainHIDActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

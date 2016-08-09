@@ -69,7 +69,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="PASS"
-                android:textAllCaps="false"
                 android:id="@+id/cmdReturnOK"
                 android:layout_gravity="center"
                 android:onClick="cmdReturnPASS_Click" />
@@ -83,7 +82,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="FAIL"
-                android:textAllCaps="false"
                 android:id="@+id/cmdReturnError"
                 android:layout_gravity="center"
                 android:onClick="cmdReturnFAIL_Click" />

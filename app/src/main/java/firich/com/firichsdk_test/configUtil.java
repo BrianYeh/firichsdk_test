@@ -29,6 +29,7 @@ public class configUtil {
         public String Dev;
         public String Path1;
         public String Path2;
+        public String Path3;
         public int BaudRate;
     }
     Device DevObject;
@@ -76,6 +77,12 @@ public class configUtil {
                     DevObject.Name = child.attributeValue("name");
                     DevObject.Path1 = child.attributeValue("path1");
                     DevObject.Path2 = child.attributeValue("path2");
+                    hashtableConfig.put(child.attributeValue("name"), DevObject);
+                }else if ("ThermalPrinterTestD10".equals(child.attributeValue("name"))){
+                    DevObject.Name = child.attributeValue("name");
+                    DevObject.Path1 = child.attributeValue("path1");
+                    DevObject.Path2 = child.attributeValue("path2");
+                    DevObject.Path3 = child.attributeValue("path3");
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }
                 else{

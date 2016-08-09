@@ -1,8 +1,8 @@
 package firich.com.firichsdk_test;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 import firich.com.firichsdk.SerialPort;
 
-public class MainRFIDActivity extends AppCompatActivity {
+public class MainRFIDActivity extends Activity {
 
     SerialPort sp;
     int intSerialPortHandle = -1;
