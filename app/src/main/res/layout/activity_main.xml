@@ -218,5 +218,23 @@
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="RS232 Test"
+            android:id="@+id/btnRS232_Test"
+            android:onClick="RS232_device_click" />
+        <TextView
+            android:id="@+id/textViewRS232TestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
 </LinearLayout>

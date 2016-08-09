@@ -26,6 +26,7 @@ public class configUtil {
 */
     class Device{
         public String Name;
+        public String RS232DeviceName;
         public String Dev;
         public String Path1;
         public String Path2;
@@ -83,6 +84,11 @@ public class configUtil {
                     DevObject.Path1 = child.attributeValue("path1");
                     DevObject.Path2 = child.attributeValue("path2");
                     DevObject.Path3 = child.attributeValue("path3");
+                    hashtableConfig.put(child.attributeValue("name"), DevObject);
+                }else if ("RS232Test".equals(child.attributeValue("name"))){
+                    DevObject.Name = child.attributeValue("name");
+                    DevObject.RS232DeviceName = child.attributeValue("devicename");
+                    dump_trace("RS232DeviceName: " + DevObject.RS232DeviceName);
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }
                 else{

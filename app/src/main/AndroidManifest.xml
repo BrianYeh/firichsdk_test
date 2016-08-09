@@ -68,8 +68,9 @@
         <activity android:name=".MainCashDrawerActivity" />
         <activity android:name=".MainSysKingICCardActivity" />
         <activity android:name=".MainRFIDActivity" />
-        <activity android:name=".MainHIDActivity"></activity>
+        <activity android:name=".MainHIDActivity" />
         <activity android:name=".MainThermalPrinterD10Activity" />
+        <activity android:name=".MainRS232Activity"></activity>
     </application>
 
 </manifest>
