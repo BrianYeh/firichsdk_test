@@ -247,7 +247,7 @@ public class MainActivity extends Activity {
     public void RS232_device_click(View view)
     {
 
-        int requestCode = TEST_ITEM_THERMAL_PRINTER_D10;
+        int requestCode = TEST_ITEM_RS232_DEVICE;
         String strClass = PACKAGE_NAME+".MainRS232Activity";
         Intent intent = new Intent();
         ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
