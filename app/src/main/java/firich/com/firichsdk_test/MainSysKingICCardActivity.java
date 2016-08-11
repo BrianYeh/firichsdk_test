@@ -176,14 +176,25 @@ public class MainSysKingICCardActivity extends Activity {
         }
 
         public void run() {
+            boolean testVersionPASS = false;
+            boolean testActivationPASS = false;
+            boolean testDeActivationPASS = false;
+
             strtextViewSmardCardLRCResult += "Test Version: \n";
-            smart_card_test(btyVersion_msg);
+            testVersionPASS = smart_card_test(btyVersion_msg);
 
             strtextViewSmardCardLRCResult += "Test Activation: \n";
-            smart_card_test(btyActivation_msg);
+            testActivationPASS = smart_card_test(btyActivation_msg);
 
             strtextViewSmardCardLRCResult += "Test DeActivation: \n";
-            smart_card_test(btyDeactivation_msg);
+            testDeActivationPASS =  smart_card_test(btyDeactivation_msg);
+            Intent intent = getIntent();
+            if ( testVersionPASS && testActivationPASS && testDeActivationPASS){
+                setResult(1, intent); // return code = 1 -> OK
+            }else{
+                setResult(0, intent); // return code = 0 -> Error
+            }
+            finish();
         }
     }
 
