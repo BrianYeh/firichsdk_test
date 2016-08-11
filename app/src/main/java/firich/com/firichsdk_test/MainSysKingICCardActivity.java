@@ -3,6 +3,7 @@ package firich.com.firichsdk_test;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import firich.com.firichsdk.SerialPort;
 public class MainSysKingICCardActivity extends Activity {
 
     SerialPort sp;
+    private Handler mHandler = null; //Brian
 
     int intSerialPortHandle = -1;
     final static int SLEEP_MSEC =1000;
@@ -53,6 +55,8 @@ public class MainSysKingICCardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sys_king_iccard);
+
+        this.mHandler = new Handler(); //Brian:
     }
     private void SleepMiniSecond(SerialPort spThread, int minSecond)
     {
@@ -130,11 +134,13 @@ public class MainSysKingICCardActivity extends Activity {
         final TextView textViewSmardCardLRCResult = (TextView) findViewById(R.id.textViewSmardCardLRCResult);
         if (match) {
             strtextViewSmardCardLRCResult += "PASS. \n" + smartCardUtilTest.getLRCString();
-            textViewSmardCardLRCResult.setText(strtextViewSmardCardLRCResult);
+            //textViewSmardCardLRCResult.setText(strtextViewSmardCardLRCResult);
+            PostUIUpdateLog(textViewSmardCardLRCResult, strtextViewSmardCardLRCResult);
         }
         else {
             strtextViewSmardCardLRCResult += "FAIL! \n";
-            textViewSmardCardLRCResult.setText(strtextViewSmardCardLRCResult );
+            //textViewSmardCardLRCResult.setText(strtextViewSmardCardLRCResult );
+            PostUIUpdateLog(textViewSmardCardLRCResult, strtextViewSmardCardLRCResult);
         }
 
 
@@ -150,16 +156,43 @@ public class MainSysKingICCardActivity extends Activity {
         smart_card_test(btyDeactivation_msg);
     }
 
+    private void PostUIUpdateLog(final TextView textViewMsg, final String PostUIMsg)
+    {
+        this.mHandler.post(new Runnable()
+        {
+            public void run()
+            {
+                dump_trace("PostUIMsg="+PostUIMsg);
+                textViewMsg.setText(PostUIMsg);
+
+            }
+        });
+    }
+
+    private class DeviceSysKingICCardTestThread extends Thread {
+
+
+        DeviceSysKingICCardTestThread() {
+        }
+
+        public void run() {
+            strtextViewSmardCardLRCResult += "Test Version: \n";
+            smart_card_test(btyVersion_msg);
+
+            strtextViewSmardCardLRCResult += "Test Activation: \n";
+            smart_card_test(btyActivation_msg);
+
+            strtextViewSmardCardLRCResult += "Test DeActivation: \n";
+            smart_card_test(btyDeactivation_msg);
+        }
+    }
+
     public void Test_IC_Card_click(View view){
         final TextView textViewSmardCardLRCResult = (TextView) findViewById(R.id.textViewSmardCardLRCResult);
-        strtextViewSmardCardLRCResult += "Test Version: \n";
-        smart_card_test(btyVersion_msg);
 
-        strtextViewSmardCardLRCResult += "Test Activation: \n";
-        smart_card_test(btyActivation_msg);
+        DeviceSysKingICCardTestThread DeviceSysKingICCardTestThreadP = new DeviceSysKingICCardTestThread();
+        DeviceSysKingICCardTestThreadP.start();
 
-        strtextViewSmardCardLRCResult += "Test DeActivation: \n";
-        smart_card_test(btyDeactivation_msg);
     }
     public void cmdReturnPASS_Click(View view) {
         Intent intent = getIntent();

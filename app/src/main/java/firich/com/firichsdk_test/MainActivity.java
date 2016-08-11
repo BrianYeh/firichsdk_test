@@ -3,6 +3,7 @@ package firich.com.firichsdk_test;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -307,7 +308,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        //setTitle(getString(R.string.app_name_hardware) + " SN:" + Build.SERIAL);
+        setTitle(" SN:" + Build.SERIAL);
  //       configUtil configFile = new configUtil();
  //       configFile.dom4jXMLParser();
     }

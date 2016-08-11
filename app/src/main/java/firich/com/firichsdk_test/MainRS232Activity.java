@@ -238,7 +238,7 @@ public class MainRS232Activity extends Activity {
         intReturnCode = sp.write(intSerialPortHandle,strTestString.getBytes());
         dump_trace("write: intReturnCode="+intReturnCode);
         sp.setListener(splistener);
-        SleepMiniSecond(sp, 1000);
+        //SleepMiniSecond(sp, 1000);
 
         intDataReceivedLength = sp.getDataReceivedLength();
         int nRetry=0;
