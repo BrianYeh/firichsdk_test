@@ -20,7 +20,21 @@
             android:text="MINISMARTII DISCONNECTED"
             android:textColor="#FFFFFF" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutTestIDICCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btn_testICCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Test ID IC Card"
+            android:onClick="Test_ID_ICCard_click"/>
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutBottom2"
         android:layout_width="match_parent"
@@ -32,7 +46,8 @@
             android:layout_height="wrap_content"
 
             android:gravity="center_vertical|center_horizontal"
-            android:text="Get Firmware Version" />
+            android:text="Get Firmware Version"
+            android:onClick="ICC_GetFirmwareVersion_click"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

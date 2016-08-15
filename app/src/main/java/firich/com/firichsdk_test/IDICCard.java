@@ -1,13 +1,11 @@
 package firich.com.firichsdk_test;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +55,7 @@ public class IDICCard extends Activity implements OnReceiverListener {
         myDevice = new IDT_MiniSmartII(this,this);
         myDevice.registerListen();
 
-
+        /*
         btnGetFirmware.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
                 info = "Getting Firmware\n";
@@ -78,6 +76,7 @@ public class IDICCard extends Activity implements OnReceiverListener {
                 }
             }
         });
+        */
 		/*
 		btnStartEMV.setOnClickListener(new Button.OnClickListener(){
 	        public void onClick(View v) {;
@@ -103,35 +102,74 @@ public class IDICCard extends Activity implements OnReceiverListener {
 
     }
 
-    public void ICC_PowerOn_click(View view){
+    private boolean testGetFirmwareVersion()
+    {
+        boolean testPASS = false;
+        info = "Getting Firmware\n";
+        detail = "";
+        handler.post(doUpdateStatus);
+        StringBuilder sb = new StringBuilder();
+        int ret = myDevice.device_getFirmwareVersion(sb);
+        if (ret == ErrorCode.SUCCESS) {
+            info += "Firmware Version: " + sb.toString();
+            detail = "";
+            handler.post(doUpdateStatus);
+            testPASS = true;
+        }
+        else {
+            info += "GetFirmwareVersion: Failed\n";
+            info += "Status: "+ myDevice.device_getResponseCodeString(ret)+"";
+            detail = "";
+            handler.post(doUpdateStatus);
+            testPASS = false;
+        }
+        return testPASS;
+    }
+    public void ICC_GetFirmwareVersion_click(View view)
+    {
+        testGetFirmwareVersion();
+    }
+
+    private boolean testPowerOn()
+    {
+        boolean testPASS = false;
         int ret;
         ResDataStruct resData = new ResDataStruct();
 
         ret = myDevice.icc_powerOnICC(resData);
         if (ret == ErrorCode.SUCCESS) {
             if (resData.resData != null)
-                info = "Power On ICC: Successful <" + Common.base16Encode(resData.resData)+">";
+                info += "\nPower On ICC: Successful <" + Common.base16Encode(resData.resData)+">";
             else
-                info = "Power On ICC: Successful";
+                info += "\nPower On ICC: Successful";
             detail = "";
             handler.post(doUpdateStatus);
+            testPASS = true;
         }
         else {
-            info = "Power On ICC: Failed\n";
+            info += "\nPower On ICC: Failed\n";
             info += "Status: "+myDevice.device_getResponseCodeString(ret)+"";
             detail = "";
             handler.post(doUpdateStatus);
+            testPASS =false;
         }
+        return testPASS;
+    }
+    public void ICC_PowerOn_click(View view){
+
+        testPowerOn();
     }
 
 
 
-    private Dialog dlgSendCAPDU;
-    private Dialog dlgSendCmd;
-    private EditText edtCAPDU;
-    private EditText edtCmd;
+    //private Dialog dlgSendCAPDU;
+    //private Dialog dlgSendCmd;
+    //private EditText edtCAPDU; //edtCAPDU's string is same as strCAPDU variable.
+    private final String strCAPDU= "00A40000023040002000800E73616D706C6570617373776F726400D6000008414243444546474800B0000008";
+    //private EditText edtCmd;
     public void ICC_Exchange_APDU_Plaintext(View view)
     {
+        /*
         dlgSendCAPDU = new Dialog(this);
         dlgSendCAPDU.setTitle("Please Enter C-APDU");
         dlgSendCAPDU.setCancelable(false);
@@ -139,14 +177,72 @@ public class IDICCard extends Activity implements OnReceiverListener {
         Button btnSendCAPDU = (Button) dlgSendCAPDU.findViewById(R.id.btnSendCAPDU);
         Button btnCancelCAPDU = (Button) dlgSendCAPDU.findViewById(R.id.btnCancelAPDU);
         edtCAPDU = (EditText) dlgSendCAPDU.findViewById(R.id.edtCAPDU);
+
+        Brian: Change to use fixed testing APDU String.ex:  strCAPDU
         btnSendCAPDU.setOnClickListener(sendCAPDUOnClick);
         btnCancelCAPDU.setOnClickListener(cancelCAPDUOnClick);
         dlgSendCAPDU.show();
+        */
+        testAPDU(strCAPDU);
     }
 
+    private boolean testAPDU(String lstrCAPDU)
+    {
+        boolean testPASS = false;
+        String strData = lstrCAPDU;
+        APDUResponseStruct apduRes = new APDUResponseStruct();
+        int ret;
+        if (strData.length()<=0) {
+            Toast.makeText(getApplicationContext(), "Command could not be sent", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        byte[] apduPlaintext = Common.getBytesFromHexString(strData);
+        if (apduPlaintext == null) {
+            Toast.makeText(getApplicationContext(), "Invalid APDU, please input hex data", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+//Brian: Since dlg is marked        dlgSendCAPDU.dismiss();
+
+        ret = myDevice.icc_exchangeAPDU(apduPlaintext, apduRes);
+        if (ret == ErrorCode.SUCCESS){
+            info += ".\n Test APDU successfully." + "C-APDU: <" + strData +">";
+            //detail = "APDU Result: <" + Common.base16Encode(apduRes.response)+">";
+            testPASS = true;
+        }
+        else {
+            info += "Exchange APDU Plaintext Failed\n";
+            info += "Status: "+myDevice.device_getResponseCodeString(ret)+"";
+            detail = "";
+            testPASS = false;
+        }
+        handler.post(doUpdateStatus);
+        return testPASS;
+    }
+
+    public void Test_ID_ICCard_click(View view)
+    {
+        boolean getFirmwareVersionPASS = false;
+        boolean powerOnPASS = false;
+        boolean testAPDUPASS = false;
+
+        getFirmwareVersionPASS = testGetFirmwareVersion();
+        powerOnPASS = testPowerOn();
+
+        testAPDUPASS = testAPDU(strCAPDU);
+        if ( getFirmwareVersionPASS && powerOnPASS && testAPDUPASS)
+        {
+            info += "\n Test PASS.";
+        }else{
+            info += "\n Test FAIL.";
+        }
+        handler.post(doUpdateStatus);
+    }
+    /*
     private View.OnClickListener sendCAPDUOnClick = new View.OnClickListener(){
         public void onClick(View v){
-            String strData = edtCAPDU.getText().toString();
+            //Brian: String strData = edtCAPDU.getText().toString();
+            String strData = strCAPDU;
             APDUResponseStruct apduRes = new APDUResponseStruct();
             int ret;
             if (strData.length()<=0) {
@@ -181,7 +277,7 @@ public class IDICCard extends Activity implements OnReceiverListener {
         }
 
     };
-
+*/
 
     @Override
     public void ICCNotifyInfo(byte[] arg0, String arg1) {
