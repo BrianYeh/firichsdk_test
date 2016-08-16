@@ -45,7 +45,7 @@ public class MainNFCActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
     }
-    private String strNFCttyUSBPath="/dev/ttyUSB4";
+    private String strNFCttyUSBPath="/dev/ttyUSB0";
     private byte[] btyReturnMessage = new byte[50];
     private final int intCommandLength=9;
     private byte[] gbtyCommand= new byte[intCommandLength];
@@ -167,8 +167,10 @@ public class MainNFCActivity extends Activity {
     private enum NFC_cmd_type {
         E1, A0, A1, A9;
     }
-    private void NFC_test_cmd(byte[] btyCommand, String strCommandType)
+    private boolean NFC_test_cmd(byte[] btyCommand, String strCommandType)
     {
+        boolean testNFCCmdPASS = false;
+
         NFC_cmd_type  NFC_cmd_type_value =  NFC_cmd_type.valueOf(strCommandType); //
 
         String strTestResult="";
@@ -189,8 +191,10 @@ public class MainNFCActivity extends Activity {
                     {
                         btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength-2 );
                         strTestResult = new String(btyNFCReturnMessage2);
+                        testNFCCmdPASS = true;
                     } else {
                         strTestResult = " N ; Read fail!!";
+                        testNFCCmdPASS = false;
                     }
                     break;
                 case A0: //A0 讀取卡片並連續讀取卡號
@@ -208,10 +212,10 @@ public class MainNFCActivity extends Activity {
                             btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength - 2);
                             strTestResult = new String(btyNFCReturnMessage2);
                         }
-
+                        testNFCCmdPASS = true;
                     } else {
                         strTestResult = " Read fail!!";
-
+                        testNFCCmdPASS = false;
                     }
                     // Call get version to stop.
                     SleepMiniSecond(sp, 2000);
@@ -236,10 +240,13 @@ public class MainNFCActivity extends Activity {
 
         final TextView textViewReturnMessaget = (TextView) findViewById(R.id.NFC_ReturnMessage);
         textViewReturnMessaget.setText("NFC Test Result:"+ strTestResult);
+        return testNFCCmdPASS;
 
     }
-    public void NFC_GetFirmwareVer_click(View view){
 
+    private boolean testGetFirmwareVer()
+    {
+        boolean testPASS = false;
         // E1傳回韌體版本	        01-53-30-31-45-31-02-03-26
         btyE1GetFirmwareVer[intCommandLength-1] = cal_BCC(btyE1GetFirmwareVer, intCommandLength-1 );
 
@@ -249,7 +256,12 @@ public class MainNFCActivity extends Activity {
         }
         //dump_trace("NFC E1GetFirmwareVer BCC="+smartCardUtil.hex(btyE1GetFirmwareVer[intCommandLength-1]));
         dump_trace("NFC E1GetFirmwareVer command ="+  strCommand );
-        NFC_test_cmd(btyE1GetFirmwareVer, "E1");
+        testPASS = NFC_test_cmd(btyE1GetFirmwareVer, "E1");
+        return testPASS;
+    }
+    public void NFC_GetFirmwareVer_click(View view){
+
+        testGetFirmwareVer();
     }
     public void NFC_A0_cmd_click(View view)
     {

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "firich.com.firichsdk_test"
-        minSdkVersion 12
+        minSdkVersion 14
         targetSdkVersion 14
         versionCode 1
         versionName "1.0"
