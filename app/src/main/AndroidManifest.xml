@@ -46,8 +46,7 @@
         </activity>
         <activity
             android:name="firich.com.firichsdk_test.VerificationActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="FingerPrinterVerification">
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
