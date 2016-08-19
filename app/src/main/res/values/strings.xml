@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">firichsdk_test</string>
-    <string name="title_activity_idiccard">IDICCard</string>
     <string name="serial_number">Serial Number: (No Reader Selected)</string>
     <string name="back">Back</string>
     <string name="get_reader">Get Reader</string>

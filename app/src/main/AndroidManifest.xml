@@ -30,13 +30,11 @@
         </activity>
         <activity
             android:name=".IDICCard"
-            android:label="@string/title_activity_idiccard"
             android:exported="true"/>
         <activity
             android:name="firich.com.firichsdk_test.UareUSampleJava"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:label="FingerPrinter" />
+            android:exported="true"/>
         <activity
             android:name="firich.com.firichsdk_test.GetReaderActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

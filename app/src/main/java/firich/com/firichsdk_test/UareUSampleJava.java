@@ -232,7 +232,9 @@ public class UareUSampleJava extends Activity {
 		m_deviceName = (String) data.getExtras().get("device_name");
 		m_selectedDevice.setText("Device: " + m_deviceName);
 		boolean bEndFPTest = false;
+		boolean testPASS = false;
 		bEndFPTest =  (boolean) data.getExtras().getBoolean("FP_end_test");
+		testPASS = (boolean) data.getExtras().getBoolean("Test_Match");
 		switch (requestCode) {
 		case GENERAL_ACTIVITY_RESULT:
 				
@@ -267,6 +269,17 @@ public class UareUSampleJava extends Activity {
 				}
 			
 			break;
+		}
+		Intent intent = getIntent();
+
+		if (resultCode == Activity.RESULT_OK) {
+			if (bEndFPTest) {
+				if (testPASS)
+					setResult(1, intent); // return code = 1 -> PASS
+				else
+					setResult(0, intent); // return code = 0 -> FAIL
+				finish();
+			}
 		}
 
 	}

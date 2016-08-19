@@ -54,6 +54,8 @@ public class VerificationActivity extends Activity {
 	private boolean m_first = true;	
 	private boolean m_resultAvailableToDisplay = false;
 	private Reader.CaptureResult cap_result = null;
+
+	boolean testPASS= false;
 	
 	private void initializeActivity()
 	{    
@@ -189,10 +191,21 @@ public class VerificationActivity extends Activity {
 			        		 if (m_text_conclusion.getText().length() == 0)
 			        		 {
 			        			 DecimalFormat formatting = new DecimalFormat("##.######");
-			        			 m_text_conclusion.setText("Dissimilarity Score: " + String.valueOf(m_score)+ ", False match rate: " + Double.valueOf(formatting.format((double)m_score/0x7FFFFFFF)) + " (" + (m_score < (0x7FFFFFFF/100000) ? "match" : "no match") + ")"); 
-							
-							
-			        		 }			        			
+								 String strTestResult="";
+								 strTestResult = "Dissimilarity Score: " + String.valueOf(m_score)+ ", False match rate: " + Double.valueOf(formatting.format((double)m_score/0x7FFFFFFF)) + " (" + (m_score < (0x7FFFFFFF/100000) ? "match" : "no match") + ")";
+			        			 //m_text_conclusion.setText();
+								 testPASS= false;
+								 testPASS = (m_score < (0x7FFFFFFF/100000));
+								 if (testPASS) {
+									 strTestResult+= "\nTest PASS.(match)";
+
+								 }else{
+									 strTestResult+= "\nTest Fail.(no match)";
+								 }
+								 m_text_conclusion.setText(strTestResult);
+								// if (testPASS)
+									 onBackPressed();
+							 }
 			        	 }
 			        	 
 			        	 m_text.setText("Place any finger on the reader");
@@ -288,6 +301,7 @@ public class VerificationActivity extends Activity {
 		i.putExtra("serial_number", m_sn);
 		i.putExtra("device_name", m_deviceName);
 		i.putExtra("FP_end_test",true);
+		i.putExtra("Test_Match", testPASS);
 		setResult(Activity.RESULT_OK, i);					
 
 //		setResult(Activity.RESULT_OK, new Intent().putExtra("serial_number", m_sn));
