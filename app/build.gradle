@@ -1,16 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 14
+    compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "firich.com.firichsdk_test"
         minSdkVersion 14
-        targetSdkVersion 14
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,12 +24,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/firichsdk.jar')
     compile files('libs/Universal_SDK_1.00.008.jar')
     compile files('libs/dpuareu.jar')
     compile files('libs/FitPrintAndroidUsb_v1011.jar')
     compile files('libs/dom4j-2.0.0.jar')
     compile files('libs/SiiAndroidSDK.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
 }
