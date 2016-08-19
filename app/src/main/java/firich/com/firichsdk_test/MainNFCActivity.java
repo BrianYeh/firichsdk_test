@@ -43,6 +43,11 @@ public class MainNFCActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
         setContentView(R.layout.activity_nfc);
     }
     private String strNFCttyUSBPath="/dev/ttyUSB0";

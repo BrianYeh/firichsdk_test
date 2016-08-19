@@ -97,6 +97,12 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
+
         setContentView(R.layout.activity_thermal_printer);
 
         mBtnUsbAuthentication = (Button)findViewById(R.id.btnUsbAuthentication);

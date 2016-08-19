@@ -92,6 +92,11 @@ public class MainThermalPrinterD10Activity extends Activity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
+
         setContentView(R.layout.activity_sii_d10_thermal_printer);
 
         //final EditText edtDeviceAddress = (EditText)findViewById(R.id.edittext_device_address);

@@ -86,6 +86,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
         setContentView(R.layout.activity_main);
 
 
@@ -305,11 +308,14 @@ public class MainActivity extends Activity {
             txtResult.setText("FAIL");
         }
     }
+
+
     @Override
     protected void onStart() {
         super.onStart();
-        //setTitle(getString(R.string.app_name_hardware) + " SN:" + Build.SERIAL);
+
         setTitle(" SN:" + Build.SERIAL);
+
  //       configUtil configFile = new configUtil();
  //       configFile.dom4jXMLParser();
     }

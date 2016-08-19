@@ -61,6 +61,11 @@ public class MainRS232Activity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
         setContentView(R.layout.activity_rs232);
         this.mHandler = new Handler(); //Brian:
 

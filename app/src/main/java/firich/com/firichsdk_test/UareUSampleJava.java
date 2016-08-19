@@ -55,6 +55,11 @@ public class UareUSampleJava extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		checkBuild checkBuildOK = new checkBuild();
+		if (!checkBuildOK.checkVersion())
+			return;
+
 		setContentView(R.layout.activity_main_finger_printer);
 
 		m_getReader = (Button) findViewById(R.id.get_reader);

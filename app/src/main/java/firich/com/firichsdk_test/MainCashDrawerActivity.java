@@ -37,6 +37,10 @@ public class MainCashDrawerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
         setContentView(R.layout.activity_cash_drawer);
     }
     public String SetGPIOInOut(String echoGPIONum, String echoInOut, String strHighORLow)

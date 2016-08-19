@@ -47,6 +47,11 @@ public class MainRFIDActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
         setContentView(R.layout.activity_rfid);
     }
 

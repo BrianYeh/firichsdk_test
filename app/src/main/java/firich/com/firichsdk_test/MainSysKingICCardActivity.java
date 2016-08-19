@@ -54,6 +54,9 @@ public class MainSysKingICCardActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
         setContentView(R.layout.activity_sys_king_iccard);
 
         this.mHandler = new Handler(); //Brian:

@@ -38,7 +38,11 @@ public class IDICCard extends Activity implements OnReceiverListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+
+        checkBuild checkBuildOK = new checkBuild();
+        if (!checkBuildOK.checkVersion())
+            return;
+
         setContentView(R.layout.activity_idiccard);
         handler = new Handler();
         //btnStartEMV = (Button)findViewById(R.id.btn_StartEMV);
