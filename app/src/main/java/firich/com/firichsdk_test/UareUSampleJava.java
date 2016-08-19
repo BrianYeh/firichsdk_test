@@ -112,6 +112,7 @@ public class UareUSampleJava extends Activity {
 				launchVerification();
 			}
 		});
+		launchGetReader(); //Brian
 /*
 		m_identification.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
