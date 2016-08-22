@@ -10,6 +10,7 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +33,16 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
     private UsbDevice mDevice = null ;
+    private Handler mHandler = null; //Brian
+
+    private boolean bDebugOn = true;
+    String strTagUtil = "MainThermalPrinterActivity.";
+
+    private void dump_trace( String bytTrace)
+    {
+        if (bDebugOn)
+            Log.d(strTagUtil, bytTrace);
+    }
 
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
 
@@ -82,7 +93,20 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
             }
         }
         mDevice = null ;
-        Toast.makeText(this, "Not Find Printer", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Not Find Printer", Toast.LENGTH_LONG).show();
+        PostUIUpdateLog("Not Find Printer");
+    }
+
+    private void PostUIUpdateLog(final String msg)
+    {
+        this.mHandler.post(new Runnable()
+        {
+            public void run()
+            {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     //////////////////////////////////////////////////////////
@@ -105,8 +129,10 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 
         setContentView(R.layout.activity_thermal_printer);
 
-        mBtnUsbAuthentication = (Button)findViewById(R.id.btnUsbAuthentication);
-        mBtnUsbAuthentication.setOnClickListener(this);
+        this.mHandler = new Handler(); //Brian:
+
+        //mBtnUsbAuthentication = (Button)findViewById(R.id.btnUsbAuthentication);
+        //mBtnUsbAuthentication.setOnClickListener(this);
         mBtnUsbConnect = (Button)findViewById(R.id.btnUsbConnect);
         mBtnUsbConnect.setOnClickListener(this);
         mBtnUsbDisconnect = (Button)findViewById(R.id.btnUsbDisconnect);
@@ -134,19 +160,55 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
     private final Handler handler = new Handler();
     public int mRtn = 0 ;
 
+    private class Connect_DTP220_PrinterThread extends Thread {
+        Connect_DTP220_PrinterThread() {
+        }
+
+        public void run() {
+            // compute primes larger than minPrime
+            boolean bConnectOK = false;
+            int retryTimes = 0;
+            do {
+                GetUsbDevice();
+                mRtn = mPrinter.Connect(mUsbManager, mDevice);
+                dump_trace("Connect_DTP220_PrinterThread:mRtn=="+ mRtn);
+                if (mRtn == 0) {
+                    bConnectOK = true;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                retryTimes++;
+                if (retryTimes >4)
+                    break;
+            } while (!bConnectOK);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
         int nRtn ;
 
+        /*
         if (v == mBtnUsbAuthentication)
         {
-            GetUsbDevice() ;
+           // GetUsbDevice() ;
         }
-
-        else if (v == mBtnUsbConnect)
+        */
+        if (v == mBtnUsbConnect)
         {
+            /*
+            GetUsbDevice() ;
+
             mRtn = mPrinter.Connect(mUsbManager, mDevice);
+            */
+            Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
+            ConnectPrinterThreadP.start();
+
             handler.post(new Runnable() {
                 @Override
                 public void run() {

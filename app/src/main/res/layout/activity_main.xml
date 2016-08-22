@@ -118,7 +118,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
-            android:text="LCM Test"
+            android:text="VFD LCM Test"
             android:id="@+id/btnLCM_Test"
             android:onClick="LCM_Test_click" />
         <TextView
