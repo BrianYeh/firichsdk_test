@@ -44,30 +44,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
-        <Button
-            android:id="@+id/btn_getFirmwareVer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E1:回傳軔體版本"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="NFC_GetFirmwareVer_click" />
         <!--
-        <Button
-            android:id="@+id/btnA0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A0:讀取卡片並連續傳回卡號"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="NFC_A0_cmd_click" />
-            -->
+               <Button
+                   android:id="@+id/btn_getFirmwareVer"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="E1:回傳軔體版本"
+                   android:gravity="center_vertical|center_horizontal"
+                   android:onClick="NFC_GetFirmwareVer_click" />
+
+               <Button
+                   android:id="@+id/btnA0"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="A0:讀取卡片並連續傳回卡號"
+                   android:gravity="center_vertical|center_horizontal"
+                   android:onClick="NFC_A0_cmd_click" />
+                   -->
         <Button
             android:id="@+id/btnA1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:text="A1:讀取卡片並傳回卡號"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="NFC_A1_cmd_click" />
+        <!--
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +77,7 @@
             android:id="@+id/btnA9"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="NFC_A9_cmd_click" />
+            -->
 
     </LinearLayout>
     <LinearLayout

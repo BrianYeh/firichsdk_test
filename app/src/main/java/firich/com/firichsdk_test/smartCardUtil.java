@@ -10,6 +10,9 @@ public class smartCardUtil {
     private boolean bDebugOn = true;
     String strTagUtil = "smartCardUtil.";
     String strOutputLRC="";
+    //byte[] btyLRCActivation = new byte[]{0x0};
+    byte[] btyLRC = new byte[]{0x0};
+
     public String getLRCString()
     {
         return  strOutputLRC;
@@ -30,12 +33,16 @@ public class smartCardUtil {
             Log.d(strTagUtil, bytTrace);
     }
 
+    byte getLRC()
+    {
+        return btyLRC[0];
+    }
     boolean calculateLRC(byte[] btyVersion_msg_received, int intDataReceivedLength)
         {
 
             // calulate LRC
 
-            byte[] btyLRC = new byte[]{0x0};
+            //byte[] btyLRC = new byte[]{0x0};
             short nLRC=0;
             int i=0;
 
@@ -70,9 +77,11 @@ public class smartCardUtil {
             boolean match = (btyVersion_msg_received[intDataReceivedLength-1] == (byte)btyLRC[0]);
             dump_trace("Test PASS or NO(true/false) === "+ match);
             if (match){
-                strOutputLRC = strOutputLRC + ("Test PASS")+"\n";
+                //strOutputLRC = strOutputLRC + ("Test PASS")+"\n";
+                strOutputLRC = strOutputLRC +"\n";
             }else{
-                strOutputLRC = strOutputLRC + ("Test FAIL")+"\n";
+                //strOutputLRC = strOutputLRC + ("Test FAIL")+"\n";
+                strOutputLRC = strOutputLRC +"\n";
             }
             return match;
         }

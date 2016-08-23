@@ -71,6 +71,7 @@ public class MainSysKingICCardActivity extends Activity {
         }
     }
 
+    byte LRCValue=0;
     private boolean smart_card_test(byte[] btyCommand)
     {
         int intReturnCode = -1;
@@ -130,21 +131,24 @@ public class MainSysKingICCardActivity extends Activity {
         dump_trace("btyVersion_msg_received = "+ new String(btyVersion_msg_received) );
         smartCardUtil smartCardUtilTest = new smartCardUtil();
         boolean match = smartCardUtilTest.calculateLRC(btyVersion_msg_received, intDataReceivedLength);
-        dump_trace("Test PASS or NO(true/false) === "+ match );
+        LRCValue = smartCardUtilTest.getLRC();
+        dump_trace("Test PASS or NO(true/false) === "+ match + "LRC=" + LRCValue );
 
         sp.close(intSerialPortHandle);
 
         final TextView textViewSmardCardLRCResult = (TextView) findViewById(R.id.textViewSmardCardLRCResult);
+
         if (match) {
-            strtextViewSmardCardLRCResult += "PASS. \n" + smartCardUtilTest.getLRCString();
-            //textViewSmardCardLRCResult.setText(strtextViewSmardCardLRCResult);
+           // strtextViewSmardCardLRCResult += "PASS. \n" + smartCardUtilTest.getLRCString();
+            strtextViewSmardCardLRCResult += "\n" + smartCardUtilTest.getLRCString();
             PostUIUpdateLog(textViewSmardCardLRCResult, strtextViewSmardCardLRCResult);
         }
         else {
-            strtextViewSmardCardLRCResult += "FAIL! \n";
-            //textViewSmardCardLRCResult.setText(strtextViewSmardCardLRCResult );
+           // strtextViewSmardCardLRCResult += "FAIL! \n";
+            strtextViewSmardCardLRCResult += "\n";
             PostUIUpdateLog(textViewSmardCardLRCResult, strtextViewSmardCardLRCResult);
         }
+
 
 
         return match;
@@ -172,6 +176,10 @@ public class MainSysKingICCardActivity extends Activity {
         });
     }
 
+    byte getActivationLRC()
+    {
+        return LRCValue;
+    }
     private class DeviceSysKingICCardTestThread extends Thread {
 
 
@@ -188,14 +196,28 @@ public class MainSysKingICCardActivity extends Activity {
 
             strtextViewSmardCardLRCResult += "Test Activation: \n";
             testActivationPASS = smart_card_test(btyActivation_msg);
+            byte LRC_Activation = 0;
+            LRC_Activation = getActivationLRC();
+            if ((LRC_Activation & 0xFF) == 0x96){
+                testActivationPASS = false;
+                strtextViewSmardCardLRCResult += "Please insert smart card..\n\n";
+            }
 
             strtextViewSmardCardLRCResult += "Test DeActivation: \n";
             testDeActivationPASS =  smart_card_test(btyDeactivation_msg);
             Intent intent = getIntent();
             if ( testVersionPASS && testActivationPASS && testDeActivationPASS){
                 setResult(1, intent); // return code = 1 -> OK
+                strtextViewSmardCardLRCResult += "PASS. \n";
             }else{
                 setResult(0, intent); // return code = 0 -> Error
+                strtextViewSmardCardLRCResult += "FAIL! \n";
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
             finish();
         }

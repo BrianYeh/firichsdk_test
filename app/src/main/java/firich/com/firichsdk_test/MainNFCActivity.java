@@ -3,8 +3,10 @@ package firich.com.firichsdk_test;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class MainNFCActivity extends Activity {
 
     private boolean bDebugOn = true;
     String strTagUtil = "MainNFCActivity.";
+    private Handler mHandler = null; //Brian
 
 
     private void dump_trace( String bytTrace)
@@ -49,6 +52,8 @@ public class MainNFCActivity extends Activity {
             return;
 
         setContentView(R.layout.activity_nfc);
+        this.mHandler = new Handler(); //Brian:
+
     }
     private String strNFCttyUSBPath="/dev/ttyUSB0";
     private byte[] btyReturnMessage = new byte[50];
@@ -172,13 +177,14 @@ public class MainNFCActivity extends Activity {
     private enum NFC_cmd_type {
         E1, A0, A1, A9;
     }
-    private boolean NFC_test_cmd(byte[] btyCommand, String strCommandType)
+    String strTestResult="";
+    private boolean NFC_test_cmd_Func(byte[] btyCommand, String strCommandType)
     {
         boolean testNFCCmdPASS = false;
 
         NFC_cmd_type  NFC_cmd_type_value =  NFC_cmd_type.valueOf(strCommandType); //
 
-        String strTestResult="";
+
         byte[] btyNFCReturnMessage = new byte[256];
         byte[] btyNFCReturnMessage2 = new byte[256];
         int intNFCReturnMessageLength=0;
@@ -196,7 +202,10 @@ public class MainNFCActivity extends Activity {
                     {
                         btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength-2 );
                         strTestResult = new String(btyNFCReturnMessage2);
+                        strTestResult = "Firmware version:"  + strTestResult;
                         testNFCCmdPASS = true;
+                        PostUIUpdateButton(true);
+
                     } else {
                         strTestResult = " N ; Read fail!!";
                         testNFCCmdPASS = false;
@@ -232,9 +241,11 @@ public class MainNFCActivity extends Activity {
                     if ((btyNFCReturnMessage[7] != 0x4E) && DataLength > 0)// is not "N"
                     {
                         btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength - 2);
-                        strTestResult = new String(btyNFCReturnMessage2);
+                        String strTestResult2 = new String(btyNFCReturnMessage2);
+                        strTestResult += "\nCard number: " + strTestResult2;
                     } else {
-                        strTestResult = " N ; Please put a card!!";
+                        //strTestResult += "\n N ; Please put a card!!";
+                        strTestResult += "\nPlease put a card!!";
                     }
                     break;
 
@@ -243,13 +254,80 @@ public class MainNFCActivity extends Activity {
         dump_trace("NFC return message = "+ strTestResult );
 
 
+        /*
         final TextView textViewReturnMessaget = (TextView) findViewById(R.id.NFC_ReturnMessage);
         textViewReturnMessaget.setText("NFC Test Result:"+ strTestResult);
+        */
+        PostUIUpdateLog(strTestResult);
+
         return testNFCCmdPASS;
 
     }
 
-    private boolean testGetFirmwareVer()
+    private void PostUIUpdateButton(final boolean show)
+    {
+        this.mHandler.post(new Runnable()
+        {
+            public void run()
+            {
+                Button btn = (Button) findViewById(R.id.btnA1);
+                //btn.setVisibility(View.INVISIBLE);
+                if (show)
+                    btn.setVisibility(View.VISIBLE);
+                else
+                    btn.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void PostUIUpdateLog(final String strTestResult)
+    {
+        this.mHandler.post(new Runnable()
+        {
+            public void run()
+            {
+                final TextView textViewReturnMessaget = (TextView) findViewById(R.id.NFC_ReturnMessage);
+                textViewReturnMessaget.setText(strTestResult);
+            }
+        });
+    }
+
+    private void NFC_test_cmd(byte[] btyCommand, String strCommandType)
+    {
+        boolean testNFCCmdPASS = false;
+        //testNFCCmdPASS= NFC_test_cmd_Func(btyCommand, strCommandType);
+        NFC_test_cmd_Thread NFC_test_cmd_ThreadP = new NFC_test_cmd_Thread(btyCommand, strCommandType);
+        NFC_test_cmd_ThreadP.start();
+    }
+
+    private class NFC_test_cmd_Thread extends Thread {
+        String strCommandType;
+        byte[] btyCommand = new byte[256];
+        NFC_test_cmd_Thread(byte[] lbtyCommand, String lstrCommandType) {
+            Arrays.fill( btyCommand, (byte) 0 );
+            btyCommand = Arrays.copyOf(lbtyCommand, 255);
+            strCommandType = lstrCommandType;
+        }
+
+        public void run() {
+            // compute primes larger than minPrime
+            boolean bConnectOK = false;
+            bConnectOK = NFC_test_cmd_Func(btyCommand,strCommandType );
+            /*
+            do {
+                bConnectOK = NFC_test_cmd_Func(btyCommand,strCommandType );
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } while (!bConnectOK);
+            */
+        }
+    }
+
+    private void testGetFirmwareVer()
     {
         boolean testPASS = false;
         // E1傳回韌體版本	        01-53-30-31-45-31-02-03-26
@@ -261,8 +339,7 @@ public class MainNFCActivity extends Activity {
         }
         //dump_trace("NFC E1GetFirmwareVer BCC="+smartCardUtil.hex(btyE1GetFirmwareVer[intCommandLength-1]));
         dump_trace("NFC E1GetFirmwareVer command ="+  strCommand );
-        testPASS = NFC_test_cmd(btyE1GetFirmwareVer, "E1");
-        return testPASS;
+        NFC_test_cmd(btyE1GetFirmwareVer, "E1");
     }
     public void NFC_GetFirmwareVer_click(View view){
 
@@ -331,6 +408,12 @@ public class MainNFCActivity extends Activity {
         }
         EditText editTextTTYUSBPath = (EditText)findViewById(R.id.editNFC_usb_path);
         editTextTTYUSBPath.setText(strNFCttyUSBPath);
+        PostUIUpdateLog("Please wait for getting firmware version..");
+        Button btn = (Button) findViewById(R.id.btnA1);
+        btn.setVisibility(View.INVISIBLE);
+        testGetFirmwareVer();
+       // btn.setVisibility(View.VISIBLE);
+
 
     }
 
