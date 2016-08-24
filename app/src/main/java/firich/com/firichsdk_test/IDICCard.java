@@ -224,11 +224,46 @@ public class IDICCard extends Activity implements OnReceiverListener {
         return testPASS;
     }
 
-    public void Test_ID_ICCard_click(View view)
+    private class IDTechTestThread extends Thread {
+        IDTechTestThread() {
+        }
+
+        public void run() {
+            // compute primes larger than minPrime
+            boolean bConnectOK = false;
+            int retryTimes=0;
+            Intent intent = getIntent();
+            do {
+               // bConnectOK = connecD10PrinterFunc();
+                bConnectOK = isReaderConnected;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                retryTimes++;
+            } while (!bConnectOK && (retryTimes <10));
+            if (bConnectOK) {
+                test_IDTech_ICCard();
+
+            }else{
+                info += "\n Test FAIL.";
+                handler.post(doUpdateStatus);
+
+                setResult(0, intent);
+                finish();
+            }
+        }
+    }
+
+    public void test_IDTech_ICCard()
     {
         boolean getFirmwareVersionPASS = false;
         boolean powerOnPASS = false;
         boolean testAPDUPASS = false;
+
+        Intent intent = getIntent();
 
         getFirmwareVersionPASS = testGetFirmwareVersion();
         powerOnPASS = testPowerOn();
@@ -237,10 +272,23 @@ public class IDICCard extends Activity implements OnReceiverListener {
         if ( getFirmwareVersionPASS && powerOnPASS && testAPDUPASS)
         {
             info += "\n Test PASS.";
+            setResult(1, intent); //PASS
         }else{
             info += "\n Test FAIL.";
+            setResult(0, intent);
         }
         handler.post(doUpdateStatus);
+
+        finish();
+    }
+    public void test_IDTech_ICCard_Thread()
+    {
+        IDTechTestThread IDTechTestThreadP = new IDTechTestThread();
+        IDTechTestThreadP.start();
+    }
+    public void Test_ID_ICCard_click(View view)
+    {
+        test_IDTech_ICCard_Thread();
     }
     /*
     private View.OnClickListener sendCAPDUOnClick = new View.OnClickListener(){
@@ -442,6 +490,12 @@ public class IDICCard extends Activity implements OnReceiverListener {
     public void timeout(int arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        test_IDTech_ICCard_Thread();
     }
     public void cmdReturnPASS_Click(View view) {
         Intent intent = getIntent();

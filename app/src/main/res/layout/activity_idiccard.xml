@@ -47,6 +47,7 @@
 
             android:gravity="center_vertical|center_horizontal"
             android:text="Test ID IC Card"
+            android:enabled="false"
             android:onClick="Test_ID_ICCard_click"/>
 
     </LinearLayout>
@@ -62,12 +63,14 @@
 
             android:gravity="center_vertical|center_horizontal"
             android:text="Get Firmware Version"
+            android:enabled="false"
             android:onClick="ICC_GetFirmwareVersion_click"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ICC-Power On Test"
             android:id="@+id/btnICCPowerOn"
+            android:enabled="false"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="ICC_PowerOn_click" />
         <Button
@@ -75,6 +78,7 @@
             android:layout_height="wrap_content"
             android:text="ICC-Exchange APDU Plaintext"
             android:id="@+id/btnICCExchangeAPDUPlaintext"
+            android:enabled="false"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="ICC_Exchange_APDU_Plaintext" />
 

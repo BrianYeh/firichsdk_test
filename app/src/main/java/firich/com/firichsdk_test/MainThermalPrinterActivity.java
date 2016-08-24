@@ -167,6 +167,8 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         public void run() {
             // compute primes larger than minPrime
             boolean bConnectOK = false;
+            Intent intent = getIntent();
+
             int retryTimes = 0;
             do {
                 GetUsbDevice();
@@ -185,9 +187,79 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
                 if (retryTimes >4)
                     break;
             } while (!bConnectOK);
+            if (bConnectOK) {
+                Print_Thermal_Printer_DTP_220();
+                setResult(1, intent); // return code = 1 -> OK
+            }else{
+                setResult(0, intent); // return code = 0 fail
+            }
+            finish();
         }
     }
 
+    void Print_Thermal_Printer_DTP_220()
+    {
+        int nRtn ;
+        // Image
+        EditText editText = (EditText)findViewById(R.id.editImagePath);
+        String strText = editText.getText().toString() ;
+        nRtn = mPrinter.PrintImageFile(strText) ;
+        nRtn = mPrinter.PaperFeed(64);
+
+        // Image
+        EditText editText2 = (EditText)findViewById(R.id.editImagePath2);
+        String strText2 = editText2.getText().toString() ;
+        nRtn = mPrinter.PrintImageFile(strText2) ;
+        nRtn = mPrinter.PaperFeed(64);
+
+
+
+
+
+        nRtn = mPrinter.SetLocale(8);
+        //String strTextReceipt = getResources().getString(R.string.receipt);;
+        String strTextReceipt = "10F, No.75, Sec. 1, Sin Tai Wu Rd., Sijhih Dist.\n" +
+                "     New Taipei City 221, Taiwan R.O.C.\n" +
+                "             Tel +886-2-2698-1446\n" +
+                "\n" +
+                "  \t     Receipt Sample\n" +
+                "\n" +
+                " No.123456789        03/04/11 12:50 PM\n" +
+                "  -------------------------------------\n" +
+                "  GRILLED CHICKEN BREAST\t$18.50\n" +
+                "  SIRLOIN STEAK\t\t\t$32.00\n" +
+                "  ROAST LAMB\t\t\t$20.00\n" +
+                "  SALAD\t\t\t\t$10.00\n" +
+                "  COKE\t\t\t\t$ 3.50\n" +
+                "  COKE\t\t\t\t$ 3.50\n" +
+                "  ICE CREAM\t\t\t$ 5.00\n" +
+                "  CHINESE NOODLE\t\t$15.00\n" +
+                "  SUKIYAKI\t\t\t$30.00\n" +
+                "  SANDWICH\t\t\t$10.00\n" +
+                "  PIZZA\t\t\t\t$20.00\n" +
+                "  TEA\t\t\t\t$ 3.50\n" +
+                "  COFFEE\t\t\t$ 3.50\n" +
+                "\n" +
+                "  -------------------------------------\n" +
+                "\t\tSUBTOTAL\t$174.50\n" +
+                "\t\tSALES TAX\t$  8.73\n" +
+                "\t\tTOTAL\t\t$183.23\n" +
+                "\n" +
+                "\t\tCASH\t\t$200.00\n" +
+                "\t\tCHANGE DUE\t$ 16.77";
+        nRtn = mPrinter.PrintText(strTextReceipt, "SJIS");
+        nRtn = mPrinter.PaperFeed(64);
+
+        // Barcode (JAN13)
+        editText = (EditText)findViewById(R.id.editBarcode);
+        strText = editText.getText().toString();
+        nRtn = mPrinter.PrintBarcode(2, strText, 2, 0, 2, 100, 0) ;
+        nRtn = mPrinter.PaperFeed(64);
+
+        // Feed and Cut
+        nRtn = mPrinter.PaperFeed(64);
+        nRtn = mPrinter.CutPaper(0);
+    }
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
@@ -206,8 +278,10 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 
             mRtn = mPrinter.Connect(mUsbManager, mDevice);
             */
+            /*
             Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
             ConnectPrinterThreadP.start();
+            */
 
             handler.post(new Runnable() {
                 @Override
@@ -229,65 +303,9 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         else if (v == mBtnPrint)
         {
 
-            // Image
-            EditText editText = (EditText)findViewById(R.id.editImagePath);
-            String strText = editText.getText().toString() ;
-            nRtn = mPrinter.PrintImageFile(strText) ;
-            nRtn = mPrinter.PaperFeed(64);
+            Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
+            ConnectPrinterThreadP.start();
 
-            // Image
-            EditText editText2 = (EditText)findViewById(R.id.editImagePath2);
-            String strText2 = editText2.getText().toString() ;
-            nRtn = mPrinter.PrintImageFile(strText2) ;
-            nRtn = mPrinter.PaperFeed(64);
-
-
-
-
-
-            nRtn = mPrinter.SetLocale(8);
-            //String strTextReceipt = getResources().getString(R.string.receipt);;
-            String strTextReceipt = "10F, No.75, Sec. 1, Sin Tai Wu Rd., Sijhih Dist.\n" +
-                    "     New Taipei City 221, Taiwan R.O.C.\n" +
-                    "             Tel +886-2-2698-1446\n" +
-                    "\n" +
-                    "  \t     Receipt Sample\n" +
-                    "\n" +
-                    " No.123456789        03/04/11 12:50 PM\n" +
-                    "  -------------------------------------\n" +
-                    "  GRILLED CHICKEN BREAST\t$18.50\n" +
-                    "  SIRLOIN STEAK\t\t\t$32.00\n" +
-                    "  ROAST LAMB\t\t\t$20.00\n" +
-                    "  SALAD\t\t\t\t$10.00\n" +
-                    "  COKE\t\t\t\t$ 3.50\n" +
-                    "  COKE\t\t\t\t$ 3.50\n" +
-                    "  ICE CREAM\t\t\t$ 5.00\n" +
-                    "  CHINESE NOODLE\t\t$15.00\n" +
-                    "  SUKIYAKI\t\t\t$30.00\n" +
-                    "  SANDWICH\t\t\t$10.00\n" +
-                    "  PIZZA\t\t\t\t$20.00\n" +
-                    "  TEA\t\t\t\t$ 3.50\n" +
-                    "  COFFEE\t\t\t$ 3.50\n" +
-                    "\n" +
-                    "  -------------------------------------\n" +
-                    "\t\tSUBTOTAL\t$174.50\n" +
-                    "\t\tSALES TAX\t$  8.73\n" +
-                    "\t\tTOTAL\t\t$183.23\n" +
-                    "\n" +
-                    "\t\tCASH\t\t$200.00\n" +
-                    "\t\tCHANGE DUE\t$ 16.77";
-            nRtn = mPrinter.PrintText(strTextReceipt, "SJIS");
-            nRtn = mPrinter.PaperFeed(64);
-
-            // Barcode (JAN13)
-            editText = (EditText)findViewById(R.id.editBarcode);
-            strText = editText.getText().toString();
-            nRtn = mPrinter.PrintBarcode(2, strText, 2, 0, 2, 100, 0) ;
-            nRtn = mPrinter.PaperFeed(64);
-
-            // Feed and Cut
-            nRtn = mPrinter.PaperFeed(64);
-            nRtn = mPrinter.CutPaper(0);
 
 			/*
 			// Text
@@ -576,6 +594,9 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         EditText editTextImagePath2 = (EditText)findViewById(R.id.editImagePath2);
         editTextImagePath.setText(strImagePath);
         editTextImagePath2.setText(strImagePath2);
+
+        Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
+        ConnectPrinterThreadP.start();
 
     }
 

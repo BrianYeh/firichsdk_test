@@ -37,12 +37,14 @@
             android:id="@+id/btnUsbConnect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:text="USB Connect" />
 
         <Button
             android:id="@+id/btnUsbDisconnect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:text="USB Disconnect" />
 
     </LinearLayout>
@@ -164,7 +166,7 @@
             android:id="@+id/btnPrint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Print the contents above" />
+            android:text="Test Thermal Printer" />
 
     </LinearLayout>
     <!--

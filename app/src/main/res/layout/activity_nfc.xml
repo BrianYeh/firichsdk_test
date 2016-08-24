@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:text="A1:讀取卡片並傳回卡號"
+            android:enabled="false"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="NFC_A1_cmd_click" />
         <!--

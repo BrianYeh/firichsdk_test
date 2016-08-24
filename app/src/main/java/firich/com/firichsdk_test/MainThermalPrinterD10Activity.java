@@ -460,6 +460,8 @@ public class MainThermalPrinterD10Activity extends Activity {
         EditText editTextImagePath2 = (EditText)findViewById(R.id.editImagePath2);
         editTextImagePath.setText(strImagePath);
         editTextImagePath2.setText(strImagePath2);
+
+        connectD10Printer(); //connect and print
     }
 
 
@@ -619,6 +621,7 @@ public class MainThermalPrinterD10Activity extends Activity {
         public void run() {
             // compute primes larger than minPrime
             boolean bConnectOK = false;
+            Intent intent = getIntent();
             int retryTimes=0;
             do {
                 bConnectOK = connecD10PrinterFunc();
@@ -630,6 +633,13 @@ public class MainThermalPrinterD10Activity extends Activity {
                 }
                 retryTimes++;
             } while (!bConnectOK && (retryTimes <10));
+            if (bConnectOK){
+                Thermal_Printer_D10_Print();
+                setResult(1, intent); // return code = 1 -> OK
+            }else{
+                setResult(0, intent); // return code = 0 fail
+            }
+            finish();
         }
     }
     private boolean  connecD10PrinterFunc()
@@ -1271,7 +1281,7 @@ public class MainThermalPrinterD10Activity extends Activity {
     }
 
 
-    public void Thermal_Printer_D10_Test_Click(View view) 
+    public void Thermal_Printer_D10_Print()
     {
         String strForBinaryData = "0A0A0A";
         String strCut = "1D560048";
@@ -1320,6 +1330,11 @@ public class MainThermalPrinterD10Activity extends Activity {
             msg = "sendDataFile NG.[" + ret + "]";
         }
 
+    }
+    public void Thermal_Printer_D10_Test_Click(View view) 
+    {
+        //Thermal_Printer_D10_Print();
+        connectD10Printer();
     }
 
     public void cmdReturnPASS_Click(View view) {

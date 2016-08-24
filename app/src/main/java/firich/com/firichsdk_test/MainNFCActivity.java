@@ -243,9 +243,11 @@ public class MainNFCActivity extends Activity {
                         btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength - 2);
                         String strTestResult2 = new String(btyNFCReturnMessage2);
                         strTestResult += "\nCard number: " + strTestResult2;
+                        testNFCCmdPASS = true;
                     } else {
                         //strTestResult += "\n N ; Please put a card!!";
                         strTestResult += "\nPlease put a card!!";
+                        testNFCCmdPASS = false;
                     }
                     break;
 
@@ -308,11 +310,51 @@ public class MainNFCActivity extends Activity {
             btyCommand = Arrays.copyOf(lbtyCommand, 255);
             strCommandType = lstrCommandType;
         }
+        public boolean NFC_test_cmd_A1()
+        {
+            boolean testPASS = false;
+            // A1 讀取卡片並傳回卡號:     SOH +  "S   0  1  A  1" +          STX + ETX +BCC
+            //                         01     53 30 31 41 31             02    03   Cal= SOH 到 ETX 每一個 byte 作 XOR後, 再 OR 0X20
+            // A1讀取卡片並傳回卡號	01-53-30-31-41-31-02-03-22
+            Arrays.fill(  gbtyCommand, (byte) 0 );
+            gbtyCommand = Arrays.copyOf(btyA1_cmd_read_card_number, intCommandLength);
+            gbtyCommand[intCommandLength-1] = cal_BCC(gbtyCommand, intCommandLength-1 );
 
+            String strCommand="";
+            for (int i=0;i <intCommandLength ; i++){
+                strCommand += " "+ smartCardUtil.hex(gbtyCommand[i]);
+            }
+            //dump_trace("NFC A1 BCC="+smartCardUtil.hex(gbtyCommand[intCommandLength-1]));
+            dump_trace("NFC A1 command ="+  strCommand );
+            testPASS = NFC_test_cmd_Func(gbtyCommand, "A1");
+            return testPASS;
+        }
         public void run() {
             // compute primes larger than minPrime
-            boolean bConnectOK = false;
-            bConnectOK = NFC_test_cmd_Func(btyCommand,strCommandType );
+            boolean testFirmwarePASS = false;
+            boolean testA1cmdPASS = false;
+            Intent intent = getIntent();
+            // test firmware
+            testFirmwarePASS = NFC_test_cmd_Func(btyCommand,strCommandType );
+            int retryTimes=0;
+            if (testFirmwarePASS) {
+                do {
+                    // test A1 cmd
+                    testA1cmdPASS = NFC_test_cmd_A1();
+                    retryTimes++;
+                }while (!testA1cmdPASS && (retryTimes < 3));
+                if (testA1cmdPASS) {
+                    setResult(1, intent);
+                }else{
+                    setResult(0, intent);
+                }
+
+            }else{
+                setResult(0, intent);
+            }
+            finish();
+
+
             /*
             do {
                 bConnectOK = NFC_test_cmd_Func(btyCommand,strCommandType );
@@ -360,7 +402,7 @@ public class MainNFCActivity extends Activity {
         dump_trace("NFC A0 command ="+  strCommand );
         NFC_test_cmd(btyA0_cmd_read_card_continue_number, "A0");
     }
-    public void NFC_A1_cmd_click(View view)
+    public void NFC_A1_cmd_func()
     {
         // A1 讀取卡片並傳回卡號:     SOH +  "S   0  1  A  1" +          STX + ETX +BCC
         //                         01     53 30 31 41 31             02    03   Cal= SOH 到 ETX 每一個 byte 作 XOR後, 再 OR 0X20
@@ -376,6 +418,11 @@ public class MainNFCActivity extends Activity {
         //dump_trace("NFC A1 BCC="+smartCardUtil.hex(gbtyCommand[intCommandLength-1]));
         dump_trace("NFC A1 command ="+  strCommand );
         NFC_test_cmd(gbtyCommand, "A1");
+    }
+    public void NFC_A1_cmd_click(View view)
+    {
+        NFC_A1_cmd_func();
+
     }
     public void NFC_A9_cmd_click(View view)
     {

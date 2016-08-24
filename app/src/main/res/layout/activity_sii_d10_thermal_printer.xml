@@ -31,11 +31,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button_connect"
+            android:visibility="invisible"
             android:text="@string/connect" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button_disconnect"
+            android:visibility="invisible"
             android:text="@string/disconnect" />
 
     </LinearLayout>
@@ -90,7 +92,7 @@
             android:id="@+id/btnPrint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Print the contents above" 
+            android:text="Test Thermal Printer D10"
             android:onClick="Thermal_Printer_D10_Test_Click"/>
     </LinearLayout>
 

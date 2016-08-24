@@ -33,7 +33,7 @@
             android:layout_width="600sp"
             android:layout_height="wrap_content"
             android:text="IC Card(SysKing) Test"
-            android:id="@+id/btnCashDrawer_Test"
+            android:id="@+id/btnICCardSysKing_Test"
             android:onClick="IC_Card_SysKing_Test_click" />
         <TextView
             android:id="@+id/textViewICCardSysKingTestResult"
@@ -69,7 +69,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
-            android:text="ID IC Card Test"
+            android:text="IDTech IC Card Test"
             android:id="@+id/btnIDICCard_Test"
             android:onClick="ID_ICCard_Test_click" />
         <TextView
