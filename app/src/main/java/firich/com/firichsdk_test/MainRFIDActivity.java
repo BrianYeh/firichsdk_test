@@ -3,6 +3,7 @@ package firich.com.firichsdk_test;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ public class MainRFIDActivity extends Activity {
 
     SerialPort sp;
     int intSerialPortHandle = -1;
+    private Handler mHandler = null; //Brian
 
     private boolean bDebugOn = true;
     String strTagUtil = "MainRFIDActivity.";
@@ -53,6 +55,7 @@ public class MainRFIDActivity extends Activity {
             return;
 
         setContentView(R.layout.activity_rfid);
+        this.mHandler = new Handler(); //Brian:
     }
 
     @Override
@@ -71,20 +74,81 @@ public class MainRFIDActivity extends Activity {
         EditText editTextTTYUSBPath = (EditText)findViewById(R.id.editRFID_usb_path);
         editTextTTYUSBPath.setText(strttyUSBPath);
 
+        final TextView textViewRFID = (TextView) findViewById(R.id.RFID_ReturnMessage);
+        textViewRFID.setText("Please put a RFID card!!");
+        RFID_Test_Thread_Func();
+
+
     }
     public String hex(int n) {
         // call toUpperCase() if that's required
         return String.format("0x%2s", Integer.toHexString(n)).replace(' ', '0');
     }
-    private byte[] RFID_Test()
+    private void PostUIUpdateLog(final String strTestResult)
+    {
+        this.mHandler.post(new Runnable()
+        {
+            public void run()
+            {
+                final TextView textViewReturnMessaget = (TextView) findViewById(R.id.RFID_ReturnMessage);
+                textViewReturnMessaget.setText(strTestResult);
+            }
+        });
+    }
+
+    private class RFID_Test_Thread extends Thread {
+        RFID_Test_Thread() {
+        }
+
+        public void run() {
+            // compute primes larger than minPrime
+            boolean testPASS = false;
+            Intent intent = getIntent();
+
+            testPASS = RFID_Test();
+            if (testPASS){
+                setResult(1, intent);
+            }else{
+                setResult(0, intent);
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            finish();
+            /*
+            do {
+                bConnectOK = RFID_Test();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } while (!bConnectOK);
+            */
+        }
+    }
+
+    public void RFID_Test_Thread_Func()
+    {
+        RFID_Test_Thread RFID_Test_ThreadP = new RFID_Test_Thread();
+        RFID_Test_ThreadP.start();
+    }
+    private boolean RFID_Test()
     {
         int intReturnCode = -1;
-// Open serial port
+        boolean testPASS = false;
         sp = new SerialPort();
 
         dump_trace("RFID.test.start");
         EditText editText_TTYUSBPath = (EditText)findViewById(R.id.editRFID_usb_path);
         String strEditTextTTYUSBPath = editText_TTYUSBPath.getText().toString();
+        final TextView textViewRFID = (TextView) findViewById(R.id.RFID_ReturnMessage);
+        //PostUIUpdateLog("Please put a RFID card!!");
+        //textViewRFID.setText("Please put a RFID card!!");
 
         strttyUSBPath = strEditTextTTYUSBPath;
         intSerialPortHandle = sp.open(strttyUSBPath,intBaudRate);
@@ -96,7 +160,7 @@ public class MainRFIDActivity extends Activity {
 // A return value of -1 indicates an error, with errno set appropriately.
 //        dump_trace("write: intReturnCode="+intReturnCode);
         sp.setListener(splistener);
-        SleepMiniSecond(sp, 1000);
+        //SleepMiniSecond(sp, 1000);
 
         byte[] btyVersion_msg_received = new byte[256];
         Arrays.fill( btyVersion_msg_received, (byte) 0 );
@@ -104,13 +168,15 @@ public class MainRFIDActivity extends Activity {
         String strTestResult="";
 
         intDataReceivedLength = sp.getDataReceivedLength();
+        SleepMiniSecond(sp, 1000);
+        intDataReceivedLength = 0;
         int nRetry=0;
         while (intDataReceivedLength == 0)
         {
-            SleepMiniSecond(sp, 1000);
+            SleepMiniSecond(sp, 500);
             intDataReceivedLength = sp.getDataReceivedLength();
             nRetry++;
-            if (nRetry == 4)
+            if (nRetry == 16)
                 break;
         }
         if ( intDataReceivedLength>= 0) {
@@ -121,20 +187,30 @@ public class MainRFIDActivity extends Activity {
         for (int i=0; i< intDataReceivedLength; i++){
             strRFID += " "+hex(btyVersion_msg_received[i]);
         }
-        final TextView textViewRFID = (TextView) findViewById(R.id.RFID_ReturnMessage);
-        if (intDataReceivedLength >0)
-            textViewRFID.setText("PASS!" + strRFID);
-        else
-            textViewRFID.setText("FAIL!" + strRFID);
 
+        String strResult="";
+        if (intDataReceivedLength >0) {
+            //textViewRFID.setText("PASS!" + strRFID);
+            //strResult = "PASS!" + strRFID;
+            strResult = "PASS!";
+            testPASS = true;
+        }
+        else {
+            //textViewRFID.setText("FAIL!" + strRFID);
+            strResult = "FAIL!" + strRFID;
+        }
+        PostUIUpdateLog(strResult);
         sp.close(intSerialPortHandle);
-        return btyVersion_msg_received;
+
+        return testPASS;
     }
 
     public void RFID_Test_click(View view)
     {
         RFID_Test();
     }
+
+
     public void cmdReturnPASS_Click(View view) {
         Intent intent = getIntent();
         setResult(1, intent); // return code = 1 -> OK

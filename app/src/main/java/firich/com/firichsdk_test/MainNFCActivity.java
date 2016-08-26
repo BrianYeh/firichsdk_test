@@ -342,7 +342,7 @@ public class MainNFCActivity extends Activity {
                     // test A1 cmd
                     testA1cmdPASS = NFC_test_cmd_A1();
                     retryTimes++;
-                }while (!testA1cmdPASS && (retryTimes < 3));
+                }while (!testA1cmdPASS && (retryTimes < 8));
                 if (testA1cmdPASS) {
                     setResult(1, intent);
                 }else{

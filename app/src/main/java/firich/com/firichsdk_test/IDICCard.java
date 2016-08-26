@@ -233,6 +233,8 @@ public class IDICCard extends Activity implements OnReceiverListener {
             boolean bConnectOK = false;
             int retryTimes=0;
             Intent intent = getIntent();
+            info +="\n Please prepare ID Tech ICard test..";
+            handler.post(doUpdateStatus);
             do {
                // bConnectOK = connecD10PrinterFunc();
                 bConnectOK = isReaderConnected;
@@ -243,15 +245,22 @@ public class IDICCard extends Activity implements OnReceiverListener {
                     e.printStackTrace();
                 }
                 retryTimes++;
-            } while (!bConnectOK && (retryTimes <10));
+            } while (!bConnectOK && (retryTimes <5));
             if (bConnectOK) {
                 test_IDTech_ICCard();
 
             }else{
+                info +="\n Connect ID Tech IC Card fail!!";
                 info += "\n Test FAIL.";
                 handler.post(doUpdateStatus);
 
                 setResult(0, intent);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 finish();
             }
         }
@@ -266,6 +275,21 @@ public class IDICCard extends Activity implements OnReceiverListener {
         Intent intent = getIntent();
 
         getFirmwareVersionPASS = testGetFirmwareVersion();
+
+        if ( !getFirmwareVersionPASS)
+        {
+            info = "Get Firmware Version Fail!!";
+            info += "\n          Test FAIL.";
+            setResult(0, intent);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            finish();
+        }
         powerOnPASS = testPowerOn();
 
         testAPDUPASS = testAPDU(strCAPDU);
@@ -278,6 +302,13 @@ public class IDICCard extends Activity implements OnReceiverListener {
             setResult(0, intent);
         }
         handler.post(doUpdateStatus);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         finish();
     }

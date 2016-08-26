@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="Start RFID Test"
             android:id="@+id/btnRFID_Test"
-
+            android:enabled="false"
             android:onClick="RFID_Test_click" />
     </LinearLayout>
     <LinearLayout

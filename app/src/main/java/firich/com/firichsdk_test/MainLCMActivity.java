@@ -41,6 +41,8 @@ public class MainLCMActivity extends Activity {
     //byte[] btyLowerString = new byte[]{1B 51 42 4B 4C 4D 4E 4F 50 51 52 53 54 55 56 57 58 59 5A 5B 5C 5D 5F 0D};
     byte[] btyLowerString = hexStringToByteArray("1B51424B4C4D4E4F505152535455565758595A5B5C5D5F0D");
 
+    byte[] btyLowerStringDump = hexStringToByteArray("4B4C4D4E4F505152535455565758595A5B5C5D5F0D00");
+
     public static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
@@ -63,6 +65,7 @@ public class MainLCMActivity extends Activity {
     private void LCM_test(byte[] btyCommand)
     {
         int intReturnCode = -1;
+        String strTestResult="";
         //byte[] btyReceiveData_smart_card;
 
         // Open serial port
@@ -101,6 +104,8 @@ public class MainLCMActivity extends Activity {
         intReturnCode = sp.write(intSerialPortHandle,btyClearScreen);
         SleepMiniSecond(1500);
         intReturnCode = sp.write(intSerialPortHandle,btyUpperString);
+        //strTestResult = new String(btyLowerStringDump);
+        //dump_trace("VFD LCM : btyUpperString = " + strTestResult);
         SleepMiniSecond(1000);
 
         intReturnCode = sp.write(intSerialPortHandle, btyLowerString);
@@ -108,15 +113,17 @@ public class MainLCMActivity extends Activity {
         byte[] btyVersion_msg_received = new byte[256];
         Arrays.fill( btyVersion_msg_received, (byte) 0 );
         int intDataReceivedLength=0;
-        String strTestResult="";
+
         intDataReceivedLength = sp.getDataReceivedLength();
+        //Note:  It will not get received message.....so intDataReceivedLength is 0.
         if ( intDataReceivedLength>= 0) {
             btyVersion_msg_received = Arrays.copyOf(sp.getBytDataReceived(),intDataReceivedLength);
+
         }
 
 
 
-        strTestResult = new String(btyVersion_msg_received);
+        //strTestResult = new String(btyVersion_msg_received);
         // dump_trace("btyVersion_msg_received = "+ strTestResult );
 
         // dump_trace("Test PASS or NO(true/false) === "+ strTestResult );

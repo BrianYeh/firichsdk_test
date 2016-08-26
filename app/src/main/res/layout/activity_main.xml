@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#aaaaaa"
@@ -26,12 +26,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/LLICCard"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:text="IC Card(SysKing) Test"
             android:id="@+id/btnICCardSysKing_Test"
             android:onClick="IC_Card_SysKing_Test_click" />
@@ -51,6 +53,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:text="Cash Drawer Test"
             android:id="@+id/btnCashDrawer_Test"
             android:onClick="CashDrawer_Test_click" />
@@ -69,6 +72,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:text="IDTech IC Card Test"
             android:id="@+id/btnIDICCard_Test"
             android:onClick="ID_ICCard_Test_click" />
@@ -87,6 +91,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:text="Finger Printer Test"
             android:id="@+id/btnFingerPrinter_Test"
 
@@ -118,9 +123,10 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:text="VFD LCM Test"
             android:id="@+id/btnLCM_Test"
-            android:onClick="LCM_Test_click" />
+            android:onClick="VFD_LCM_Test_click" />
         <TextView
             android:id="@+id/textViewLCMTestResult"
             android:layout_width="100sp"
@@ -137,6 +143,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:text="NFC Test"
             android:id="@+id/btnNFC_Test"
             android:onClick="NFC_Test_click" />
@@ -156,6 +163,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:layout_gravity="left"
             android:text="Thermal Printer Test"
             android:id="@+id/btnThermalPrinter_Test"
@@ -164,6 +172,7 @@
             android:id="@+id/textViewThermalPrinterTestResult"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -175,6 +184,7 @@
             android:layout_width="600sp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_weight="8"
             android:text="RFID Test"
             android:id="@+id/btnRFID_Test"
             android:onClick="RFID_Test_click" />
@@ -182,6 +192,7 @@
             android:id="@+id/textViewRFIDTestResult"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -192,6 +203,7 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:layout_gravity="left"
             android:text="HID Input Test"
             android:id="@+id/btnHID_Test"
@@ -200,6 +212,7 @@
             android:id="@+id/textViewHIDTestResult"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -211,13 +224,14 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_weight="8"
             android:text="Thermal Printer D10 Test"
             android:id="@+id/btnThermalPrinterD10_Test"
             android:onClick="Thermal_Printer_D10_Test_click" />
         <TextView
             android:id="@+id/textViewThermalPrinterD10TestResult"
             android:layout_width="100sp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -229,14 +243,484 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_weight="8"
             android:text="RS232 Test"
             android:id="@+id/btnRS232_Test"
             android:onClick="RS232_device_click" />
         <TextView
             android:id="@+id/textViewRS232TestResult"
             android:layout_width="100sp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLBattery"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Battery Test"
+            android:id="@+id/btnBattery_Test"
+            android:onClick="Battery_click" />
+        <TextView
+            android:id="@+id/textViewBatteryTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLLCMandBackLight"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="LCM and BackLight Test"
+            android:id="@+id/btnLCMandBackLight_Test"
+            android:onClick="LCMandBackLight_click" />
+        <TextView
+            android:id="@+id/textViewLCMandBackLightTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLTouchPanel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Touch Panel Test"
+            android:id="@+id/btnTouchPanel_Test"
+            android:onClick="TouchPanel_click" />
+        <TextView
+            android:id="@+id/textViewTouchPanelTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLKeyTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Key Test"
+            android:layout_weight="8"
+            android:id="@+id/btnKey_Test"
+            android:onClick="KeyTest_click" />
+        <TextView
+            android:id="@+id/textViewKeyTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLWifiTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Wifi Test"
+            android:layout_weight="8"
+            android:id="@+id/btnWifi_Test"
+            android:onClick="WifiTest_click" />
+        <TextView
+            android:id="@+id/textViewWifiTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLASensorTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="ASensor Test"
+            android:layout_weight="8"
+            android:id="@+id/btnASensor_Test"
+            android:onClick="ASensorTest_click" />
+        <TextView
+            android:id="@+id/textViewASensorTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/LLLightSensorTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="LightSensor Test"
+            android:layout_weight="8"
+            android:id="@+id/btnLightSensor_Test"
+            android:onClick="LightSensorTest_click" />
+        <TextView
+            android:id="@+id/textViewLightSensorTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLGyroscopeSensorTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="GyroscopeSensor Test"
+            android:layout_weight="8"
+            android:id="@+id/btnGyroscopeSensor_Test"
+            android:onClick="GyroscopeSensorTest_click" />
+        <TextView
+            android:id="@+id/textViewGyroscopeSensorTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLSPEAKERTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="SPEAKER Test"
+            android:layout_weight="8"
+            android:id="@+id/btnSPEAKER_Test"
+            android:onClick="SPEAKERTest_click" />
+        <TextView
+            android:id="@+id/textViewSPEAKERTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLMICROPHONETest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="DMic(MICROPHONE) Test"
+            android:layout_weight="8"
+            android:id="@+id/btnMICROPHONE_Test"
+            android:onClick="MICROPHONETest_click" />
+        <TextView
+            android:id="@+id/textViewMICROPHONETestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLHEADPHONETest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="HEADPHONE Test"
+            android:layout_weight="8"
+            android:id="@+id/btnHEADPHONE_Test"
+            android:onClick="HEADPHONETest_click" />
+        <TextView
+            android:id="@+id/textViewHEADPHONETestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLHEADSETTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="AMIC(HEADSET) Test"
+            android:layout_weight="8"
+            android:id="@+id/btnHEADSET_Test"
+            android:onClick="HEADSETTest_click" />
+        <TextView
+            android:id="@+id/textViewHEADSETTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLCAMERA_BACKTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Back Camera and Flash Test"
+            android:layout_weight="8"
+            android:id="@+id/btnCAMERA_BACK_Test"
+            android:onClick="CAMERA_BACKTest_click" />
+        <TextView
+            android:id="@+id/textViewCAMERA_BACKTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLCAMERA_FRONTTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Front Camera Test"
+            android:layout_weight="8"
+            android:id="@+id/btnCAMERA_FRONT_Test"
+            android:onClick="CAMERA_FRONTTest_click" />
+        <TextView
+            android:id="@+id/textViewCAMERA_FRONTTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLHDMITest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="HDMI Test"
+            android:layout_weight="8"
+            android:id="@+id/btnHDMI_Test"
+            android:onClick="HDMITest_click" />
+        <TextView
+            android:id="@+id/textViewHDMITestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLOTGTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="OTG Test"
+            android:layout_weight="8"
+            android:id="@+id/btnOTG_Test"
+            android:onClick="OTGTest_click" />
+        <TextView
+            android:id="@+id/textViewOTGTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLGPSTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="GPS Test"
+            android:layout_weight="8"
+            android:id="@+id/btnGPS_Test"
+            android:onClick="GPSTest_click" />
+        <TextView
+            android:id="@+id/textViewGPSTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLBTTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="BT Test"
+            android:layout_weight="8"
+            android:id="@+id/btnBT_Test"
+            android:onClick="BTTest_click" />
+        <TextView
+            android:id="@+id/textViewBTTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLULANTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="USB LAN Test"
+            android:layout_weight="8"
+            android:id="@+id/ULANnULAN_Test"
+            android:onClick="ULANTest_click" />
+        <TextView
+            android:id="@+id/textViewULANTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLSTORAGETest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="STORAGE Test"
+            android:layout_weight="8"
+            android:id="@+id/STORAGEnSTORAGE_Test"
+            android:onClick="STORAGETest_click" />
+        <TextView
+            android:id="@+id/textViewSTORAGETestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLRTCTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="RTC Test"
+            android:layout_weight="8"
+            android:id="@+id/RTCnRTC_Test"
+            android:onClick="RTCTest_click" />
+        <TextView
+            android:id="@+id/textViewRTCTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLDEVICE_INFOTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Device Info Test"
+            android:layout_weight="8"
+            android:id="@+id/DEVICE_INFOnDEVICE_INFO_Test"
+            android:onClick="DEVICE_INFOTest_click" />
+        <TextView
+            android:id="@+id/textViewDEVICE_INFOTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LLSERIAL_NUMBERTest"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Input SERIAL NUMBER Test"
+            android:layout_weight="8"
+            android:id="@+id/SERIAL_NUMBERnSERIAL_NUMBER_Test"
+            android:onClick="SERIAL_NUMBERTest_click" />
+        <TextView
+            android:id="@+id/textViewSERIAL_NUMBERTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>

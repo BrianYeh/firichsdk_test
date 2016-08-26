@@ -190,9 +190,26 @@ public class MainSysKingICCardActivity extends Activity {
             boolean testVersionPASS = false;
             boolean testActivationPASS = false;
             boolean testDeActivationPASS = false;
+            Intent intent = getIntent();
+            int SleepMinSec=1500;
+            final TextView textViewSmardCardLRCResult = (TextView) findViewById(R.id.textViewSmardCardLRCResult);
 
             strtextViewSmardCardLRCResult += "Test Version: \n";
             testVersionPASS = smart_card_test(btyVersion_msg);
+            if ( !testVersionPASS){
+                setResult(0, intent); // return code = 0 -> Error
+                strtextViewSmardCardLRCResult += "         FAIL! \n";
+                SleepMinSec = 2500;
+                PostUIUpdateLog(textViewSmardCardLRCResult, strtextViewSmardCardLRCResult);
+
+                try {
+                    Thread.sleep(SleepMinSec);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                finish();
+            }
 
             strtextViewSmardCardLRCResult += "Test Activation: \n";
             testActivationPASS = smart_card_test(btyActivation_msg);
@@ -200,21 +217,31 @@ public class MainSysKingICCardActivity extends Activity {
             LRC_Activation = getActivationLRC();
             if ((LRC_Activation & 0xFF) == 0x96){
                 testActivationPASS = false;
-                strtextViewSmardCardLRCResult += "Please insert smart card..\n\n";
+                strtextViewSmardCardLRCResult = "         FAIL! \n";
+                strtextViewSmardCardLRCResult += "              Please insert smart card..\n\n";
             }
 
             strtextViewSmardCardLRCResult += "Test DeActivation: \n";
             testDeActivationPASS =  smart_card_test(btyDeactivation_msg);
-            Intent intent = getIntent();
+
+
+
             if ( testVersionPASS && testActivationPASS && testDeActivationPASS){
                 setResult(1, intent); // return code = 1 -> OK
-                strtextViewSmardCardLRCResult += "PASS. \n";
+                strtextViewSmardCardLRCResult += "         PASS. \n";
             }else{
                 setResult(0, intent); // return code = 0 -> Error
-                strtextViewSmardCardLRCResult += "FAIL! \n";
+                strtextViewSmardCardLRCResult += "         FAIL! \n";
+                SleepMinSec = 2500;
             }
+
+
+            PostUIUpdateLog(textViewSmardCardLRCResult, strtextViewSmardCardLRCResult);
+
+
+
             try {
-                Thread.sleep(3000);
+                Thread.sleep(SleepMinSec);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -256,5 +283,8 @@ public class MainSysKingICCardActivity extends Activity {
         }
         EditText editTextTTYUSBPath = (EditText)findViewById(R.id.editTextTTYUSBPath);
         editTextTTYUSBPath.setText(strSmartCardttyUSBPath);
+
+        DeviceSysKingICCardTestThread DeviceSysKingICCardTestThreadP = new DeviceSysKingICCardTestThread();
+        DeviceSysKingICCardTestThreadP.start();
     }
 }
