@@ -152,7 +152,7 @@ public class MainLCMActivity extends Activity {
         configUtil configFile = new configUtil();
         configFile.dom4jXMLParser();
         //strSmartCardttyUSBPath
-        devObject = configFile.getDevice("LCMTest");
+        devObject = configFile.getDevice("VFDLCMTest");
         if (devObject.Dev != null && !devObject.Dev.isEmpty()) {
             strLCMttyUSBPath = devObject.Dev;
         }

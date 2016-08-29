@@ -25,9 +25,19 @@ public class configUtil {
     private String NFC_dev="/dev/ttyUSB4";
 */
     class Device{
-        public String Name;
-        public String RS232DeviceName;
-        public String Dev;
+    /*
+    name="RS232Test"
+    devicename="/dev/ttyUSB0|/dev/ttyUSB1|/dev/ttyUSB2|/dev/ttyUSB3|/dev/ttyUSB4"
+     */
+        public String Name;  //"RS232Test"
+        public boolean Test; //test="true" ; test="false"
+        public String RS232DeviceName; //devicename="/dev/ttyUSB0|/dev/ttyUSB1|/dev/ttyUSB2|/dev/ttyUSB3|/dev/ttyUSB4"
+        public String Dev;  //"/dev/ttyUSB5"
+    /*
+    path1="/data/fec/1.jpg"
+    path2="/data/fec/2.jpg"
+    path3="/data/fec/Receipt.txt"
+    */
         public String Path1;
         public String Path2;
         public String Path3;
@@ -74,25 +84,28 @@ public class configUtil {
                 dump_trace("name: " + child.attributeValue("name"));
                 dump_trace("dev: " + child.attributeValue("dev"));
                 DevObject = new Device();
+                DevObject.Name = child.attributeValue("name");
+                DevObject.Test = Boolean.parseBoolean(child.attributeValue("test"));
+
                 if ("ThermalPrinterTest".equals(child.attributeValue("name"))){
-                    DevObject.Name = child.attributeValue("name");
+
                     DevObject.Path1 = child.attributeValue("path1");
                     DevObject.Path2 = child.attributeValue("path2");
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }else if ("ThermalPrinterTestD10".equals(child.attributeValue("name"))){
-                    DevObject.Name = child.attributeValue("name");
+
                     DevObject.Path1 = child.attributeValue("path1");
                     DevObject.Path2 = child.attributeValue("path2");
                     DevObject.Path3 = child.attributeValue("path3");
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }else if ("RS232Test".equals(child.attributeValue("name"))){
-                    DevObject.Name = child.attributeValue("name");
+
                     DevObject.RS232DeviceName = child.attributeValue("devicename");
                     dump_trace("RS232DeviceName: " + DevObject.RS232DeviceName);
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }
                 else{
-                    DevObject.Name = child.attributeValue("name");
+
                     DevObject.Dev = child.attributeValue("dev");
                     strBaudRate = child.attributeValue("baud_rate");
                     if ( strBaudRate!= null  && !strBaudRate.isEmpty()) {
