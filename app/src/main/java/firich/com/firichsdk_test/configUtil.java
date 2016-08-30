@@ -24,6 +24,7 @@ public class configUtil {
     private String LCM_dev="/dev/ttyUSB2";
     private String NFC_dev="/dev/ttyUSB4";
 */
+    private String fectest_config_path = "/data/fec_config/fectest_config.xml";
     class Device{
     /*
     name="RS232Test"
@@ -72,7 +73,7 @@ public class configUtil {
         String strBaudRate="";
         StringWriter xmlWriter = new StringWriter();
         SAXReader reader = new SAXReader();
-        File file = new File("/data/fectest_config.xml");
+        File file = new File(fectest_config_path);
 
         try {
 

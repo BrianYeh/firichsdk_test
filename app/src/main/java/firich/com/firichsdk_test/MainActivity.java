@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import firich.com.firichsdk.SerialPort;
 import firich.com.firichsdk.SunComm;
 
@@ -93,6 +96,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
+        startFECLog();
     }
     /*
     public void open_click(View view) {
@@ -525,6 +529,7 @@ public class MainActivity extends Activity {
     }
 
 
+    logUtil logUtill;
 
 
     @Override
@@ -661,14 +666,29 @@ public class MainActivity extends Activity {
 
         setTitle(" SN:" + Build.SERIAL);
 
- //       configUtil configFile = new configUtil();
- //       configFile.dom4jXMLParser();
+        configUtil.Device devObject;
+        configUtil configFile = new configUtil();
+        configFile.dom4jXMLParser();
+
+
         LinearLayout layout;
         layout= (LinearLayout)  findViewById(R.id.LLICCard);
-        layout.setVisibility(View.VISIBLE);
+        devObject = configFile.getDevice("SysKingICCardTest");
+        if (!devObject.Test) {
+            layout.setVisibility(View.GONE);
+        }
 
         layout= (LinearLayout)  findViewById(R.id.LLBattery);
         //layout.setVisibility(View.GONE);
         //layout.setVisibility(View.VISIBLE);
+
+    }
+    public  void startFECLog()
+    {
+        logUtill = new logUtil();
+        Date newdate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+        String date = format.format(newdate);
+        logUtill.appendLog("["+ date +"]"+"[Start test]");
     }
 }

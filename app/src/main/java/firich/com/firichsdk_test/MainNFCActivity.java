@@ -22,6 +22,7 @@ public class MainNFCActivity extends Activity {
     private boolean bDebugOn = true;
     String strTagUtil = "MainNFCActivity.";
     private Handler mHandler = null; //Brian
+    final int btnShowA1= R.id.btnA1;
 
 
     private void dump_trace( String bytTrace)
@@ -220,21 +221,25 @@ public class MainNFCActivity extends Activity {
                             //SleepMiniSecond(sp, 5000);
 
                             btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength - 2);
-                            strTestResult = new String(btyNFCReturnMessage2);
-                            strTestResult = "Y : PASS. " + strTestResult;
+                            String strY = new String(btyNFCReturnMessage2);
+                            strTestResult += "\nA0 讀取卡片並連續讀取卡號:\n[會先回應 'Y' 再執行讀取動作]:" + strY;
                         } else {
                             btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength - 2);
-                            strTestResult = new String(btyNFCReturnMessage2);
+                            strTestResult+="\n";
+                            strTestResult += new String(btyNFCReturnMessage2);
+                            strTestResult+="\n PASS.";
                         }
                         testNFCCmdPASS = true;
                     } else {
                         strTestResult = " Read fail!!";
                         testNFCCmdPASS = false;
                     }
+                    /*
                     // Call get version to stop.
                     SleepMiniSecond(sp, 2000);
                     btyE1GetFirmwareVer[intCommandLength - 1] = cal_BCC(btyE1GetFirmwareVer, intCommandLength - 1);
                     NFC_get_return_value_of_write_cmd(btyE1GetFirmwareVer);
+                    */
                     break;
                 case A1: //A1讀取卡片並傳回卡號
                 case A9:
@@ -242,7 +247,7 @@ public class MainNFCActivity extends Activity {
                     {
                         btyNFCReturnMessage2 = Arrays.copyOfRange(btyNFCReturnMessage, 7, intNFCReturnMessageLength - 2);
                         String strTestResult2 = new String(btyNFCReturnMessage2);
-                        strTestResult += "\nCard number: " + strTestResult2;
+                        strTestResult += "\nA1讀取卡片並傳回卡號: " + strTestResult2;
                         testNFCCmdPASS = true;
                     } else {
                         //strTestResult += "\n N ; Please put a card!!";
@@ -272,7 +277,7 @@ public class MainNFCActivity extends Activity {
         {
             public void run()
             {
-                Button btn = (Button) findViewById(R.id.btnA1);
+                Button btn = (Button) findViewById(btnShowA1);
                 //btn.setVisibility(View.INVISIBLE);
                 if (show)
                     btn.setVisibility(View.VISIBLE);
@@ -329,20 +334,63 @@ public class MainNFCActivity extends Activity {
             testPASS = NFC_test_cmd_Func(gbtyCommand, "A1");
             return testPASS;
         }
+        public boolean NFC_test_cmd_A0()
+        {
+
+            boolean testPASS = false;
+            // A0 讀取卡片並連續讀取卡號: SOH +  "S   0  1  A  0" +          STX + ETX +BCC
+            //                         01     53 30 31 41 30             02    03   Cal= SOH 到 ETX 每一個 byte 作 XOR後, 再 OR 0X20
+            // A0讀取卡片並連續讀取卡號	01-53-30-31-41-30-02-03-23
+            btyA0_cmd_read_card_continue_number[intCommandLength-1] = cal_BCC(btyA0_cmd_read_card_continue_number, intCommandLength-1 );
+
+            String strCommand="";
+            for (int i=0;i <intCommandLength ; i++){
+                strCommand += " "+ smartCardUtil.hex(btyA0_cmd_read_card_continue_number[i]);
+            }
+            //dump_trace("NFC A0 BCC="+smartCardUtil.hex(btyA0_cmd_read_card_continue_number[intCommandLength-1]));
+            dump_trace("NFC A0 command ="+  strCommand );
+            testPASS = NFC_test_cmd_Func(btyA0_cmd_read_card_continue_number, "A0");
+            return testPASS;
+        }
+
         public void run() {
             // compute primes larger than minPrime
             boolean testFirmwarePASS = false;
             boolean testA1cmdPASS = false;
+            boolean testA0cmdPASS = false;
             Intent intent = getIntent();
-            // test firmware
-            testFirmwarePASS = NFC_test_cmd_Func(btyCommand,strCommandType );
             int retryTimes=0;
+            do {
+                // test firmware
+                testFirmwarePASS = NFC_test_cmd_Func(btyCommand,strCommandType );
+                retryTimes++;
+            }while (!testFirmwarePASS && (retryTimes < 3));
+
+
+            retryTimes=0;
             if (testFirmwarePASS) {
                 do {
+
                     // test A1 cmd
                     testA1cmdPASS = NFC_test_cmd_A1();
+
+                    /*
+                    // test A0 cmd
+                    testA0cmdPASS = NFC_test_cmd_A0();
+                    testA0cmdPASS = NFC_test_cmd_A0();
+                    */
                     retryTimes++;
                 }while (!testA1cmdPASS && (retryTimes < 8));
+
+                if (testA1cmdPASS) {
+                    retryTimes = 0;
+                    do {
+                        testA0cmdPASS = NFC_test_cmd_A0();
+                        retryTimes++;
+                    } while (!testA0cmdPASS && (retryTimes < 2));
+                }else{
+                    setResult(0, intent);
+                }
                 if (testA1cmdPASS) {
                     setResult(1, intent);
                 }else{
@@ -352,20 +400,18 @@ public class MainNFCActivity extends Activity {
             }else{
                 setResult(0, intent);
             }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             finish();
 
 
-            /*
-            do {
-                bConnectOK = NFC_test_cmd_Func(btyCommand,strCommandType );
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            } while (!bConnectOK);
-            */
+
         }
     }
 
@@ -456,7 +502,7 @@ public class MainNFCActivity extends Activity {
         EditText editTextTTYUSBPath = (EditText)findViewById(R.id.editNFC_usb_path);
         editTextTTYUSBPath.setText(strNFCttyUSBPath);
         PostUIUpdateLog("Please wait for getting firmware version..");
-        Button btn = (Button) findViewById(R.id.btnA1);
+        Button btn = (Button) findViewById(btnShowA1);
         btn.setVisibility(View.INVISIBLE);
         testGetFirmwareVer();
        // btn.setVisibility(View.VISIBLE);
