@@ -159,14 +159,16 @@ public class MainRS232Activity extends Activity {
     }
 
 
+    private String fectest_config_path = "/data/fec_config/fectest_config.xml";
+
     @Override
     protected void onStart(){
         super.onStart();
 
-
+        fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
 
         configUtil.Device devObject;
-        configUtil configFile = new configUtil();
+        configUtil configFile = new configUtil(fectest_config_path);
 
         configFile.dom4jXMLParser();
         //strSmartCardttyUSBPath
@@ -187,6 +189,7 @@ public class MainRS232Activity extends Activity {
             return ;
         }
         CreateRS232DeviceTable(strRS232DeviceList, deviceCount);
+        startRS232_Loopback_Test();
     }
 
     private class DeviceLoopbackTestThread extends Thread {
@@ -200,8 +203,23 @@ public class MainRS232Activity extends Activity {
         }
 
         public void run() {
-            for (int i=0; i< ldeviceCount; i++)
-            RS232_Test(lstrttyUSBPath[i], ltextViewResultIDs.getTextViewResultID(i));
+            Intent intent = getIntent();
+            boolean testPASS = false;
+            for (int i=0; i< ldeviceCount; i++) {
+                testPASS = RS232_Test(lstrttyUSBPath[i], ltextViewResultIDs.getTextViewResultID(i));
+            }
+            if (testPASS){
+                setResult(1, intent);
+            }else{
+                setResult(0, intent);
+            }
+            try {
+                Thread.sleep(1200);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            finish();
         }
     }
 
@@ -223,7 +241,7 @@ public class MainRS232Activity extends Activity {
         });
     }
 
-    private void RS232_Test(String strttyUSBPath, int testDeviceTextViewID) {
+    private boolean RS232_Test(String strttyUSBPath, int testDeviceTextViewID) {
         int intReturnCode = -1;
         // Open serial port
         sp = new SerialPort();
@@ -264,13 +282,21 @@ public class MainRS232Activity extends Activity {
 
         sp.close(intSerialPortHandle);
         sp = null;
+        boolean testResult = false;
+        testResult = (intDataReceivedLength > 0 )? true: false;
+        return testResult;
+
     }
 
+    public void startRS232_Loopback_Test()
+    {
+        DeviceLoopbackTestThread DeviceLoopbackTestThreadP = new DeviceLoopbackTestThread(strRS232DeviceList, ltextViewResultIDs, deviceCount);
+        DeviceLoopbackTestThreadP.start();
+    }
     public void RS232_Loopback_Test_click(View view){
         //DeviceLoopbackTestThread DeviceLoopbackTestThreadP;
 
-        DeviceLoopbackTestThread DeviceLoopbackTestThreadP = new DeviceLoopbackTestThread(strRS232DeviceList, ltextViewResultIDs, deviceCount);
-        DeviceLoopbackTestThreadP.start();
+        startRS232_Loopback_Test();
 
     }
 

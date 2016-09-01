@@ -436,14 +436,18 @@ public class MainThermalPrinterD10Activity extends Activity {
     private String strImagePath="/data/fec/1.jpg";
     private String strImagePath2="/data/fec/2.jpg";
     private String strReceipt="/data/fec/ReceiptXX.txt";
+    private String fectest_config_path = "/data/fec_config/fectest_config.xml";
+
     @Override
     public void onStart() {
         super.onStart();
 
         //checkBluetooth();
 
+        fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
+
         configUtil.Device devObject;
-        configUtil configFile = new configUtil();
+        configUtil configFile = new configUtil(fectest_config_path);
         configFile.dom4jXMLParser();
         devObject = configFile.getDevice("ThermalPrinterTestD10");
         if (devObject.Path1 != null && !devObject.Path1.isEmpty()) {

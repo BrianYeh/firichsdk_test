@@ -58,11 +58,15 @@ public class MainRFIDActivity extends Activity {
         this.mHandler = new Handler(); //Brian:
     }
 
+    private String fectest_config_path = "/data/fec_config/fectest_config.xml";
+
     @Override
     protected void onStart(){
         super.onStart();
+
+        fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
         configUtil.Device devObject;
-        configUtil configFile = new configUtil();
+        configUtil configFile = new configUtil(fectest_config_path);
         configFile.dom4jXMLParser();
         devObject = configFile.getDevice("RFIDTest");
         if (devObject.Dev != null && !devObject.Dev.isEmpty()) {

@@ -19,24 +19,29 @@
 
     <application
         android:allowBackup="true"
+        android:name=".FECApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+        -->
         </activity>
         <activity
             android:name=".IDICCard"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name="firich.com.firichsdk_test.UareUSampleJava"
+            android:name=".UareUSampleJava"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name="firich.com.firichsdk_test.GetReaderActivity"
+            android:name=".GetReaderActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:label="FingerPrinterGetReader">
@@ -45,36 +50,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="firich.com.firichsdk_test.VerificationActivity"
+            android:name=".VerificationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainNFCActivity"
+        <activity
+            android:name=".MainNFCActivity"
             android:exported="true">
+
             <!--
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".MainThermalPrinterActivity"
-            android:exported="true"/>
-        <activity android:name=".MainLCMActivity"
-            android:exported="true"/>
-        <activity android:name=".MainCashDrawerActivity"
-            android:exported="true"/>
-        <activity android:name=".MainSysKingICCardActivity"
-            android:exported="true"/>
-        <activity android:name=".MainRFIDActivity"
-            android:exported="true"/>
-        <activity android:name=".MainHIDActivity"
-            android:exported="true"/>
-        <activity android:name=".MainThermalPrinterD10Activity"
-            android:exported="true"/>
-        <activity android:name=".MainRS232Activity"
-            android:exported="true"></activity>
+        <activity
+            android:name=".MainThermalPrinterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainLCMActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainCashDrawerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainSysKingICCardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainRFIDActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainHIDActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainThermalPrinterD10Activity"
+            android:exported="true" />
+        <activity
+            android:name=".MainRS232Activity"
+            android:exported="true" />
+        <activity android:name=".MainFECTestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

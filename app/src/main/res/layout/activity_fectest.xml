@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#555555">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#555555"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout_STD_config"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <TextView
+        android:id="@+id/textSTD_config"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:gravity="center_vertical|left"
+        android:text="STD_config.xml is NOT ready yet!"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <Button
+        android:id="@+id/btnTest1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test All"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="30sp"
+        android:onClick="FEC_Test_1_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IQC Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_2_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T0 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_3_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T0 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_4_click" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T0 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_5_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T0 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_6_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T7 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_7_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T8 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_8_click" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T9 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_9_click" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/btnTest10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T10 Test"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="30sp"
+            android:onClick="FEC_Test_10_click" />
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

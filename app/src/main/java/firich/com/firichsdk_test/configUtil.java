@@ -52,6 +52,11 @@ public class configUtil {
     {
         hashtableConfig = new Hashtable<String, Device>();
     }
+    public configUtil(String configPath)
+    {
+        hashtableConfig = new Hashtable<String, Device>();
+        fectest_config_path = configPath;
+    }
     private void dump_trace( String bytTrace)
     {
         if (bDebugOn)
