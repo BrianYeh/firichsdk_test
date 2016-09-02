@@ -2,7 +2,9 @@ package firich.com.firichsdk_test;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 
 import firich.com.firichsdk.SerialPort;
 import firich.com.firichsdk.SunComm;
@@ -36,20 +39,54 @@ public class MainActivity extends Activity {
 
     private boolean bDebugOn = true;
 
+    // 測試項目順序和 config file 是一個一對一的 mapping.
+    // 修改測試順序,
+    //  1. 修改 test item definition value. ex: TEST_ITEM_SYSKING_IC_CARD =0 , 是第1個測項
+    //  2. 修改 fec_test_items_order 測試順序.
+    /*
+    1. Modify the test order of : private final int TEST_ITEM_SYSKING_IC_CARD = 0; //新精：SYSKING
+    2. Modify the test order of : private fec_test_item[] fec_test_items_order = new fec_test_item[]{
+
+    }
+    */
     // Test Package name.
     private final String PACKAGE_NAME = "firich.com.firichsdk_test";
     // Test items
-    private final int TEST_ITEM_NFC=0;
-    private final int TEST_ITEM_THERMAL_PRINTER=1;
-    private final int TEST_ITEM_VFD_LCM=2;
+    private final int TEST_ITEM_SYSKING_IC_CARD = 0; //新精：SYSKING
+    private final int TEST_ITEM_CASH_DRAWER = 1;
+    private final int TEST_ITEM_ID_IC_CARD = 2; //ID Tech
     private final int TEST_ITEM_FINGER_PRINTER = 3;
-    private final int TEST_ITEM_ID_IC_CARD = 4; //ID Tech
-    private final int TEST_ITEM_CASH_DRAWER = 5;
-    private final int TEST_ITEM_SYSKING_IC_CARD = 6; //新精：SYSKING
+    private final int TEST_ITEM_VFD_LCM=4;
+    private final int TEST_ITEM_NFC=5;
+    private final int TEST_ITEM_THERMAL_PRINTER=6;
     private final int TEST_ITEM_RFID = 7;
     private final int TEST_ITEM_HID = 8;
     private final int TEST_ITEM_THERMAL_PRINTER_D10 = 9;
     private final int TEST_ITEM_RS232_DEVICE = 10;
+
+    private final int TEST_ITEM_BATTERY = 11;
+    private final int TEST_ITEM_LCM = 12;
+    private final int TEST_ITEM_TP = 13;
+    private final int TEST_ITEM_KEYPAN = 14;
+    private final int TEST_ITEM_WIFI = 15;
+    private final int TEST_ITEM_SENSOR = 16;
+    private final int TEST_ITEM_LIGHT = 17;
+    private final int TEST_ITEM_GYROSCOPE = 18;
+    private final int TEST_ITEM_SPEAKER = 19;
+    private final int TEST_ITEM_MICROPHONE = 20;
+    private final int TEST_ITEM_HEADPHONE = 21;
+    private final int TEST_ITEM_HEADSET = 22;
+    private final int TEST_ITEM_CAMERA_BACK = 23;
+    private final int TEST_ITEM_CAMERA_FRONT = 24;
+    private final int TEST_ITEM_HDMI = 25;
+    private final int TEST_ITEM_OTG = 26;
+    private final int TEST_ITEM_GPS = 27;
+    private final int TEST_ITEM_BT = 28;
+    private final int TEST_ITEM_ULAN = 29;
+    private final int TEST_ITEM_STORAGE = 30;
+    private final int TEST_ITEM_RTC = 31;
+    private final int TEST_ITEM_DEVICE_INFO = 32;
+    private final int TEST_ITEM_SERIAL_NUMBER = 33;
 
     final private int max_test_items= 34;
 
@@ -275,29 +312,7 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, requestCode);
     }
 
-    private final int TEST_ITEM_BATTERY = 11;
-    private final int TEST_ITEM_LCM = 12;
-    private final int TEST_ITEM_TP = 13;
-    private final int TEST_ITEM_KEYPAN = 14;
-    private final int TEST_ITEM_WIFI = 15;
-    private final int TEST_ITEM_SENSOR = 16;
-    private final int TEST_ITEM_LIGHT = 17;
-    private final int TEST_ITEM_GYROSCOPE = 18;
-    private final int TEST_ITEM_SPEAKER = 19;
-    private final int TEST_ITEM_MICROPHONE = 20;
-    private final int TEST_ITEM_HEADPHONE = 21;
-    private final int TEST_ITEM_HEADSET = 22;
-    private final int TEST_ITEM_CAMERA_BACK = 23;
-    private final int TEST_ITEM_CAMERA_FRONT = 24;
-    private final int TEST_ITEM_HDMI = 25;
-    private final int TEST_ITEM_OTG = 26;
-    private final int TEST_ITEM_GPS = 27;
-    private final int TEST_ITEM_BT = 28;
-    private final int TEST_ITEM_ULAN = 29;
-    private final int TEST_ITEM_STORAGE = 30;
-    private final int TEST_ITEM_RTC = 31;
-    private final int TEST_ITEM_DEVICE_INFO = 32;
-    private final int TEST_ITEM_SERIAL_NUMBER = 33;
+
     private static final String THUNDER_SOFT_PACKAGE_NAME = "com.thundersoft.factorytools.hardwaretest";
 
     private final String ACTION_BATTERY = "com.thundersoft.factorytools.hardwaretest.BatteryActivity";
@@ -560,13 +575,19 @@ public class MainActivity extends Activity {
     class fec_test_item{
         int fec_test_item_request_code;
         String fec_test_item_class;
+        boolean test;
+        String name; // test name
         fec_test_item(int fec_test_item_request_code_l, String fec_test_item_class_l)
         {
             fec_test_item_request_code = fec_test_item_request_code_l;
             fec_test_item_class = fec_test_item_class_l;
+            test = true;
+            name ="";
         }
     }
 
+    // 測試項目順序和 config file 是一個一對一的 mapping.
+    // 如果修改測試順序, test id 也要修改. ex: TEST_ITEM_SYSKING_IC_CARD =0 , 是第1個測項
     private fec_test_item[] fec_test_items_order = new fec_test_item[]{
             new fec_test_item(TEST_ITEM_SYSKING_IC_CARD, Class_SysKingICCard), //0
             new fec_test_item(TEST_ITEM_CASH_DRAWER, Class_CashDrawer),
@@ -749,11 +770,18 @@ public class MainActivity extends Activity {
             resultPASS = (resultCode == Activity.RESULT_OK ? RESULT_PASS : RESULT_FAIL);
             txtResult.setText(resultPASS);
         }else {
+            String testResult="";
             if (resultCode == 1) {
-                txtResult.setText("PASS"); //Activity.RESULT_CANCELED = 0 , so PASS use 1.
+                testResult = "PASS";
+                //txtResult.setText("PASS"); //Activity.RESULT_CANCELED = 0 , so PASS use 1.
             } else if (resultCode == 0) {
-                txtResult.setText("FAIL");
+                testResult = "FAIL";
+                //txtResult.setText("FAIL");
             }
+            txtResult.setText(testResult);
+            String testName="";
+            testName = fec_test_items_order[requestCode].name;
+            RecordFECLog("["+ testName +"][Test "+ testResult +"]");
         }
 
         try {
@@ -769,8 +797,10 @@ public class MainActivity extends Activity {
             if (not_end_test_all) {
 
                 //FEC_Test_Item(TEST_ITEM_CASH_DRAWER, Class_CashDrawer);
-                FEC_Test_Item(fec_test_items_order[NextTestItem].fec_test_item_request_code, fec_test_items_order[NextTestItem].fec_test_item_class );
-                NextTestItem ++;
+                if ((NextTestItem >=0) && (NextTestItem < max_test_items)) {
+                    FEC_Test_Item(fec_test_items_order[NextTestItem].fec_test_item_request_code, fec_test_items_order[NextTestItem].fec_test_item_class);
+                    NextTestItem = find_next_test_item(NextTestItem);
+                }
             }else {
                 // end test
                 test_all = false;
@@ -779,27 +809,72 @@ public class MainActivity extends Activity {
 
     }
 
-
-
-    private void DetermineTestItems()
+    private int find_next_test_item(int CurrentTestItem)
     {
-        fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
+        int NextTestItemL=0;
+        boolean NeedTest = false;
+        do {
+            NextTestItemL = CurrentTestItem+1;
+            not_end_test_all = (NextTestItem != end_test_item);
+            if (not_end_test_all) {
 
+                NeedTest = fec_test_items_order[NextTestItem].test;
+            }else{
+                return -1; //cannot find next available test item. ex: item 33's test is false.
+            }
+
+        }while(!NeedTest);
+        return NextTestItemL;
+    }
+
+
+
+    configItemsUIUtil g_configUIItemsFile;
+    configItemsUIUtil.configItemUI configItemUIObject;
+    private void DetermineTestItem(int LLID, String Device)
+    {
+        /*
         configUtil.Device devObject;
-        configUtil configFile = new configUtil(fectest_config_path);
-        configFile.dom4jXMLParser();
+        g_configFile.dom4jXMLParser();
+
 
 
         LinearLayout layout;
-        layout= (LinearLayout)  findViewById(R.id.LLICCard);
-        devObject = configFile.getDevice("SysKingICCardTest");
+        layout= (LinearLayout)  findViewById(LLID);
+        devObject = g_configFile.getDevice(Device);
         if (!devObject.Test) {
             layout.setVisibility(View.GONE);
         }
+        */
+    }
+    private void DetermineTestItems()
+    {
+        fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
+        g_configUIItemsFile = new configItemsUIUtil(fectest_config_path);
+        g_configUIItemsFile.dom4jXMLParser();
 
-        layout= (LinearLayout)  findViewById(R.id.LLBattery);
-        //layout.setVisibility(View.GONE);
-        //layout.setVisibility(View.VISIBLE);
+        /*
+        DetermineTestItem(R.id.linearLayout_test_item_1, "SysKingICCardTest" );
+        DetermineTestItem(R.id.linearLayout_test_item_2, "CashDrawerTest" );
+        */
+       // 1. Add ID field(auto-added) when load XML; Give up, because each test item has it's own attribute.
+        //STD_configUtil.STD_config STD_configObject;
+
+        LinearLayout layout;
+        //for(int i=1; i<=10;i++) {
+        for (Enumeration<configItemsUIUtil.configItemUI> e = g_configUIItemsFile.getHashtableConfigUI().elements(); e.hasMoreElements();){
+            configItemsUIUtil.configItemUI configItemUIObject = e.nextElement();
+            String LLID = "linearLayout_test_item_" + configItemUIObject.id;
+            int resID = getResources().getIdentifier(LLID, "id", "firich.com.firichsdk_test");
+            layout = (LinearLayout) findViewById(resID);
+            int id = Integer.valueOf(configItemUIObject.id);
+            fec_test_items_order[id].name = configItemUIObject.name;
+            if (!configItemUIObject.test){
+                layout.setVisibility(View.GONE); // don't show that test item.
+                fec_test_items_order[id].test = false; // don't need to test for test all function.
+            }
+        }
+
     }
 
     @Override
@@ -811,7 +886,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-        startFECLog();
+        RecordFECLog("[Start Test]");
+        //[SystemInfo][Info][Wireless MAC: 44:2C:05:34:2D:F9]
+        Record_Mac_Address(this);
+
         DetermineTestItems();
 
         //((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_path);
@@ -989,12 +1067,103 @@ public class MainActivity extends Activity {
     }
 
 
-    public  void startFECLog()
+    public  void RecordFECLog(String logString)
     {
         logUtill = new logUtil();
         Date newdate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
         String date = format.format(newdate);
-        logUtill.appendLog("["+ date +"]"+"[Start test]");
+       // logUtill.appendLog("["+ date +"]"+"[Start test]");
+        logUtill.appendLog("["+ date +"]"+ logString);
     }
+
+
+    //private WifiManager wimanager;
+
+
+
+
+    private class WIFIUTilThread extends Thread {
+        Context context;
+        WifiManager wimanager;
+        WIFIUTilThread(Context contextL) {
+            context = contextL;
+            wimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        }
+        private boolean enableWifi(Context context, boolean paramBoolean)
+        {
+            boolean OperateOK = false;
+            wimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            if (wimanager != null) {
+                OperateOK = wimanager.setWifiEnabled(paramBoolean);
+            }
+            return OperateOK;
+        }
+        boolean isWifiEnable()
+        {
+            boolean isWifiEnable = false;
+            isWifiEnable = wimanager.isWifiEnabled();
+            return isWifiEnable;
+        }
+        private String getMacAddress(Context context)
+        {
+            wimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            String macAddress = wimanager.getConnectionInfo().getMacAddress();
+        /*
+        if (macAddress == null) {
+            macAddress = "Device don't have mac address or wi-fi is disabled";
+        }
+        */
+            return macAddress;
+        }
+        public void run() {
+            // compute primes larger than minPrime
+            boolean wifiEnableOK;
+            boolean OperateWIFIOK = false;
+            int retryTimes=0;
+            do {
+                // bConnectOK = connecD10PrinterFunc();
+                if (!OperateWIFIOK) {
+                    OperateWIFIOK = enableWifi(context, true);
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                wifiEnableOK = isWifiEnable();
+                retryTimes++;
+            } while (!wifiEnableOK && (retryTimes <5));
+            if (wifiEnableOK){
+                String MacAddress = getMacAddress(context);
+                RecordFECLog("[SystemInfo][Info][Wireless MAC: "+ MacAddress +"]");
+            }
+            OperateWIFIOK = false;
+            retryTimes =0;
+            //disable wifi after recording wifi mac address.
+            do {
+                // bConnectOK = connecD10PrinterFunc();
+                if (!OperateWIFIOK) {
+                    OperateWIFIOK = enableWifi(context, false);
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                wifiEnableOK = isWifiEnable();
+                retryTimes++;
+            } while (wifiEnableOK && (retryTimes <5));
+        }
+    }
+
+    private void Record_Mac_Address(Context context)
+    {
+        WIFIUTilThread WIFIUTilThreadP = new WIFIUTilThread(context);
+        WIFIUTilThreadP.start();
+    }
+
+
 }
