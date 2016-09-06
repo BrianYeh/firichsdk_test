@@ -65,6 +65,8 @@ public class STD_configUtil {
     }
     public void dom4jXMLParser()
     {
+        int i=1;
+        String id="1";
         String strBaudRate="";
         StringWriter xmlWriter = new StringWriter();
         SAXReader reader = new SAXReader();
@@ -81,12 +83,15 @@ public class STD_configUtil {
                 dump_trace("dev: " + child.attributeValue("path"));
                 STD_configObject = new STD_config();
                 STD_configObject.name = child.attributeValue("name");
-                STD_configObject.id = child.attributeValue("id");
+                id = Integer.toString(i);
+                //STD_configObject.id = child.attributeValue("id");
+                STD_configObject.id = id;
                 STD_configObject.test = Boolean.parseBoolean(child.attributeValue("test"));
                 STD_configObject.path = child.attributeValue("path");
                 STD_configObject.configFile = child.attributeValue("configFile");
-                hashtableSTDConfig.put(child.attributeValue("id"), STD_configObject); //key is "id"
-
+                //hashtableSTDConfig.put(child.attributeValue("id"), STD_configObject); //key is "id"
+                hashtableSTDConfig.put(id, STD_configObject); //key is "id"
+                i++;
             }
         } catch (DocumentException e) {
             e.printStackTrace();

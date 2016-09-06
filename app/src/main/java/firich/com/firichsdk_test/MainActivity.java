@@ -1,12 +1,18 @@
 package firich.com.firichsdk_test;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
@@ -877,6 +886,28 @@ public class MainActivity extends Activity {
 
     }
 
+    private IntentFilter mIntentFilter;
+    private Handler mHandler = new Handler()
+    {
+        public void handleMessage(Message paramAnonymousMessage)
+        {
+            //MainActivity.this.updateDeviceInfo();
+        }
+    };
+    private BroadcastReceiver mReceiver = new BroadcastReceiver()
+    {
+        public void onReceive(Context paramAnonymousContext, Intent paramAnonymousIntent)
+        {
+            if (paramAnonymousIntent.getAction().equals("android.bluetooth.adapter.action.STATE_CHANGED"))
+            {
+                int i = paramAnonymousIntent.getIntExtra("android.bluetooth.adapter.extra.STATE", -1);
+                if (i == 12) {
+                    //MainActivity.this.mHandler.sendEmptyMessage(i);
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -885,10 +916,15 @@ public class MainActivity extends Activity {
             return;
         setContentView(R.layout.activity_main);
 
+        this.mIntentFilter = new IntentFilter();
+        this.mIntentFilter.addAction("android.bluetooth.adapter.action.STATE_CHANGED");
 
         RecordFECLog("[Start Test]");
         //[SystemInfo][Info][Wireless MAC: 44:2C:05:34:2D:F9]
         Record_Mac_Address(this);
+
+        Record_BT_Mac_Address(this);
+        Record_Ethernet_MAc_Address();
 
         DetermineTestItems();
 
@@ -1165,5 +1201,142 @@ public class MainActivity extends Activity {
         WIFIUTilThreadP.start();
     }
 
+    private void Record_BT_Mac_Address(Context context)
+    {
+        BTUtilThread BTUtilThreadP = new BTUtilThread(context);
+        BTUtilThreadP.start();
+    }
+
+
+    private void Record_Ethernet_MAc_Address()
+    {
+        String MacAddress = getEthernetMacAddress();
+        RecordFECLog("[SystemInfo][Info][Ethernet MAC: "+ MacAddress +"]");
+    }
+    /*
+     * Load file content to String
+     */
+    public static String loadFileAsString(String filePath) throws java.io.IOException{
+        StringBuffer fileData = new StringBuffer(1000);
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        reader.close();
+        return fileData.toString();
+    }
+
+    /*
+     * Get the Ethernet MacAddress
+     */
+    public String getEthernetMacAddress(){
+
+        String MacAddress="";
+        try {
+            MacAddress = loadFileAsString("/sys/class/net/eth0/address");
+            MacAddress = MacAddress.substring(0, 17);
+            return MacAddress;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private class BTUtilThread extends Thread {
+        Context context;
+        private BluetoothAdapter mBluetoothAdapter;
+        private BluetoothManager mBluetoothManager;
+        BTUtilThread(Context contextL) {
+            this.mBluetoothManager = ((BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE));
+            this.mBluetoothAdapter = this.mBluetoothManager.getAdapter();
+        }
+        private boolean enableBT()
+        {
+            boolean adapter_startup_has_begun = false;
+
+            this.mBluetoothAdapter = this.mBluetoothManager.getAdapter();
+            if (this.mBluetoothAdapter != null) {
+                adapter_startup_has_begun = this.mBluetoothAdapter.enable();
+            }
+            return adapter_startup_has_begun;
+        }
+        private boolean disableBT()
+        {
+            boolean adapter_startup_has_begun = false;
+
+            this.mBluetoothAdapter = this.mBluetoothManager.getAdapter();
+            if (this.mBluetoothAdapter != null) {
+                adapter_startup_has_begun = this.mBluetoothAdapter.disable();
+            }
+            return adapter_startup_has_begun;
+        }
+        boolean isBTEnable()
+        {
+            //Possible return values are STATE_OFF, STATE_TURNING_ON, STATE_ON, STATE_TURNING_OFF.
+            boolean BTenable = false;
+            int BTState = android.bluetooth.BluetoothAdapter.STATE_OFF;
+            BTState = mBluetoothAdapter.getState();
+            if (BTState == BluetoothAdapter.STATE_ON){
+                BTenable =  true;
+            }
+            return BTenable;
+        }
+        private String getBTMacAddress()
+        {
+
+            String macAddress = mBluetoothAdapter.getAddress();
+        /*
+        if (macAddress == null) {
+            macAddress = "Device don't have mac address or wi-fi is disabled";
+        }
+        */
+            return macAddress;
+        }
+        public void run() {
+            // compute primes larger than minPrime
+            boolean BTEnableOK;
+            boolean adapter_startup_has_begun = false;
+            int retryTimes=0;
+            do {
+                // bConnectOK = connecD10PrinterFunc();
+                if (!adapter_startup_has_begun) {
+                    adapter_startup_has_begun = enableBT();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                BTEnableOK = isBTEnable();
+                retryTimes++;
+            } while (!BTEnableOK && (retryTimes <5));
+            if (BTEnableOK){
+                String MacAddress = getBTMacAddress();
+                MacAddress = MacAddress.toLowerCase();
+                RecordFECLog("[SystemInfo][Info][Bluetooth MAC: "+ MacAddress +"]");
+            }
+            adapter_startup_has_begun = false;
+            retryTimes =0;
+            //disable wifi after recording wifi mac address.
+            do {
+                // bConnectOK = connecD10PrinterFunc();
+                if (!adapter_startup_has_begun) {
+                    adapter_startup_has_begun = disableBT();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                BTEnableOK = isBTEnable();
+                retryTimes++;
+            } while (BTEnableOK && (retryTimes <5));
+        }
+    }
 
 }

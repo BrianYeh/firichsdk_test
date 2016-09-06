@@ -34,6 +34,7 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 
     private UsbDevice mDevice = null ;
     private Handler mHandler = null; //Brian
+    private boolean foundUSBDevice = false;
 
     private boolean bDebugOn = true;
     String strTagUtil = "MainThermalPrinterActivity.";
@@ -44,6 +45,16 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
             Log.d(strTagUtil, bytTrace);
     }
 
+    private boolean printDone = false;
+    private void Test_Printer_DTP220()
+    {
+        if (!printDone) {
+            Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
+            ConnectPrinterThreadP.start();
+            printDone = true;
+        }
+
+    }
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
 
         public void onReceive(Context context, Intent intent) {
@@ -53,10 +64,12 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         if(mDevice != null){
                             //call method to set up device communication
+                            PostUIUpdateLog("Got Device Printer");
+
                         }
                         else
                         {
-
+                            PostUIUpdateLog("Device Printer is NULL!!");
                         }
                     }
                     else {
@@ -89,6 +102,7 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
             {
 
                 mUsbManager.requestPermission(mDevice, mPermissionIntent);
+                foundUSBDevice = true;
                 return ;
             }
         }
@@ -131,8 +145,8 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 
         this.mHandler = new Handler(); //Brian:
 
-        //mBtnUsbAuthentication = (Button)findViewById(R.id.btnUsbAuthentication);
-        //mBtnUsbAuthentication.setOnClickListener(this);
+        mBtnUsbAuthentication = (Button)findViewById(R.id.btnUsbAuthentication);
+        mBtnUsbAuthentication.setOnClickListener(this);
         mBtnUsbConnect = (Button)findViewById(R.id.btnUsbConnect);
         mBtnUsbConnect.setOnClickListener(this);
         mBtnUsbDisconnect = (Button)findViewById(R.id.btnUsbDisconnect);
@@ -146,9 +160,46 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 
         mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
         mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        registerReceiver(mUsbReceiver, filter);
+        GetUsbDevice();
+
+    }
+
+    /** Brian: Called when the activity has become visible. */
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        /*
+        mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+*/
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         registerReceiver(mUsbReceiver, filter);
 
+
+        Test_Printer_DTP220();
+
+
+    }
+
+    /** Called when another activity is taking focus. */
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        unregisterReceiver(mUsbReceiver);
+
+    }
+    /** Called just before the activity is destroyed. */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        foundUSBDevice = false;
+        printDone = false;
     }
 
     @Override
@@ -171,7 +222,15 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 
             int retryTimes = 0;
             do {
-                GetUsbDevice();
+                //if (!foundUSBDevice) {
+                    GetUsbDevice();
+               // }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 mRtn = mPrinter.Connect(mUsbManager, mDevice);
                 dump_trace("Connect_DTP220_PrinterThread:mRtn=="+ mRtn);
                 if (mRtn == 0) {
@@ -189,6 +248,7 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
             } while (!bConnectOK);
             if (bConnectOK) {
                 Print_Thermal_Printer_DTP_220();
+                mPrinter.Disconnect();
                 setResult(1, intent); // return code = 1 -> OK
             }else{
                 setResult(0, intent); // return code = 0 fail
@@ -265,12 +325,11 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         // TODO Auto-generated method stub
         int nRtn ;
 
-        /*
+
         if (v == mBtnUsbAuthentication)
         {
-           // GetUsbDevice() ;
+            GetUsbDevice() ;
         }
-        */
         if (v == mBtnUsbConnect)
         {
             /*
@@ -282,7 +341,7 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
             Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
             ConnectPrinterThreadP.start();
             */
-
+            mRtn = mPrinter.Connect(mUsbManager, mDevice);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -303,11 +362,12 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         else if (v == mBtnPrint)
         {
 
+
             Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
             ConnectPrinterThreadP.start();
 
 
-			/*
+/*
 			// Text
 			nRtn = mPrinter.SetLocale(8);
 			EditText editText = (EditText)findViewById(R.id.editTextText);
@@ -335,7 +395,7 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
 			// Feed and Cut
 			nRtn = mPrinter.PaperFeed(64);
 			nRtn = mPrinter.CutPaper(0);
-			*/
+*/
         }
 		/*
 		else if (v == mBtnPrintPageMode)
@@ -568,7 +628,7 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
     @Override
     protected void onStop()
     {
-        unregisterReceiver(mUsbReceiver); //Brian Add.
+        //unregisterReceiver(mUsbReceiver); //Brian Add.
         super.onStop();
     }
 
@@ -599,9 +659,9 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         editTextImagePath.setText(strImagePath);
         editTextImagePath2.setText(strImagePath2);
 
-        Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
-        ConnectPrinterThreadP.start();
-
+//        Connect_DTP220_PrinterThread ConnectPrinterThreadP = new Connect_DTP220_PrinterThread();
+//        ConnectPrinterThreadP.start();
+        Test_Printer_DTP220();
     }
 
     public void cmdReturnPASS_Click(View view) {

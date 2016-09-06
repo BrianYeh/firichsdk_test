@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 //public class MainFECTestActivity extends AppCompatActivity {
 public class MainFECTestActivity extends Activity {
@@ -46,6 +47,10 @@ public class MainFECTestActivity extends Activity {
                 buttonConfig.setText(STD_configObject.name);
             }
         }
+
+        TextView TextViewConfig = (TextView)findViewById(R.id.textSTD_config);
+        TextViewConfig.setText("STD_config.xml is OK!");
+
     }
 
     @Override

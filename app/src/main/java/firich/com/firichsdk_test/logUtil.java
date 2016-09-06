@@ -35,8 +35,9 @@ public class logUtil {
         String strVersion = Build.DISPLAY;
         boolean contains_android4 = strVersion.contains("4.4.3 2.0.0-rc2.");
         boolean contains_android5 = strVersion.contains("Edelweiss-T 5.1");
+        boolean contains_android5_D = strVersion.contains("Edelweiss-D 5.1");
 
-        if (contains_android5){
+        if (contains_android5|| contains_android5_D ){
             strDisk = strUSBDisk5_1;
             strDiskNum = strUSBDisk5_1;
         }
