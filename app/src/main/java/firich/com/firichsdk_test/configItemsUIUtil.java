@@ -66,7 +66,7 @@ public class configItemsUIUtil {
     public void dom4jXMLParser()
     {
         String strBaudRate="";
-        int i=0;
+        int i=1; //  android:id="@+id/linearLayout_test_item_1". index from 1.
         String id="1";
         StringWriter xmlWriter = new StringWriter();
         SAXReader reader = new SAXReader();

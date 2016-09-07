@@ -809,6 +809,7 @@ public class MainActivity extends Activity {
                 if ((NextTestItem >=0) && (NextTestItem < max_test_items)) {
                     FEC_Test_Item(fec_test_items_order[NextTestItem].fec_test_item_request_code, fec_test_items_order[NextTestItem].fec_test_item_class);
                     NextTestItem = find_next_test_item(NextTestItem);
+                    dump_trace("NextTestItem="+ NextTestItem +"; test name="+ fec_test_items_order[NextTestItem].name);
                 }
             }else {
                 // end test
@@ -822,12 +823,18 @@ public class MainActivity extends Activity {
     {
         int NextTestItemL=0;
         boolean NeedTest = false;
+        NextTestItemL = CurrentTestItem+1;
         do {
-            NextTestItemL = CurrentTestItem+1;
-            not_end_test_all = (NextTestItem != end_test_item);
+
+            not_end_test_all = (NextTestItemL != end_test_item);
             if (not_end_test_all) {
 
-                NeedTest = fec_test_items_order[NextTestItem].test;
+                NeedTest = fec_test_items_order[NextTestItemL].test;
+                if(NeedTest){
+                    break;
+                }else{
+                    NextTestItemL++;
+                }
             }else{
                 return -1; //cannot find next available test item. ex: item 33's test is false.
             }
@@ -877,6 +884,7 @@ public class MainActivity extends Activity {
             int resID = getResources().getIdentifier(LLID, "id", "firich.com.firichsdk_test");
             layout = (LinearLayout) findViewById(resID);
             int id = Integer.valueOf(configItemUIObject.id);
+            id--; // array of fec_test_items_order, start from 0.
             fec_test_items_order[id].name = configItemUIObject.name;
             if (!configItemUIObject.test){
                 layout.setVisibility(View.GONE); // don't show that test item.
@@ -956,7 +964,12 @@ public class MainActivity extends Activity {
 
     public void FEC_Test_All_Start()
     {
-        FEC_Test_Item(fec_test_items_order[initial_test_item].fec_test_item_request_code, fec_test_items_order[initial_test_item].fec_test_item_class );
+        NextTestItem = find_next_test_item(-1);
+        dump_trace("NextTestItem="+ NextTestItem +"; test name="+ fec_test_items_order[NextTestItem].name);
+        //FEC_Test_Item(fec_test_items_order[initial_test_item].fec_test_item_request_code, fec_test_items_order[initial_test_item].fec_test_item_class );
+        FEC_Test_Item(fec_test_items_order[NextTestItem].fec_test_item_request_code, fec_test_items_order[NextTestItem].fec_test_item_class );
+        NextTestItem = find_next_test_item(NextTestItem);
+        dump_trace("NextTestItem="+ NextTestItem +"; test name="+ fec_test_items_order[NextTestItem].name);
     }
 
 
