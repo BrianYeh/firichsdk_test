@@ -643,13 +643,14 @@ public class MainActivity extends Activity {
 
     };
 
+    /*
     private String fec_test_items_class_order[]={Class_SysKingICCard,Class_CashDrawer, Class_IDICCard, Class_FingerPrinter
             ,Class_VFDLCM, Class_NFC, Class_ThermalPrinter, Class_RFID, Class_HID, Class_ThermalPrinterD10, Class_RS232};
     private int fec_test_item_request_code_order[]={TEST_ITEM_SYSKING_IC_CARD, TEST_ITEM_CASH_DRAWER, TEST_ITEM_ID_IC_CARD,
             TEST_ITEM_FINGER_PRINTER, TEST_ITEM_VFD_LCM, TEST_ITEM_NFC,
             TEST_ITEM_THERMAL_PRINTER, TEST_ITEM_RFID, TEST_ITEM_HID,
             TEST_ITEM_THERMAL_PRINTER_D10, TEST_ITEM_RS232_DEVICE};
-
+    */
 
     int fec_init_test_item =0;
     int thundersoft_init_test_item=11;
@@ -809,7 +810,11 @@ public class MainActivity extends Activity {
                 if ((NextTestItem >=0) && (NextTestItem < max_test_items)) {
                     FEC_Test_Item(fec_test_items_order[NextTestItem].fec_test_item_request_code, fec_test_items_order[NextTestItem].fec_test_item_class);
                     NextTestItem = find_next_test_item(NextTestItem);
-                    dump_trace("NextTestItem="+ NextTestItem +"; test name="+ fec_test_items_order[NextTestItem].name);
+                    if (NextTestItem == -1){
+                        test_all = false;
+                    }else {
+                        dump_trace("NextTestItem=" + NextTestItem + "; test name=" + fec_test_items_order[NextTestItem].name);
+                    }
                 }
             }else {
                 // end test
@@ -965,10 +970,16 @@ public class MainActivity extends Activity {
     public void FEC_Test_All_Start()
     {
         NextTestItem = find_next_test_item(-1);
+        if (NextTestItem == -1){
+            return;
+        }
         dump_trace("NextTestItem="+ NextTestItem +"; test name="+ fec_test_items_order[NextTestItem].name);
         //FEC_Test_Item(fec_test_items_order[initial_test_item].fec_test_item_request_code, fec_test_items_order[initial_test_item].fec_test_item_class );
         FEC_Test_Item(fec_test_items_order[NextTestItem].fec_test_item_request_code, fec_test_items_order[NextTestItem].fec_test_item_class );
         NextTestItem = find_next_test_item(NextTestItem);
+        if (NextTestItem == -1){
+            return;
+        }
         dump_trace("NextTestItem="+ NextTestItem +"; test name="+ fec_test_items_order[NextTestItem].name);
     }
 
