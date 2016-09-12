@@ -31,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:background="#000000"
+            android:textColor="#FFFFFF"
             android:text="Dest IP address"
             android:textAppearance="?android:attr/textAppearanceLarge" />
         <TextView
@@ -38,6 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:background="#000000"
+            android:textColor="#FFFFFF"
             android:text="192.168.5.200"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -50,8 +54,10 @@
             android:id="@+id/textViewPingResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="5"
-            android:text="PASS"
+            android:background="#555555"
+            android:text="Test Result: "
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
@@ -60,7 +66,7 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
         <TextView
-            android:id="@+id/textViewPingResult"
+            android:id="@+id/textViewPrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -74,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start Ping"
-            android:id="@+id/btnLCM_Test"
+            android:id="@+id/btnStarPing_Test"
 
             android:onClick="Ethernet_Test_click" />
     </LinearLayout>

@@ -1210,6 +1210,10 @@ public class MainActivity extends Activity {
             boolean wifiEnableOK;
             boolean OperateWIFIOK = false;
             int retryTimes=0;
+            boolean initialWIFIOnOffStatus = false;
+            wifiEnableOK = isWifiEnable();
+            initialWIFIOnOffStatus = wifiEnableOK;
+
             do {
                 // bConnectOK = connecD10PrinterFunc();
                 if (!OperateWIFIOK) {
@@ -1245,6 +1249,27 @@ public class MainActivity extends Activity {
                 wifiEnableOK = isWifiEnable();
                 retryTimes++;
             } while (wifiEnableOK && (retryTimes <5));
+
+            //Restore WIFI on\off status
+            OperateWIFIOK = false;
+            if (initialWIFIOnOffStatus){
+                //enable wifi
+                do {
+                    // bConnectOK = connecD10PrinterFunc();
+                    if (!OperateWIFIOK) {
+                        OperateWIFIOK = enableWifi(context, true);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    wifiEnableOK = isWifiEnable();
+                    retryTimes++;
+                } while (!wifiEnableOK && (retryTimes <5));
+            }
+
         }
     }
 
