@@ -92,12 +92,13 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_GPS = 27;
     private final int TEST_ITEM_BT = 28;
     private final int TEST_ITEM_ULAN = 29;
-    private final int TEST_ITEM_STORAGE = 30;
-    private final int TEST_ITEM_RTC = 31;
-    private final int TEST_ITEM_DEVICE_INFO = 32;
-    private final int TEST_ITEM_SERIAL_NUMBER = 33;
+    private final int TEST_ITEM_ETHERNET = 30;
+    private final int TEST_ITEM_STORAGE = 31;
+    private final int TEST_ITEM_RTC = 32;
+    private final int TEST_ITEM_DEVICE_INFO = 33;
+    private final int TEST_ITEM_SERIAL_NUMBER = 34;
 
-    final private int max_test_items= 34;
+    final private int max_test_items= 35;
 
     private void dump_trace( String bytTrace)
     {
@@ -320,7 +321,15 @@ public class MainActivity extends Activity {
         intent.setComponent(cn);
         startActivityForResult(intent, requestCode);
     }
-
+    public void EthernetTest_click(View view)
+    {
+        int requestCode = TEST_ITEM_ETHERNET;
+        String strClass = PACKAGE_NAME+".MainEthernetActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
 
     private static final String THUNDER_SOFT_PACKAGE_NAME = "com.thundersoft.factorytools.hardwaretest";
 
@@ -564,6 +573,7 @@ public class MainActivity extends Activity {
     }
 
 
+
     logUtil logUtill;
 
     final String Class_SysKingICCard = ".MainSysKingICCardActivity";
@@ -577,6 +587,7 @@ public class MainActivity extends Activity {
     final String Class_HID = ".MainHIDActivity";
     final String Class_ThermalPrinterD10 = ".MainThermalPrinterD10Activity";
     final String Class_RS232 = ".MainRS232Activity";
+    final String Class_ETHERNET = ".MainEthernetActivity";
 
     //
     private int fec_test_count_index=0;
@@ -635,11 +646,12 @@ public class MainActivity extends Activity {
             new fec_test_item(TEST_ITEM_GPS          , ACTION_GPS),
             new fec_test_item(TEST_ITEM_BT           , ACTION_BT),
             new fec_test_item(TEST_ITEM_ULAN         , ACTION_ULAN),
+            new fec_test_item(TEST_ITEM_ETHERNET         , Class_ETHERNET), //Brian:
             new fec_test_item(TEST_ITEM_STORAGE      , ACTION_STORAGE),
 
             new fec_test_item(TEST_ITEM_RTC          , ACTION_RTC),
             new fec_test_item(TEST_ITEM_DEVICE_INFO  , ACTION_DEVICE_INFO),
-            new fec_test_item(TEST_ITEM_SERIAL_NUMBER, ACTION_SERIAL_NUMBER), //33
+            new fec_test_item(TEST_ITEM_SERIAL_NUMBER, ACTION_SERIAL_NUMBER), //34
 
     };
 
@@ -761,6 +773,9 @@ public class MainActivity extends Activity {
             case TEST_ITEM_ULAN:
                 txtResult = (TextView) findViewById(R.id.textViewULANTestResult);
                 break;
+            case TEST_ITEM_ETHERNET:
+                txtResult = (TextView) findViewById(R.id.textViewEthernetTestResult);
+                break;
             case TEST_ITEM_STORAGE:
                 txtResult = (TextView) findViewById(R.id.textViewSTORAGETestResult);
                 break;
@@ -776,11 +791,24 @@ public class MainActivity extends Activity {
 
         }
         String resultPASS="";
+        String testResult="";
+
         if (requestCode >= TEST_ITEM_BATTERY){
-            resultPASS = (resultCode == Activity.RESULT_OK ? RESULT_PASS : RESULT_FAIL);
-            txtResult.setText(resultPASS);
+            if (requestCode ==  TEST_ITEM_ETHERNET)
+            {
+                if (resultCode == 1) {
+                    testResult = "PASS";
+                    //txtResult.setText("PASS"); //Activity.RESULT_CANCELED = 0 , so PASS use 1.
+                } else if (resultCode == 0) {
+                    testResult = "FAIL";
+                    //txtResult.setText("FAIL");
+                }
+            }else {
+                resultPASS = (resultCode == Activity.RESULT_OK ? RESULT_PASS : RESULT_FAIL);
+                txtResult.setText(resultPASS);
+            }
         }else {
-            String testResult="";
+
             if (resultCode == 1) {
                 testResult = "PASS";
                 //txtResult.setText("PASS"); //Activity.RESULT_CANCELED = 0 , so PASS use 1.
@@ -788,11 +816,12 @@ public class MainActivity extends Activity {
                 testResult = "FAIL";
                 //txtResult.setText("FAIL");
             }
-            txtResult.setText(testResult);
-            String testName="";
-            testName = fec_test_items_order[requestCode].name;
-            RecordFECLog("["+ testName +"][Test "+ testResult +"]");
+
         }
+        txtResult.setText(testResult);
+        String testName="";
+        testName = fec_test_items_order[requestCode].name;
+        RecordFECLog("["+ testName +"][Test "+ testResult +"]");
 
         try {
             Thread.sleep(1000);

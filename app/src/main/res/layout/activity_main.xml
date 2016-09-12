@@ -666,6 +666,26 @@
         <Button
             android:layout_width="600sp"
             android:layout_height="wrap_content"
+            android:text="Ethernet Test"
+            android:layout_weight="8"
+            android:id="@+id/Ethernet_Test"
+            android:onClick="EthernetTest_click" />
+        <TextView
+            android:id="@+id/textViewEthernetTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_32"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
             android:text="STORAGE Test"
             android:layout_weight="8"
             android:id="@+id/STORAGEnSTORAGE_Test"
@@ -679,7 +699,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_32"
+        android:id="@+id/linearLayout_test_item_33"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -699,7 +719,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_33"
+        android:id="@+id/linearLayout_test_item_34"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -719,7 +739,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_34"
+        android:id="@+id/linearLayout_test_item_35"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

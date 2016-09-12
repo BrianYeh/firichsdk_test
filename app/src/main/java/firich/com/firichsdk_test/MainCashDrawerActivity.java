@@ -118,7 +118,8 @@ public class MainCashDrawerActivity extends Activity {
         sp.close(intSerialPortHandle);
         dump_trace("echo "+echoGPIONum + " > "+ strCashDrawerPath);
         try {
-            sp.sleep(1*SLEEP_MSEC);
+            //sp.sleep(1*SLEEP_MSEC);
+            sp.sleep(300);
             dump_trace("SLEEP_MSEC= 1 secs");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -165,8 +166,8 @@ public class MainCashDrawerActivity extends Activity {
     public void CashDrawer_Test_346_click(View view) {
         CashDrawer_Write("21");
         CashDrawer_Write("20");
-        CashDrawer_Write("21");
-        CashDrawer_Write("20");
+     //   CashDrawer_Write("21");
+     //   CashDrawer_Write("20");
     }
 
     public void CashDrawer_Test_read_334_click(View view) {
@@ -218,8 +219,8 @@ public class MainCashDrawerActivity extends Activity {
 */
         CashDrawer_Write("11");
         CashDrawer_Write("10");
-        CashDrawer_Write("11");
-        CashDrawer_Write("10");
+       // CashDrawer_Write("11");
+       // CashDrawer_Write("10");
 
     }
 
