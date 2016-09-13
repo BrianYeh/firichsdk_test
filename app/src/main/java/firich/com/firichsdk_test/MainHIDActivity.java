@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainHIDActivity extends Activity {
@@ -21,6 +22,12 @@ public class MainHIDActivity extends Activity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EditText editText = (EditText) findViewById(R.id.editHID);
+        editText.requestFocus();
+    }
     private void setHIDType() {
         final TextView textView = (TextView) findViewById(R.id.textViewHID);
         Bundle params = getIntent().getExtras();

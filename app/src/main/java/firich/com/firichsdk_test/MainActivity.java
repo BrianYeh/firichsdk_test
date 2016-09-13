@@ -22,9 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
 
@@ -961,6 +965,9 @@ public class MainActivity extends Activity {
         this.mIntentFilter = new IntentFilter();
         this.mIntentFilter.addAction("android.bluetooth.adapter.action.STATE_CHANGED");
 
+
+        g_InternallogUtil = new InternallogUtil();
+
         RecordFECLog("[Start Test]");
         //[SystemInfo][Info][Wireless MAC: 44:2C:05:34:2D:F9]
         Record_Mac_Address(this);
@@ -969,6 +976,8 @@ public class MainActivity extends Activity {
         Record_Ethernet_MAc_Address();
 
         DetermineTestItems();
+
+
 
         //((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_path);
     }
@@ -1156,18 +1165,135 @@ public class MainActivity extends Activity {
     }
 
 
+    /*
     public  void RecordFECLog(String logString)
     {
         logUtill = new logUtil();
         Date newdate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
         String date = format.format(newdate);
-       // logUtill.appendLog("["+ date +"]"+"[Start test]");
         logUtill.appendLog("["+ date +"]"+ logString);
+    }
+    */
+    /** Called just before the activity is destroyed. */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        g_InternallogUtil.clearInterStorageLog();
+
+        dump_trace("The onDestroy() event");
+    }
+    InternallogUtil g_InternallogUtil;
+    public  void RecordFECLog(String logString)
+    {
+
+        Date newdate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+        String date = format.format(newdate);
+        g_InternallogUtil.appendInternalStorageLog("["+ date +"]"+ logString+"\n");
+        String strReadLog = g_InternallogUtil.readInternalStorageLog(1000);
+        dump_trace(strReadLog);
     }
 
 
-    //private WifiManager wimanager;
+    public  void copyto_udisk_click(View view)
+    {
+        boolean copyToUSBOK=false;
+        copyToUSBOK = g_InternallogUtil.copyTOUSBStorage();
+        if (copyToUSBOK){
+            TextView textViewCopytoudisk = (TextView) findViewById(R.id.textViewcopyto_udisk);
+            textViewCopytoudisk.setText("Copy Done.");
+        }
+
+    }
+
+    public class InternallogUtil {
+
+        String InternalStoragefileName = "InternalLog.txt";
+
+        public void InternallogUtil()
+        {
+
+        }
+        public void appendInternalStorageLog(String strLog)
+        {
+            // Create a file in the Internal Storage
+
+            FileOutputStream outputStream;
+            try {
+                outputStream =  openFileOutput(InternalStoragefileName, Context.MODE_APPEND);
+                outputStream.write(strLog.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        public void clearInterStorageLog()
+        {
+            String strEmpty="";
+            FileOutputStream outputStream;
+            try {
+                outputStream =  openFileOutput(InternalStoragefileName, Context.MODE_PRIVATE);
+                outputStream.write(strEmpty.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public boolean copyTOUSBStorage() {
+            try {
+                int bytesum = 0;
+                int byteread = 0;
+
+                logUtil logUtilUdiskFile = new logUtil();
+                String strUdiskFileName = logUtilUdiskFile.findUDiskFileName();
+                if (logUtilUdiskFile.isFindUdiskFECLogFile()) {
+                    FileInputStream fisInternalStorage = openFileInput(InternalStoragefileName);
+                    FileOutputStream fs = new FileOutputStream(strUdiskFileName);
+                    byte[] buffer = new byte[1444];
+                    //byte[] buffer = new byte[14];
+                    while ((byteread = fisInternalStorage.read(buffer)) != -1) {
+                        bytesum += byteread;
+                        fs.write(buffer, 0, byteread);
+                    }
+                    fisInternalStorage.close();
+                    fs.close();
+
+                    return true;
+                }else{
+                    return false;
+                }
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+
+        public String readInternalStorageLog(int length) {
+            byte[] buffer = new byte[length];
+            int readLength=0;
+            String str = new String();
+            Arrays.fill(buffer, (byte)0);
+            try {
+                FileInputStream fis = openFileInput(InternalStoragefileName);
+                readLength = fis.read(buffer);
+                fis.close();
+                str = new String(buffer);
+                str = str.substring(0, readLength);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            return str;
+        }
+    }
 
 
 
