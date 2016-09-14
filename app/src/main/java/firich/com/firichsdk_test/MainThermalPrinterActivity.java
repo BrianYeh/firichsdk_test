@@ -117,7 +117,9 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
         {
             public void run()
             {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                EditText edtLog = (EditText)findViewById(R.id.edittext_thermalprinter_log);
+                edtLog.setText(msg);
 
             }
         });

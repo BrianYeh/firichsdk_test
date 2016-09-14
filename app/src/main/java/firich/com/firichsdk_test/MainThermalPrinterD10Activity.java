@@ -611,7 +611,7 @@ public class MainThermalPrinterD10Activity extends Activity {
         {
             public void run()
             {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+               //Brian: Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
                 writeLog("connect", false, ret, msg);
             }

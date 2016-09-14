@@ -191,6 +191,22 @@
     </LinearLayout>
     -->
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log"
+            android:textColor="@color/blue" />
+
+        <EditText
+            android:id="@+id/edittext_thermalprinter_log"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/linearLayoutBottomTPPASSFAIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
