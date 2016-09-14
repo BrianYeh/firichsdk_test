@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fujitsu.fitPrint.Library.FitPrintAndroidUsb_v1011.FitPrintAndroidUsb;
@@ -118,8 +119,9 @@ public class MainThermalPrinterActivity extends Activity implements OnClickListe
             public void run()
             {
                 //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                EditText edtLog = (EditText)findViewById(R.id.edittext_thermalprinter_log);
-                edtLog.setText(msg);
+                //EditText edtLog = (EditText)findViewById(R.id.edittext_thermalprinter_log);
+                TextView edtLog = (TextView)findViewById(R.id.edittext_thermalprinter_log);
+                edtLog.setText("      "+msg);
 
             }
         });
