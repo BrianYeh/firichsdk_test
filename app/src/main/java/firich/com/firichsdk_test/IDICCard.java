@@ -522,7 +522,17 @@ public class IDICCard extends Activity implements OnReceiverListener {
         // TODO Auto-generated method stub
 
     }
+    @Override
+    public void dataInOutMonitor(byte[] arg0, boolean arg1) {
+        // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void msgBatteryLow() {
+        // TODO Auto-generated method stub
+
+    }
     @Override
     public void onStart() {
         super.onStart();

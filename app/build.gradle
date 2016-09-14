@@ -25,11 +25,11 @@ android {
 
 dependencies {
     compile files('libs/firichsdk.jar')
-    compile files('libs/Universal_SDK_1.00.008.jar')
     compile files('libs/dpuareu.jar')
     compile files('libs/FitPrintAndroidUsb_v1011.jar')
     compile files('libs/dom4j-2.0.0.jar')
     compile files('libs/SiiAndroidSDK.jar')
+    compile files('libs/Universal_SDK_1.00.042.jar')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
 }
