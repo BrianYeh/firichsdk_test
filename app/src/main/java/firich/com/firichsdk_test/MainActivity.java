@@ -101,8 +101,10 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_RTC = 32;
     private final int TEST_ITEM_DEVICE_INFO = 33;
     private final int TEST_ITEM_SERIAL_NUMBER = 34;
+    private final int TEST_ITEM_SDCARD = 35;
+    private final int TEST_ITEM_USB_STORAGE = 36;
 
-    final private int max_test_items= 35;
+    final private int max_test_items= 37;
 
     private void dump_trace( String bytTrace)
     {
@@ -334,6 +336,18 @@ public class MainActivity extends Activity {
         intent.setComponent(cn);
         startActivityForResult(intent, requestCode);
     }
+
+    public void SDCard_click(View view)
+    {
+        int requestCode = TEST_ITEM_SDCARD;
+        String strClass = PACKAGE_NAME+".MainSDCardActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
+
+
 
     private static final String THUNDER_SOFT_PACKAGE_NAME = "com.thundersoft.factorytools.hardwaretest";
 
@@ -797,7 +811,7 @@ public class MainActivity extends Activity {
         String resultPASS="";
         String testResult="";
 
-        if (requestCode >= TEST_ITEM_BATTERY){
+        if ((requestCode >= TEST_ITEM_BATTERY) && (requestCode<=TEST_ITEM_SERIAL_NUMBER)){
             if (requestCode ==  TEST_ITEM_ETHERNET)
             {
                 if (resultCode == 1) {
