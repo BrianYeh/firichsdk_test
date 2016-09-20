@@ -28,6 +28,31 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
         <TextView
+            android:id="@+id/textViewSDPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:background="#555555"
+            android:text="SD card path: "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/textViewSDPathSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:background="#555555"
+            android:text=" "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+        <TextView
             android:id="@+id/textViewSDCardResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

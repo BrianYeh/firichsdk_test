@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_SDCARD = 35;
     private final int TEST_ITEM_USB_STORAGE = 36;
 
-    final private int max_test_items= 37;
+    final private int max_test_items= 36;
 
     private void dump_trace( String bytTrace)
     {
@@ -606,6 +606,8 @@ public class MainActivity extends Activity {
     final String Class_ThermalPrinterD10 = ".MainThermalPrinterD10Activity";
     final String Class_RS232 = ".MainRS232Activity";
     final String Class_ETHERNET = ".MainEthernetActivity";
+    final String Class_SDCard = ".MainSDCardActivity";
+    final String Class_USBStorage = ".MainUSBStorageActivity";
 
     //
     private int fec_test_count_index=0;
@@ -664,12 +666,13 @@ public class MainActivity extends Activity {
             new fec_test_item(TEST_ITEM_GPS          , ACTION_GPS),
             new fec_test_item(TEST_ITEM_BT           , ACTION_BT),
             new fec_test_item(TEST_ITEM_ULAN         , ACTION_ULAN),
-            new fec_test_item(TEST_ITEM_ETHERNET         , Class_ETHERNET), //Brian:
+            new fec_test_item(TEST_ITEM_ETHERNET         , Class_ETHERNET), //Brian added
             new fec_test_item(TEST_ITEM_STORAGE      , ACTION_STORAGE),
 
             new fec_test_item(TEST_ITEM_RTC          , ACTION_RTC),
             new fec_test_item(TEST_ITEM_DEVICE_INFO  , ACTION_DEVICE_INFO),
-            new fec_test_item(TEST_ITEM_SERIAL_NUMBER, ACTION_SERIAL_NUMBER), //34
+            new fec_test_item(TEST_ITEM_SERIAL_NUMBER, ACTION_SERIAL_NUMBER),
+            new fec_test_item(TEST_ITEM_SDCARD, Class_SDCard) //Brian Added
 
     };
 
@@ -689,23 +692,17 @@ public class MainActivity extends Activity {
     boolean not_end_test_all = true;
     int end_test_item = max_test_items; //stop at ?th ; fec next test items:. 1, 2,3, 4~11; total= 11(fec)+23(thunder soft)=34 items.
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    private TextView getTextViewFromRequestCode(int requestCode)
     {
-        int result=0;
         TextView txtResult =(TextView) findViewById(R.id.textViewNFCTestResult);
-        String strMsg = String.format("requestCode=%d, resultCode=%d",requestCode,resultCode);
-        dump_trace("onActivityResult="+ strMsg);
-
-
         switch (requestCode) // which test item
         {
             case TEST_ITEM_NFC:
                 txtResult = (TextView) findViewById(R.id.textViewNFCTestResult);
-            break;
+                break;
             case TEST_ITEM_THERMAL_PRINTER:
                 txtResult = (TextView) findViewById(R.id.textViewThermalPrinterTestResult);
-            break;
+                break;
             case TEST_ITEM_VFD_LCM:
                 txtResult = (TextView) findViewById(R.id.textViewLCMTestResult);
                 break;
@@ -806,8 +803,23 @@ public class MainActivity extends Activity {
             case TEST_ITEM_SERIAL_NUMBER:
                 txtResult = (TextView) findViewById(R.id.textViewSERIAL_NUMBERTestResult);
                 break;
+            case TEST_ITEM_SDCARD:
+                txtResult = (TextView) findViewById(R.id.textViewSDCardTestResult);
+                break;
 
         }
+        return txtResult;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        int result=0;
+        TextView txtResult =(TextView) findViewById(R.id.textViewNFCTestResult);
+        String strMsg = String.format("requestCode=%d, resultCode=%d",requestCode,resultCode);
+        dump_trace("onActivityResult="+ strMsg);
+
+        txtResult = getTextViewFromRequestCode(requestCode);
+
         String resultPASS="";
         String testResult="";
 
@@ -1040,113 +1052,8 @@ public class MainActivity extends Activity {
     {
         TextView txtResult =(TextView) findViewById(R.id.textViewNFCTestResult);
         for (int i=0; i< max_test_items;i++){
-            switch (i) // which test item
-            {
-                case TEST_ITEM_NFC:
-                    txtResult = (TextView) findViewById(R.id.textViewNFCTestResult);
-                    break;
-                case TEST_ITEM_THERMAL_PRINTER:
-                    txtResult = (TextView) findViewById(R.id.textViewThermalPrinterTestResult);
-                    break;
-                case TEST_ITEM_VFD_LCM:
-                    txtResult = (TextView) findViewById(R.id.textViewLCMTestResult);
-                    break;
-                case TEST_ITEM_FINGER_PRINTER:
-                    txtResult = (TextView) findViewById(R.id.textViewFingerPrintTestResult);
-                    break;
-                case TEST_ITEM_ID_IC_CARD:
-                    txtResult = (TextView) findViewById(R.id.textViewIDICCardTestResult);
-                    break;
-                case TEST_ITEM_CASH_DRAWER:
-                    txtResult = (TextView) findViewById(R.id.textViewCashDrawerTestResult);
-                    break;
-                case TEST_ITEM_SYSKING_IC_CARD:
-                    txtResult = (TextView) findViewById(R.id.textViewICCardSysKingTestResult);
-                    break;
-                case TEST_ITEM_RFID:
-                    txtResult = (TextView) findViewById(R.id.textViewRFIDTestResult);
-                    break;
-                case TEST_ITEM_HID:
-                    txtResult = (TextView) findViewById(R.id.textViewHIDTestResult);
-                    break;
-                case TEST_ITEM_THERMAL_PRINTER_D10:
-                    txtResult = (TextView) findViewById(R.id.textViewThermalPrinterD10TestResult);
-                    break;
-                case TEST_ITEM_RS232_DEVICE:
-                    txtResult = (TextView) findViewById(R.id.textViewRS232TestResult);
-                    break;
-                case TEST_ITEM_BATTERY:
-                    txtResult = (TextView) findViewById(R.id.textViewBatteryTestResult);
-                    break;
-                case TEST_ITEM_LCM:
-                    txtResult = (TextView) findViewById(R.id.textViewLCMandBackLightTestResult);
-                    break;
-                case TEST_ITEM_TP:
-                    txtResult = (TextView) findViewById(R.id.textViewTouchPanelTestResult);
-                    break;
-                case TEST_ITEM_KEYPAN:
-                    txtResult = (TextView) findViewById(R.id.textViewKeyTestResult);
-                    break;
-                case TEST_ITEM_WIFI:
-                    txtResult = (TextView) findViewById(R.id.textViewWifiTestResult);
-                    break;
-                case TEST_ITEM_SENSOR:
-                    txtResult = (TextView) findViewById(R.id.textViewASensorTestResult);
-                    break;
-                case TEST_ITEM_LIGHT:
-                    txtResult = (TextView) findViewById(R.id.textViewLightSensorTestResult);
-                    break;
-                case TEST_ITEM_GYROSCOPE:
-                    txtResult = (TextView) findViewById(R.id.textViewGyroscopeSensorTestResult);
-                    break;
-                case TEST_ITEM_SPEAKER:
-                    txtResult = (TextView) findViewById(R.id.textViewSPEAKERTestResult);
-                    break;
-                case TEST_ITEM_MICROPHONE:
-                    txtResult = (TextView) findViewById(R.id.textViewMICROPHONETestResult);
-                    break;
-                case TEST_ITEM_HEADPHONE:
-                    txtResult = (TextView) findViewById(R.id.textViewHEADPHONETestResult);
-                    break;
-                case TEST_ITEM_HEADSET:
-                    txtResult = (TextView) findViewById(R.id.textViewHEADSETTestResult);
-                    break;
-                case TEST_ITEM_CAMERA_BACK:
-                    txtResult = (TextView) findViewById(R.id.textViewCAMERA_BACKTestResult);
-                    break;
-                case TEST_ITEM_CAMERA_FRONT:
-                    txtResult = (TextView) findViewById(R.id.textViewCAMERA_FRONTTestResult);
-                    break;
-                case TEST_ITEM_HDMI:
-                    txtResult = (TextView) findViewById(R.id.textViewHDMITestResult);
-                    break;
-                case TEST_ITEM_OTG:
-                    txtResult = (TextView) findViewById(R.id.textViewOTGTestResult);
-                    break;
-                case TEST_ITEM_GPS:
-                    txtResult = (TextView) findViewById(R.id.textViewGPSTestResult);
-                    break;
-                case TEST_ITEM_BT:
-                    txtResult = (TextView) findViewById(R.id.textViewBTTestResult);
-                    break;
+            txtResult = getTextViewFromRequestCode(i);
 
-                case TEST_ITEM_ULAN:
-                    txtResult = (TextView) findViewById(R.id.textViewULANTestResult);
-                    break;
-                case TEST_ITEM_STORAGE:
-                    txtResult = (TextView) findViewById(R.id.textViewSTORAGETestResult);
-                    break;
-                case TEST_ITEM_RTC:
-                    txtResult = (TextView) findViewById(R.id.textViewRTCTestResult);
-                    break;
-                case TEST_ITEM_DEVICE_INFO:
-                    txtResult = (TextView) findViewById(R.id.textViewDEVICE_INFOTestResult);
-                    break;
-                case TEST_ITEM_SERIAL_NUMBER:
-                    txtResult = (TextView) findViewById(R.id.textViewSERIAL_NUMBERTestResult);
-                    break;
-
-            }
             txtResult.setText("?");
         }
     }
