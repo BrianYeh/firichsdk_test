@@ -780,6 +780,27 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout_test_item_37"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="USB Storage"
+            android:layout_weight="8"
+            android:id="@+id/USBStorage_Test"
+            android:onClick="USBStorage_click" />
+        <TextView
+            android:id="@+id/textViewUSBStorageTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout_copyto_udisk"
         android:orientation="horizontal"
         android:layout_width="match_parent"

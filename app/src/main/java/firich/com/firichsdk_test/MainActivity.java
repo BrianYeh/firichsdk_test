@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_SDCARD = 35;
     private final int TEST_ITEM_USB_STORAGE = 36;
 
-    final private int max_test_items= 36;
+    final private int max_test_items= 37;
 
     private void dump_trace( String bytTrace)
     {
@@ -144,43 +144,7 @@ public class MainActivity extends Activity {
     }
 
 
-    /*
-    public void open_click(View view) {
-        sp = new SerialPort();
-        sp.setListener(splistener);
-        intSerialPortHandle = sp.open("/dev/ttyUSB4",9600);
-    }
-
-    public void close_click(View view) {
-        sp.close(intSerialPortHandle);
-    }
-
-    public void write_click(View view) {
-        int intReturnCode = -1;
-        byte[] btyTmp = new byte[2];
-        btyTmp[0] = 0x41;
-        btyTmp[1] = 0x42;
-
-        intReturnCode = sp.write(intSerialPortHandle, btyTmp);
-        //intReturnCode = sp.write(intSerialPortHandle,btyVersion_msg);
-        // The function returns the number of bytes written to the file.
-        // A return value of -1 indicates an error, with errno set appropriately.
-        dump_trace( "intReturnCode="+intReturnCode);
-    }
-
-    public void nfc_test_click(View view) {
-        sc = new SunComm();
-        StringBuffer stbTmp = new StringBuffer();
-        sc.CommVersion(1,stbTmp);
-        dump_trace("nfc_test_click" + stbTmp.toString());
-    }
-
-    public void OpenNFC_click(View view) {
-        sc.CommOpen(0,5); //dev/ttyUSB5
-    }
-    */
-
-    public void FEC_Test_Item(int requestCodeL, String strClassL)
+        public void FEC_Test_Item(int requestCodeL, String strClassL)
     {
         //int requestCode = TEST_ITEM_SYSKING_IC_CARD;
         int requestCode = requestCodeL;
@@ -347,7 +311,15 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, requestCode);
     }
 
-
+    public void USBStorage_click(View view)
+    {
+        int requestCode = TEST_ITEM_USB_STORAGE;
+        String strClass = PACKAGE_NAME+".MainUSBStorageActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
 
     private static final String THUNDER_SOFT_PACKAGE_NAME = "com.thundersoft.factorytools.hardwaretest";
 
@@ -672,7 +644,8 @@ public class MainActivity extends Activity {
             new fec_test_item(TEST_ITEM_RTC          , ACTION_RTC),
             new fec_test_item(TEST_ITEM_DEVICE_INFO  , ACTION_DEVICE_INFO),
             new fec_test_item(TEST_ITEM_SERIAL_NUMBER, ACTION_SERIAL_NUMBER),
-            new fec_test_item(TEST_ITEM_SDCARD, Class_SDCard) //Brian Added
+            new fec_test_item(TEST_ITEM_SDCARD, Class_SDCard), //Brian Added
+            new fec_test_item(TEST_ITEM_USB_STORAGE, Class_USBStorage) //Brian Added
 
     };
 
@@ -805,6 +778,9 @@ public class MainActivity extends Activity {
                 break;
             case TEST_ITEM_SDCARD:
                 txtResult = (TextView) findViewById(R.id.textViewSDCardTestResult);
+                break;
+            case TEST_ITEM_USB_STORAGE:
+                txtResult = (TextView) findViewById(R.id.textViewUSBStorageTestResult);
                 break;
 
         }
