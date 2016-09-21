@@ -190,11 +190,11 @@ public class MainUSBStorageActivity extends Activity {
         startUSBStorage_Test();
     }
     private class USBStorageTestThread extends Thread {
-        String[] lstrttyUSBPath;
+        String[] lstrUSBPath;
         textViewResultUtil ltextViewResultIDs;
         int ldeviceCount;
-        USBStorageTestThread(String[] strttyUSBPath, textViewResultUtil textViewResultIDs, int deviceCount) {
-            lstrttyUSBPath = strttyUSBPath;
+        USBStorageTestThread(String[] strUSBPath, textViewResultUtil textViewResultIDs, int deviceCount) {
+            lstrUSBPath = strUSBPath;
             ltextViewResultIDs = textViewResultIDs;
             ldeviceCount = deviceCount;
         }
@@ -203,7 +203,7 @@ public class MainUSBStorageActivity extends Activity {
             Intent intent = getIntent();
             boolean testPASS = false;
             for (int i=0; i< ldeviceCount; i++) {
-                testPASS = USBStorage_Test(lstrttyUSBPath[i], ltextViewResultIDs.getTextViewResultID(i));
+                testPASS = USBStorage_Test(lstrUSBPath[i], ltextViewResultIDs.getTextViewResultID(i));
             }
             if (testPASS){
                 setResult(1, intent);
@@ -238,9 +238,13 @@ public class MainUSBStorageActivity extends Activity {
         });
     }
 
-    private boolean USBStorage_Test(String strttyUSBPath, int testDeviceTextViewID) {
+    private boolean USBStorage_Test(String strUSBPath, int testDeviceTextViewID) {
 
         boolean testResult=false;
+        int intDataReceivedLength=1;
+        //TODO:
+
+        PostUIUpdateLog("", intDataReceivedLength, testDeviceTextViewID);
         return testResult;
 
     }

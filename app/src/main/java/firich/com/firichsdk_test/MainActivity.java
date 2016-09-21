@@ -810,8 +810,8 @@ public class MainActivity extends Activity {
                     //txtResult.setText("FAIL");
                 }
             }else {
-                resultPASS = (resultCode == Activity.RESULT_OK ? RESULT_PASS : RESULT_FAIL);
-                txtResult.setText(resultPASS);
+                testResult = (resultCode == Activity.RESULT_OK ? RESULT_PASS : RESULT_FAIL);
+               // txtResult.setText(testResult);
             }
         }else {
 
