@@ -17,7 +17,7 @@ public class CheckStorageUtil {
 
     String path = "/mnt/media_rw/extsd/sd.txt";
     String FECLogString = "FEC Storage test complete.";
-    public void CheckStorageUtil(String logPath)
+    public CheckStorageUtil(String logPath)
     {
         if (logPath != null && !logPath.isEmpty()) {
             path = logPath;

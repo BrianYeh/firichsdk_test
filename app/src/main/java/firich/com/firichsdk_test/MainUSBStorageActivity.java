@@ -100,7 +100,7 @@ public class MainUSBStorageActivity extends Activity {
             tr.setGravity(Gravity.CENTER_HORIZONTAL);
 
            // String strUSBStorageDevice = strUSBStorageDeviceList[i];
-            String strUSBStorageDevice = "USB "+ String.valueOf(i);
+            String strUSBStorageDevice = "USB "+ String.valueOf(i+1);
             if ((strUSBStorageDevice == null) || (strUSBStorageDevice.length() == 0))
                 break;
             TextView device = new TextView(MainUSBStorageActivity.this);
@@ -185,7 +185,17 @@ public class MainUSBStorageActivity extends Activity {
             return ;
         }
 
-        deviceCount = 8; //usbdisk ~ usbdisk8
+        configUtil.Device devObject;
+        configUtil configFile = new configUtil(fectest_config_path);
+
+        configFile.dom4jXMLParser();
+        devObject = configFile.getDevice("USBStorage");
+        deviceCount = devObject.numOfUSB;
+        if (devObject.numOfUSB ==0) {
+            deviceCount =8;
+        }
+
+       // deviceCount = 8; //usbdisk ~ usbdisk8
         CreateUSBStorageDeviceTable(strUSBStorageDeviceList, deviceCount);
         startUSBStorage_Test();
     }
@@ -202,8 +212,9 @@ public class MainUSBStorageActivity extends Activity {
         public void run() {
             Intent intent = getIntent();
             boolean testPASS = false;
-            for (int i=0; i< ldeviceCount; i++) {
-                testPASS = USBStorage_Test(lstrUSBPath[i], ltextViewResultIDs.getTextViewResultID(i));
+            boolean testResult = false;
+            for (int i=1; i<= ldeviceCount; i++) {
+                testResult = USBStorage_Test(ltextViewResultIDs.getTextViewResultID(i-1), i, ldeviceCount);
             }
             if (testPASS){
                 setResult(1, intent);
@@ -216,11 +227,11 @@ public class MainUSBStorageActivity extends Activity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            finish();
+            //finish();
         }
     }
 
-    private void PostUIUpdateLog(final String msg, final  int intDataReceivedLength, final int testDeviceTextViewID)
+    private void PostUIUpdateLog(final String msg, final  boolean testPASS, final int testDeviceTextViewID)
     {
         this.mHandler.post(new Runnable()
         {
@@ -228,8 +239,8 @@ public class MainUSBStorageActivity extends Activity {
             {
                 //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 final TextView textViewResultDeviceID = (TextView) findViewById(testDeviceTextViewID);
-                dump_trace("PostUIUpdateLog:intDataReceivedLength="+intDataReceivedLength);
-                if (intDataReceivedLength >0)
+                dump_trace("PostUIUpdateLog:testPASS="+testPASS);
+                if (testPASS)
                     textViewResultDeviceID.setText("PASS");
                 else
                     textViewResultDeviceID.setText("FAIL");
@@ -238,13 +249,17 @@ public class MainUSBStorageActivity extends Activity {
         });
     }
 
-    private boolean USBStorage_Test(String strUSBPath, int testDeviceTextViewID) {
+
+    //private boolean USBStorage_Test(String strUSBPath, int testDeviceTextViewID, int USBIndex, int deviceCount) {
+    private boolean USBStorage_Test(int testDeviceTextViewID, int USBIndex, int deviceCount) {
 
         boolean testResult=false;
         int intDataReceivedLength=1;
         //TODO:
 
-        PostUIUpdateLog("", intDataReceivedLength, testDeviceTextViewID);
+        CheckUSBStorageUtil CheckUSBStorageUtilVar = new CheckUSBStorageUtil(deviceCount);
+        testResult = CheckUSBStorageUtilVar.checkUSBStorage(USBIndex);
+        PostUIUpdateLog("", testResult, testDeviceTextViewID);
         return testResult;
 
     }

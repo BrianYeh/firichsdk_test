@@ -102,7 +102,7 @@ public class MainSDCardActivity extends Activity {
             Intent intent = getIntent();
             TextView editText_sd_test_result = (TextView)findViewById(R.id.textViewSDCardResult);
 
-            CheckStorageUtil CheckStorageUtilVar= new CheckStorageUtil();
+            CheckStorageUtil CheckStorageUtilVar= new CheckStorageUtil(path);
             testPASS = CheckStorageUtilVar.checkSDCardStorage();
             if ( testPASS ){
 

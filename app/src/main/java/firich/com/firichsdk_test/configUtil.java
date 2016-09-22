@@ -43,6 +43,7 @@ public class configUtil {
         public String Path2;
         public String Path3;
         public int BaudRate;
+        public int numOfUSB; //for USBStorage test.
     }
     Device DevObject;
     Hashtable<String, Device> hashtableConfig;
@@ -108,6 +109,11 @@ public class configUtil {
 
                     DevObject.RS232DeviceName = child.attributeValue("devicename");
                     dump_trace("RS232DeviceName: " + DevObject.RS232DeviceName);
+                    hashtableConfig.put(child.attributeValue("name"), DevObject);
+                }else if ("USBStorage".equals(child.attributeValue("name"))){
+
+                    DevObject.numOfUSB = Integer.valueOf(child.attributeValue("numOfUSB"));
+                    dump_trace("numOfUSB: " + DevObject.numOfUSB);
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }
                 else{
