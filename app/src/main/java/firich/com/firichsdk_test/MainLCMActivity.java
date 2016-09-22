@@ -34,12 +34,14 @@ public class MainLCMActivity extends Activity {
     byte[] btyInitialize = new byte[]{(byte)0x1b,(byte)0x40};
     byte[] btyClearScreen = new byte[]{0x0c};
     //Send command as 1B 51 41 30 31 32 33 34 35 36 37 38 39 41 42 43 44 45 46 47 48 49 4A 0D :upper string showing
-    byte[] btyUpperString = new byte[]{(byte)0x1b, (byte)0x51, (byte)0x41,(byte)0x30,(byte)0x31,(byte)0x32,
+    //Send command as          30 31 32 33 34 35 36 37 38 39 41 42 43 44 45 46 47 48 49 4A 0D :upper string showing
+    byte[] btyUpperString = new byte[]{(byte)0x30,(byte)0x31,(byte)0x32,
             (byte)0x33,(byte)0x34,(byte)0x35,(byte)0x36,(byte)0x37,(byte)0x38,(byte)0x39,(byte)0x41,(byte)0x42,
             (byte)0x43,(byte)0x44,(byte)0x45,(byte)0x46,(byte)0x47,(byte)0x48,(byte)0x49,(byte)0x4a,(byte)0x0d};
 
     //byte[] btyLowerString = new byte[]{1B 51 42 4B 4C 4D 4E 4F 50 51 52 53 54 55 56 57 58 59 5A 5B 5C 5D 5F 0D};
-    byte[] btyLowerString = hexStringToByteArray("1B51424B4C4D4E4F505152535455565758595A5B5C5D5F0D");
+    //byte[] btyLowerString = new byte[]{         4B 4C 4D 4E 4F 50 51 52 53 54 55 56 57 58 59 5A 5B 5C 5D 5F 0D};
+    byte[] btyLowerString = hexStringToByteArray("4B4C4D4E4F505152535455565758595A5B5C5D5F0D");
 
     byte[] btyLowerStringDump = hexStringToByteArray("4B4C4D4E4F505152535455565758595A5B5C5D5F0D00");
 
