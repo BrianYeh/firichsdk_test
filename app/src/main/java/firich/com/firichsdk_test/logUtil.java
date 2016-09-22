@@ -73,8 +73,11 @@ public class logUtil {
             }
             diskNumber++;
             if (diskNumber > 1) {
-                //strDisk = strDiskNum + "_" + Integer.toString(diskNumber);
-                strDisk = strDiskNum  + Integer.toString(diskNumber);
+                if (contains_android4) {
+                    strDisk = strDiskNum + "_" + Integer.toString(diskNumber);
+                }else {
+                    strDisk = strDiskNum + Integer.toString(diskNumber);
+                }
             }
             path = strStorage + strDisk + "/" + strfeclog; //ex: "/storage/udisk/feclog.txt"
             logFile = new File(path);

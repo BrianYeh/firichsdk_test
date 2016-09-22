@@ -20,8 +20,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MainUSBStorageActivity extends Activity {
 
     /* "USB1;/mnt/media_rw/udisk|USB2;/mnt/media_rw/udisk_2|USB3;/mnt/media_rw/udisk_3|USB4;/mnt/media_rw/udisk_4|USB5;/mnt/media_rw/udisk_5|USB6;/mnt/media_rw/udisk_6|USB7;/mnt/media_rw/udisk_7|USB8;/mnt/media_rw/udisk_8"  */
-    private String strUSBStorageDeviceName_android4_4 ="/mnt/media_rw/udisk|/mnt/media_rw/udisk_2|/mnt/media_rw/udisk_3|/mnt/media_rw/udisk_4|/mnt/media_rw/udisk_5|/mnt/media_rw/udisk_6|/mnt/media_rw/udisk_7|/mnt/media_rw/udisk_8";
-    private String strUSBStorageDeviceName_android5_1 ="/mnt/media_rw/usbdisk|/mnt/media_rw/usbdisk_2|/mnt/media_rw/usbdisk_3|/mnt/media_rw/usbdisk_4|/mnt/media_rw/usbdisk_5|/mnt/media_rw/usbdisk_6|/mnt/media_rw/usbdisk_7|/mnt/media_rw/usbdisk_8";
+    private String strUSBStorageDeviceName_android4_4 ="/storage/udisk|/storage/udisk_2|/storage/udisk_3|/storage/udisk_4|/storage/udisk_5|/storage/udisk_6|/storage/udisk_7|/storage/udisk_8";
+    private String strUSBStorageDeviceName_android5_1 ="/storage/usbdisk|/storage/usbdisk2|/storage/usbdisk3|/storage/usbdisk4|/storage/usbdisk5|/storage/usbdisk6|/storage/usbdisk7|/storage/usbdisk8";
 
     private String strUSBStorageDeviceName =strUSBStorageDeviceName_android4_4;
     String[] strUSBStorageDeviceList;
@@ -137,6 +137,8 @@ public class MainUSBStorageActivity extends Activity {
             return;
         setContentView(R.layout.activity_usbstorage);
         this.mHandler = new Handler(); //Brian:
+        InitUSBStorageTable();
+
     }
 
     private String fectest_config_path = "/data/fec_config/fectest_config.xml";
@@ -145,45 +147,17 @@ public class MainUSBStorageActivity extends Activity {
     protected void onStart(){
         super.onStart();
 
+        startUSBStorage_Test();
+    }
+    public void InitUSBStorageTable()
+    {
+
         fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
-
-/*
-        configUtil.Device devObject;
-        configUtil configFile = new configUtil(fectest_config_path);
-
-        configFile.dom4jXMLParser();
-        devObject = configFile.getDevice("USBStorage");
-        if (devObject.USBStorageDeviceName != null && !devObject.USBStorageDeviceName.isEmpty()) {
-            strUSBStorageDeviceName = devObject.USBStorageDeviceName;
-        }
-
-        int numberOfSeparator =0;
-        for( int i=0; i<strUSBStorageDeviceName.length(); i++ ) {
-            if( strUSBStorageDeviceName.charAt(i) == '|' ) {
-                numberOfSeparator++;
-            }
-        }
-
-        deviceCount = numberOfSeparator+1;
-
-        strUSBStorageDeviceList = strUSBStorageDeviceName.split("\\|");
-        if ((strUSBStorageDeviceList == null) || (strUSBStorageDeviceList.length == 0)) {
-            return ;
-        }
-        */
 
         String strVersion = Build.DISPLAY;
         boolean contains_android4 = strVersion.contains("4.4.3 2.0.0-rc2.");
         boolean contains_android5 = strVersion.contains("Edelweiss-T 5.1");
         boolean contains_android5_D = strVersion.contains("Edelweiss-D 5.1");
-
-        if (contains_android5|| contains_android5_D ){
-            strUSBStorageDeviceName = strUSBStorageDeviceName_android5_1;
-        }
-        strUSBStorageDeviceList = strUSBStorageDeviceName.split("\\|");
-        if ((strUSBStorageDeviceList == null) || (strUSBStorageDeviceList.length == 0)) {
-            return ;
-        }
 
         configUtil.Device devObject;
         configUtil configFile = new configUtil(fectest_config_path);
@@ -195,9 +169,20 @@ public class MainUSBStorageActivity extends Activity {
             deviceCount =8;
         }
 
-       // deviceCount = 8; //usbdisk ~ usbdisk8
+        if (devObject.Android4_USBList != null && !devObject.Android4_USBList.isEmpty()) {
+            strUSBStorageDeviceName = devObject.Android4_USBList;
+        }
+        if (! contains_android4){
+            if (devObject.Android5_USBList != null && !devObject.Android5_USBList.isEmpty()) {
+                strUSBStorageDeviceName = devObject.Android5_USBList;
+            }
+        }
+        strUSBStorageDeviceList = strUSBStorageDeviceName.split("\\|");
+        if ((strUSBStorageDeviceList == null) || (strUSBStorageDeviceList.length == 0)) {
+            return ;
+        }
+        // deviceCount = 8; //usbdisk ~ usbdisk8
         CreateUSBStorageDeviceTable(strUSBStorageDeviceList, deviceCount);
-        startUSBStorage_Test();
     }
     private class USBStorageTestThread extends Thread {
         String[] lstrUSBPath;
@@ -214,7 +199,7 @@ public class MainUSBStorageActivity extends Activity {
             boolean testPASS = false;
             boolean testResult = false;
             for (int i=1; i<= ldeviceCount; i++) {
-                testResult = USBStorage_Test(ltextViewResultIDs.getTextViewResultID(i-1), i, ldeviceCount);
+                testResult = USBStorage_Test(lstrUSBPath,ltextViewResultIDs.getTextViewResultID(i-1), i, ldeviceCount);
             }
             if (testPASS){
                 setResult(1, intent);
@@ -251,13 +236,13 @@ public class MainUSBStorageActivity extends Activity {
 
 
     //private boolean USBStorage_Test(String strUSBPath, int testDeviceTextViewID, int USBIndex, int deviceCount) {
-    private boolean USBStorage_Test(int testDeviceTextViewID, int USBIndex, int deviceCount) {
+    private boolean USBStorage_Test(String[] strUSBPaths, int testDeviceTextViewID, int USBIndex, int deviceCount) {
 
         boolean testResult=false;
         int intDataReceivedLength=1;
         //TODO:
 
-        CheckUSBStorageUtil CheckUSBStorageUtilVar = new CheckUSBStorageUtil(deviceCount);
+        CheckUSBStorageUtil CheckUSBStorageUtilVar = new CheckUSBStorageUtil(strUSBPaths, deviceCount);
         testResult = CheckUSBStorageUtilVar.checkUSBStorage(USBIndex);
         PostUIUpdateLog("", testResult, testDeviceTextViewID);
         return testResult;

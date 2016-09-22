@@ -18,14 +18,13 @@ public class CheckUSBStorageUtil {
     int     findUSBIndex =1;
 
     String path = "/mnt/media_rw/usbdisk/1.txt";
+    String[] usbList;
     int USBCount =8;
     String FECLogString = "FEC Storage test complete.";
 
-    public CheckUSBStorageUtil(String logPath, int usb_count)
+    public CheckUSBStorageUtil(String[] logPath, int usb_count)
     {
-        if (logPath != null && !logPath.isEmpty()) {
-            path = logPath;
-        }
+        usbList = logPath;
         USBCount = usb_count;
     }
 
@@ -74,6 +73,7 @@ public class CheckUSBStorageUtil {
         String strNum="";
         String strDiskNum="";
         for (int i=1; i <= USBCount; i++) {//search from usbdisk to usbdisk_8
+            /*
             strNum = Integer.toString(i);
             if (i == 1){
                 strDiskNum = strDiskType +"/" + checkUSBNum + ".txt"; //  /usbdisk/1.txt
@@ -85,6 +85,8 @@ public class CheckUSBStorageUtil {
                 }
             }
             path = strStorage + strDiskNum;
+            */
+            path =usbList[i-1]+"/"+  checkUSBNum + ".txt";
             logFile = new File(path);
 
            // do {

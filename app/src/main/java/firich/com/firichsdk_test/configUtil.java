@@ -44,6 +44,8 @@ public class configUtil {
         public String Path3;
         public int BaudRate;
         public int numOfUSB; //for USBStorage test.
+        public String Android4_USBList;
+        public String Android5_USBList;
     }
     Device DevObject;
     Hashtable<String, Device> hashtableConfig;
@@ -113,6 +115,8 @@ public class configUtil {
                 }else if ("USBStorage".equals(child.attributeValue("name"))){
 
                     DevObject.numOfUSB = Integer.valueOf(child.attributeValue("numOfUSB"));
+                    DevObject.Android4_USBList = child.attributeValue("Android4_USBList");
+                    DevObject.Android5_USBList = child.attributeValue("Android5_USBList");
                     dump_trace("numOfUSB: " + DevObject.numOfUSB);
                     hashtableConfig.put(child.attributeValue("name"), DevObject);
                 }
