@@ -197,10 +197,19 @@ public class MainUSBStorageActivity extends Activity {
         public void run() {
             Intent intent = getIntent();
             boolean testPASS = false;
-            boolean testResult = false;
+            boolean[] testResult = new boolean[ldeviceCount];
             for (int i=1; i<= ldeviceCount; i++) {
-                testResult = USBStorage_Test(lstrUSBPath,ltextViewResultIDs.getTextViewResultID(i-1), i, ldeviceCount);
+                testResult[i-1] = USBStorage_Test(lstrUSBPath,ltextViewResultIDs.getTextViewResultID(i-1), i, ldeviceCount);
             }
+
+            int i=0;
+            testPASS = testResult[i];
+            do {
+                testPASS = (testPASS && testResult[i]);
+                dump_trace("USB test result:"+testPASS);
+                i++;
+            } while(i< ldeviceCount);
+
             if (testPASS){
                 setResult(1, intent);
             }else{
@@ -212,7 +221,7 @@ public class MainUSBStorageActivity extends Activity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            //finish();
+            finish();
         }
     }
 
@@ -245,6 +254,12 @@ public class MainUSBStorageActivity extends Activity {
         CheckUSBStorageUtil CheckUSBStorageUtilVar = new CheckUSBStorageUtil(strUSBPaths, deviceCount);
         testResult = CheckUSBStorageUtilVar.checkUSBStorage(USBIndex);
         PostUIUpdateLog("", testResult, testDeviceTextViewID);
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return testResult;
 
     }

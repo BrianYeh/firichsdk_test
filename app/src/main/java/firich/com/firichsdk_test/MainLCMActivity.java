@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Arrays;
 
@@ -132,9 +133,7 @@ public class MainLCMActivity extends Activity {
 
         sp.close(intSerialPortHandle);
 
-        //   final TextView textViewLCMTestResult = (TextView) findViewById(R.id.textViewLCMTestResult);
 
-        //   textViewLCMTestResult.setText("VFD/LCM Test Result:"+ strTestResult);
 
     }
     @Override
@@ -165,6 +164,11 @@ public class MainLCMActivity extends Activity {
         }
         EditText editTextTTYUSBPath = (EditText)findViewById(R.id.editTextTTY_LCMUSBPath);
         editTextTTYUSBPath.setText(strLCMttyUSBPath);
+
+        String prompt1 = new String(btyUpperString);
+        String prompt2 = new String(btyLowerString);
+        final TextView textViewLCMTestResult = (TextView) findViewById(R.id.textViewLCMTestResult);
+        textViewLCMTestResult.setText("You will see the text on VFD LCM. Please check whether they are correct.\n"+ prompt1+prompt2);
 
     }
     public void LCM_Test_click(View view)
