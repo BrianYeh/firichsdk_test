@@ -73,38 +73,40 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_NFC=5;
     private final int TEST_ITEM_THERMAL_PRINTER=6;
     private final int TEST_ITEM_RFID = 7;
-    private final int TEST_ITEM_HID = 8;
-    private final int TEST_ITEM_THERMAL_PRINTER_D10 = 9;
-    private final int TEST_ITEM_RS232_DEVICE = 10;
+    private final int TEST_ITEM_HID_MSR = 8;
+    private final int TEST_ITEM_HID_IBUTTON = 9;
+    private final int TEST_ITEM_HID_2DBARCODE = 10;
+    private final int TEST_ITEM_THERMAL_PRINTER_D10 = 11;
+    private final int TEST_ITEM_RS232_DEVICE = 12;
 
-    private final int TEST_ITEM_BATTERY = 11;
-    private final int TEST_ITEM_LCM = 12;
-    private final int TEST_ITEM_TP = 13;
-    private final int TEST_ITEM_KEYPAN = 14;
-    private final int TEST_ITEM_WIFI = 15;
-    private final int TEST_ITEM_SENSOR = 16;
-    private final int TEST_ITEM_LIGHT = 17;
-    private final int TEST_ITEM_GYROSCOPE = 18;
-    private final int TEST_ITEM_SPEAKER = 19;
-    private final int TEST_ITEM_MICROPHONE = 20;
-    private final int TEST_ITEM_HEADPHONE = 21;
-    private final int TEST_ITEM_HEADSET = 22;
-    private final int TEST_ITEM_CAMERA_BACK = 23;
-    private final int TEST_ITEM_CAMERA_FRONT = 24;
-    private final int TEST_ITEM_HDMI = 25;
-    private final int TEST_ITEM_OTG = 26;
-    private final int TEST_ITEM_GPS = 27;
-    private final int TEST_ITEM_BT = 28;
-    private final int TEST_ITEM_ULAN = 29;
-    private final int TEST_ITEM_ETHERNET = 30;
-    private final int TEST_ITEM_STORAGE = 31;
-    private final int TEST_ITEM_RTC = 32;
-    private final int TEST_ITEM_DEVICE_INFO = 33;
-    private final int TEST_ITEM_SERIAL_NUMBER = 34;
-    private final int TEST_ITEM_SDCARD = 35;
-    private final int TEST_ITEM_USB_STORAGE = 36;
+    private final int TEST_ITEM_BATTERY = 13;
+    private final int TEST_ITEM_LCM = 14; //Display Test
+    private final int TEST_ITEM_TP = 15;
+    private final int TEST_ITEM_KEYPAN = 16;
+    private final int TEST_ITEM_WIFI = 17;
+    private final int TEST_ITEM_SENSOR = 18;
+    private final int TEST_ITEM_LIGHT = 19;
+    private final int TEST_ITEM_GYROSCOPE = 20;
+    private final int TEST_ITEM_SPEAKER = 21;
+    private final int TEST_ITEM_MICROPHONE = 22;
+    private final int TEST_ITEM_HEADPHONE = 23;
+    private final int TEST_ITEM_HEADSET = 24;
+    private final int TEST_ITEM_CAMERA_BACK = 25;
+    private final int TEST_ITEM_CAMERA_FRONT = 26;
+    private final int TEST_ITEM_HDMI = 27;
+    private final int TEST_ITEM_OTG = 28;
+    private final int TEST_ITEM_GPS = 29;
+    private final int TEST_ITEM_BT = 30;
+    private final int TEST_ITEM_ULAN = 31;
+    private final int TEST_ITEM_ETHERNET = 32;
+    private final int TEST_ITEM_STORAGE = 33;
+    private final int TEST_ITEM_RTC = 34;
+    private final int TEST_ITEM_DEVICE_INFO = 35;
+    private final int TEST_ITEM_SERIAL_NUMBER = 36;
+    private final int TEST_ITEM_SDCARD = 37;
+    private final int TEST_ITEM_USB_STORAGE = 38;
 
-    final private int max_test_items= 37;
+    final private int max_test_items= 39;
 
     private void dump_trace( String bytTrace)
     {
@@ -144,21 +146,52 @@ public class MainActivity extends Activity {
     }
 
 
-        public void FEC_Test_Item(int requestCodeL, String strClassL)
+    public void FEC_Test_Item(int requestCodeL, String strClassL)
     {
+        String strVersion = Build.DISPLAY;
+        boolean contains_android4 = strVersion.contains("4.4.3 2.0.0-rc2.");
         //int requestCode = TEST_ITEM_SYSKING_IC_CARD;
         int requestCode = requestCodeL;
-        if (requestCodeL > 10) { //11-33 =23
-            String strClassThunderSoft = strClassL;
-            Intent intent = new Intent();
-            intent.setAction(strClassThunderSoft);
-            startActivityForResult(intent, requestCode);
-       }else { //0-10 = 11
+        if ((requestCodeL >=TEST_ITEM_BATTERY) && (requestCodeL <=TEST_ITEM_SERIAL_NUMBER) ){ //11-33 =23
+            if (requestCodeL == TEST_ITEM_ETHERNET){
+                String strClass = PACKAGE_NAME + strClassL;
+                Intent intent = new Intent();
+                ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+                intent.setComponent(cn);
+                startActivityForResult(intent, requestCode);
+            }else {
+                if (!contains_android4) {
+                    String strClassThunderSoft = strClassL;
+                    Intent intent = new Intent();
+                    intent.setAction(strClassThunderSoft);
+                    startActivityForResult(intent, requestCode);
+                }else if (contains_android4){ // for debug on freescale platform
+                    NextTestItem = TEST_ITEM_SDCARD-1;
+                    String strClass = PACKAGE_NAME + Class_SDCard;
+                    Intent intent = new Intent();
+                    ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+                    intent.setComponent(cn);
+                    startActivityForResult(intent, requestCode);
+                }
+            }
+       }else {
             // String strClass = PACKAGE_NAME+".MainSysKingICCardActivity";
+            String HIDType="MSR Test";
             String strClass = PACKAGE_NAME + strClassL;
             Intent intent = new Intent();
             ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
             intent.setComponent(cn);
+            switch (requestCodeL) {
+                case TEST_ITEM_HID_MSR:
+                    intent.putExtra("HID_TYPE", "MSR Test");
+                    break;
+                case TEST_ITEM_HID_IBUTTON:
+                    intent.putExtra("HID_TYPE", "IButton Test");
+                    break;
+                case TEST_ITEM_HID_2DBARCODE:
+                    intent.putExtra("HID_TYPE", "2D Barcode Test");
+                    break;
+            }
             startActivityForResult(intent, requestCode);
         }
     }
@@ -260,17 +293,41 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, requestCode);
     }
 
-    public void HID_Test_click(View view)
+    public void HID_MSR_Test_click(View view)
     {
 
-        int requestCode = TEST_ITEM_HID;
+        int requestCode = TEST_ITEM_HID_MSR;
         String strClass = PACKAGE_NAME+".MainHIDActivity";
         Intent intent = new Intent();
-        intent.putExtra("HID_TYPE", "Keyboard Input Test");
+        intent.putExtra("HID_TYPE", "MSR Test");
         ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
         intent.setComponent(cn);
         startActivityForResult(intent, requestCode);
     }
+
+    public void HID_IButton_Test_click(View view)
+    {
+
+        int requestCode = TEST_ITEM_HID_IBUTTON;
+        String strClass = PACKAGE_NAME+".MainHIDActivity";
+        Intent intent = new Intent();
+        intent.putExtra("HID_TYPE", "IButton Test");
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
+    public void HID_2DBarcode_Test_click(View view)
+    {
+
+        int requestCode = TEST_ITEM_HID_2DBARCODE;
+        String strClass = PACKAGE_NAME+".MainHIDActivity";
+        Intent intent = new Intent();
+        intent.putExtra("HID_TYPE", "2D Barcode Test");
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
+
     public void Thermal_Printer_D10_Test_click(View view)
     {
 
@@ -610,13 +667,15 @@ public class MainActivity extends Activity {
             new fec_test_item(TEST_ITEM_NFC, Class_NFC),
             new fec_test_item(TEST_ITEM_THERMAL_PRINTER, Class_ThermalPrinter),
             new fec_test_item(TEST_ITEM_RFID, Class_RFID),
-            new fec_test_item(TEST_ITEM_HID, Class_HID),
+            new fec_test_item(TEST_ITEM_HID_MSR, Class_HID), //8
+            new fec_test_item(TEST_ITEM_HID_IBUTTON, Class_HID),
+            new fec_test_item(TEST_ITEM_HID_2DBARCODE, Class_HID),
             new fec_test_item(TEST_ITEM_THERMAL_PRINTER_D10, Class_ThermalPrinterD10),
 
-            new fec_test_item(TEST_ITEM_RS232_DEVICE, Class_RS232),  //10
+            new fec_test_item(TEST_ITEM_RS232_DEVICE, Class_RS232),  //12
 
             //ThunderSoft test items
-            new fec_test_item(TEST_ITEM_BATTERY      , ACTION_BATTERY),  //11
+            new fec_test_item(TEST_ITEM_BATTERY      , ACTION_BATTERY),  //13
             new fec_test_item(TEST_ITEM_LCM          , ACTION_LCM),
             new fec_test_item(TEST_ITEM_TP           , ACTION_TP),
             new fec_test_item(TEST_ITEM_KEYPAN       , ACTION_KEYPAND),
@@ -654,12 +713,14 @@ public class MainActivity extends Activity {
             ,Class_VFDLCM, Class_NFC, Class_ThermalPrinter, Class_RFID, Class_HID, Class_ThermalPrinterD10, Class_RS232};
     private int fec_test_item_request_code_order[]={TEST_ITEM_SYSKING_IC_CARD, TEST_ITEM_CASH_DRAWER, TEST_ITEM_ID_IC_CARD,
             TEST_ITEM_FINGER_PRINTER, TEST_ITEM_VFD_LCM, TEST_ITEM_NFC,
-            TEST_ITEM_THERMAL_PRINTER, TEST_ITEM_RFID, TEST_ITEM_HID,
+            TEST_ITEM_THERMAL_PRINTER, TEST_ITEM_RFID, TEST_ITEM_HID_MSR,
             TEST_ITEM_THERMAL_PRINTER_D10, TEST_ITEM_RS232_DEVICE};
     */
 
-    int fec_init_test_item =0;
-    int thundersoft_init_test_item=11;
+    int normal_init_item =-1;
+    int debug_init_item = 7;
+    int fec_init_test_item = debug_init_item;
+    //int thundersoft_init_test_item=11;
     int initial_test_item = fec_init_test_item;
     int NextTestItem=initial_test_item+1;
     boolean not_end_test_all = true;
@@ -694,8 +755,14 @@ public class MainActivity extends Activity {
             case TEST_ITEM_RFID:
                 txtResult = (TextView) findViewById(R.id.textViewRFIDTestResult);
                 break;
-            case TEST_ITEM_HID:
-                txtResult = (TextView) findViewById(R.id.textViewHIDTestResult);
+            case TEST_ITEM_HID_MSR:
+                txtResult = (TextView) findViewById(R.id.textViewHIDMSRTestResult);
+                break;
+            case TEST_ITEM_HID_IBUTTON:
+                txtResult = (TextView) findViewById(R.id.textViewHIDIButtonTestResult);
+                break;
+            case TEST_ITEM_HID_2DBARCODE:
+                txtResult = (TextView) findViewById(R.id.textViewHID2DBarcodeTestResult);
                 break;
             case TEST_ITEM_THERMAL_PRINTER_D10:
                 txtResult = (TextView) findViewById(R.id.textViewThermalPrinterD10TestResult);
@@ -1009,7 +1076,9 @@ public class MainActivity extends Activity {
 
     public void FEC_Test_All_Start()
     {
-        NextTestItem = find_next_test_item(-1);
+        //NextTestItem = find_next_test_item(-1);
+        //initial_test_item
+        NextTestItem = find_next_test_item(initial_test_item);
         if (NextTestItem == -1){
             return;
         }

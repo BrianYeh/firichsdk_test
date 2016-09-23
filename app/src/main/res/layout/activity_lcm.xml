@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#aaaaaa"
+    android:background="#555555"
     android:orientation="vertical" >
 
 
@@ -55,6 +55,7 @@
             android:id="@+id/textViewLCMTestResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#555555"
             android:text="You will see the text on VFD LCM. Please check whether they are correct."
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>

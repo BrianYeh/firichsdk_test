@@ -168,7 +168,7 @@ public class MainLCMActivity extends Activity {
         String prompt1 = new String(btyUpperString);
         String prompt2 = new String(btyLowerString);
         final TextView textViewLCMTestResult = (TextView) findViewById(R.id.textViewLCMTestResult);
-        textViewLCMTestResult.setText("You will see the text on VFD LCM. Please check whether they are correct.\n"+ prompt1+prompt2);
+        textViewLCMTestResult.setText("You will see the text on VFD LCM. Please check whether they are correct.\n\n"+ prompt1+prompt2);
 
     }
     public void LCM_Test_click(View view)

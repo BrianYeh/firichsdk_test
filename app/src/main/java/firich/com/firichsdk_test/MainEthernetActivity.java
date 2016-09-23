@@ -244,6 +244,19 @@ public class MainEthernetActivity extends Activity {
                     retryTimes++;
                 } while (!wifiEnableOK && (retryTimes <5));
             }
+            Intent intent = getIntent();
+            if (pingPASS){
+                setResult(1, intent);
+            }else{
+                setResult(0, intent);
+            }
+            try {
+                Thread.sleep(1200);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            finish();
 
         }
     }

@@ -207,6 +207,7 @@
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout_test_item_9"
         android:orientation="horizontal"
@@ -217,20 +218,61 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:layout_gravity="left"
-            android:text="HID Input Test"
-            android:id="@+id/btnHID_Test"
-            android:onClick="HID_Test_click" />
+            android:text="MSR Test"
+            android:id="@+id/btnHIDMSR_Test"
+            android:onClick="HID_MSR_Test_click" />
         <TextView
-            android:id="@+id/textViewHIDTestResult"
+            android:id="@+id/textViewHIDMSRTestResult"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="\?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/linearLayout_test_item_10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_gravity="left"
+            android:text="IButton Test"
+            android:id="@+id/btnHIDIButton_Test"
+            android:onClick="HID_IButton_Test_click" />
+        <TextView
+            android:id="@+id/textViewHIDIButtonTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_11"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_gravity="left"
+            android:text="2D Barcode Test"
+            android:id="@+id/btnHID2DBarcode_Test"
+            android:onClick="HID_2DBarcode_Test_click" />
+        <TextView
+            android:id="@+id/textViewHID2DBarcodeTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_12"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -250,7 +292,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_11"
+        android:id="@+id/linearLayout_test_item_13"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -270,7 +312,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_12"
+        android:id="@+id/linearLayout_test_item_14"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -291,7 +333,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_13"
+        android:id="@+id/linearLayout_test_item_15"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -299,7 +341,7 @@
             android:layout_width="600sp"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-            android:text="LCM and BackLight Test"
+            android:text="Display Test"
             android:id="@+id/btnLCMandBackLight_Test"
             android:onClick="LCMandBackLight_click" />
         <TextView
@@ -312,7 +354,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_14"
+        android:id="@+id/linearLayout_test_item_16"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -332,7 +374,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_15"
+        android:id="@+id/linearLayout_test_item_17"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -352,7 +394,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_16"
+        android:id="@+id/linearLayout_test_item_18"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -372,7 +414,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_17"
+        android:id="@+id/linearLayout_test_item_19"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -394,7 +436,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_18"
+        android:id="@+id/linearLayout_test_item_20"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -414,7 +456,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_19"
+        android:id="@+id/linearLayout_test_item_21"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -435,7 +477,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_20"
+        android:id="@+id/linearLayout_test_item_22"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -456,7 +498,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_21"
+        android:id="@+id/linearLayout_test_item_23"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -476,7 +518,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_22"
+        android:id="@+id/linearLayout_test_item_24"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -497,7 +539,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_23"
+        android:id="@+id/linearLayout_test_item_25"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -517,7 +559,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_24"
+        android:id="@+id/linearLayout_test_item_26"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -537,7 +579,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_25"
+        android:id="@+id/linearLayout_test_item_27"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -557,7 +599,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_26"
+        android:id="@+id/linearLayout_test_item_28"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -578,7 +620,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_27"
+        android:id="@+id/linearLayout_test_item_29"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -598,7 +640,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_28"
+        android:id="@+id/linearLayout_test_item_30"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -619,7 +661,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_29"
+        android:id="@+id/linearLayout_test_item_31"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -639,7 +681,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_30"
+        android:id="@+id/linearLayout_test_item_32"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -659,7 +701,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_31"
+        android:id="@+id/linearLayout_test_item_33"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -679,7 +721,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_32"
+        android:id="@+id/linearLayout_test_item_34"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -699,7 +741,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_33"
+        android:id="@+id/linearLayout_test_item_35"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -719,7 +761,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_34"
+        android:id="@+id/linearLayout_test_item_36"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -739,7 +781,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_35"
+        android:id="@+id/linearLayout_test_item_37"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -759,7 +801,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_36"
+        android:id="@+id/linearLayout_test_item_38"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -780,7 +822,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_test_item_37"
+        android:id="@+id/linearLayout_test_item_39"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
