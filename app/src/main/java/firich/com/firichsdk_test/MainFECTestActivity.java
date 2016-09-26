@@ -24,6 +24,17 @@ public class MainFECTestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fectest);
 
+        /*
+        Test Camera AF Test
+
+        String strVersion = Build.DISPLAY;
+        boolean contains_android4 = strVersion.contains("4.4.3 2.0.0-rc2.");
+        boolean contains_android5 = strVersion.contains("Edelweiss");
+
+        if ((!contains_android4) && (!contains_android5)){
+            fectest_config_path = "/sdcard/data/fec_config/STD_config.xml";
+        }
+        */
         //STD_configUtil.STD_config STD_configObject;
         configFile = new STD_configUtil(fectest_config_path);
         configFile.dom4jXMLParser();

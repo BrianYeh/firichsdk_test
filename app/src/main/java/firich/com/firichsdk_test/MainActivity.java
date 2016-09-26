@@ -105,8 +105,9 @@ public class MainActivity extends Activity {
     private final int TEST_ITEM_SERIAL_NUMBER = 36;
     private final int TEST_ITEM_SDCARD = 37;
     private final int TEST_ITEM_USB_STORAGE = 38;
+    private final int TEST_ITEM_CAMERA_AF=39;
 
-    final private int max_test_items= 39;
+    final private int max_test_items= 40;
 
     private void dump_trace( String bytTrace)
     {
@@ -378,6 +379,15 @@ public class MainActivity extends Activity {
         startActivityForResult(intent, requestCode);
     }
 
+    public void CameraAF_Test_click(View view)
+    {
+        int requestCode = TEST_ITEM_CAMERA_AF;
+        String strClass = PACKAGE_NAME+".MainCameraAFActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
     private static final String THUNDER_SOFT_PACKAGE_NAME = "com.thundersoft.factorytools.hardwaretest";
 
     private final String ACTION_BATTERY = "com.thundersoft.factorytools.hardwaretest.BatteryActivity";
@@ -637,6 +647,7 @@ public class MainActivity extends Activity {
     final String Class_ETHERNET = ".MainEthernetActivity";
     final String Class_SDCard = ".MainSDCardActivity";
     final String Class_USBStorage = ".MainUSBStorageActivity";
+    final String Class_CameraAF = ".MainCameraAFActivity";
 
     //
     private int fec_test_count_index=0;
@@ -704,7 +715,8 @@ public class MainActivity extends Activity {
             new fec_test_item(TEST_ITEM_DEVICE_INFO  , ACTION_DEVICE_INFO),
             new fec_test_item(TEST_ITEM_SERIAL_NUMBER, ACTION_SERIAL_NUMBER),
             new fec_test_item(TEST_ITEM_SDCARD, Class_SDCard), //Brian Added
-            new fec_test_item(TEST_ITEM_USB_STORAGE, Class_USBStorage) //Brian Added
+            new fec_test_item(TEST_ITEM_USB_STORAGE, Class_USBStorage), //Brian Added
+            new fec_test_item(TEST_ITEM_CAMERA_AF, Class_CameraAF) //Brian Added
 
     };
 
@@ -718,8 +730,8 @@ public class MainActivity extends Activity {
     */
 
     int normal_init_item =-1;
-    int debug_init_item = 7;
-    int fec_init_test_item = debug_init_item;
+    int debug_init_item = 37;
+    int fec_init_test_item = normal_init_item;
     //int thundersoft_init_test_item=11;
     int initial_test_item = fec_init_test_item;
     int NextTestItem=initial_test_item+1;
@@ -848,6 +860,9 @@ public class MainActivity extends Activity {
                 break;
             case TEST_ITEM_USB_STORAGE:
                 txtResult = (TextView) findViewById(R.id.textViewUSBStorageTestResult);
+                break;
+            case TEST_ITEM_CAMERA_AF:
+                txtResult = (TextView) findViewById(R.id.textViewCameraAFTestResult);
                 break;
 
         }
