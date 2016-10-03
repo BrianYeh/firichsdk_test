@@ -13,6 +13,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -68,7 +69,8 @@ public class MainRS232Activity extends Activity {
 
         setContentView(R.layout.activity_rs232);
         this.mHandler = new Handler(); //Brian:
-
+//Debug
+        //List_ttyUSB_path();
     }
 
 
@@ -311,5 +313,73 @@ public class MainRS232Activity extends Activity {
         setResult(0, intent); // return code = 0 -> Error
         finish();
     }
+
+    private void List_ttyUSB_path()
+    {
+
+        // PostUIUpdateLog(textViewPingPASS,"Testing...", false );
+        ListTTYUSBPathThread ListTTYUSBPathThreadVar = new ListTTYUSBPathThread();
+        ListTTYUSBPathThreadVar.start();
+    }
+
+    ttyUSBParser ttyUSBParserVar;
+    private class ListTTYUSBPathThread extends Thread {
+        ListTTYUSBPathThread() {
+
+        }
+
+        public void run() {
+            // compute primes larger than minPrime
+            boolean listPASS = false;
+            int retryTimes=0;
+            String ttyUSBPath="";
+            ttyUSBParserVar = new ttyUSBParser();
+            do {
+                listPASS = ttyUSBParserVar.parse_ttyUSB();
+
+                String ttyUSBX = ttyUSBParserVar.get_ttyUSBPath_ExternalDevice_by_contain_1_7();
+                String[] ttyUSBCOM = ttyUSBParserVar.get_USBCOM_by_contain_1_4();
+                //ttyUSBPath = listTTYUSB();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                retryTimes++;
+           // } while (ttyUSBPath.isEmpty() && (retryTimes <2));
+            } while (!listPASS && (retryTimes <2));
+            String strResult="FAIL!";
+            if (listPASS){
+                strResult = "PASS";
+            }
+            //PostUIUpdateLog(textViewPingPASS,strResult, pingPASS );
+        }
+    }
+
+    public String listTTYUSB() {
+        File folder = new File("/sys/class/tty");
+        File[] listOfFiles = folder.listFiles();
+
+        String ttyUSBFile="";
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                System.out.println("File " + listOfFiles[i].getName());
+                String tempFile = listOfFiles[i].getName();
+                if (tempFile.contains("ttyUSB")) {
+                    ttyUSBFile = listOfFiles[i].getName() + "\n";
+                }
+            } else if (listOfFiles[i].isDirectory()) {
+                System.out.println("Directory " + listOfFiles[i].getName());
+                String tempFolder = listOfFiles[i].getName();
+                if (tempFolder.contains("ttyUSB")) {
+                    ttyUSBFile += listOfFiles[i].getName() + "\n";
+                }
+            }
+        }
+        return ttyUSBFile;
+    }
+
+
 
 }
