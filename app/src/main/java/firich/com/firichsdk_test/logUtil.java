@@ -68,7 +68,8 @@ public class logUtil {
             if (logFile.exists()) {
                 findFeclogFile = true;
                 findFeclogFileFlag = true;
-                pathReal = strStorage + strDisk + "/" + "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
+                //pathReal = strStorage + strDisk + "/" + "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
+                pathReal = strStorage + strDisk + "/log/" + "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
                 break;
             }
             diskNumber++;

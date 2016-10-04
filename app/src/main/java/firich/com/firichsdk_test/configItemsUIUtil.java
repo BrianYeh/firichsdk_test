@@ -27,6 +27,8 @@ public class configItemsUIUtil {
 
     class configItemUI{
         public String name;
+        public String className;
+        public String packageName;
         public String id;
         public boolean test;
     }
@@ -82,11 +84,18 @@ public class configItemsUIUtil {
                 dump_trace("name: " + child.attributeValue("name"));
                 configItemUIObj = new configItemUI();
                 configItemUIObj.name = child.attributeValue("name");
+                configItemUIObj.className = child.attributeValue("class");
+                configItemUIObj.packageName = child.attributeValue("package");
                 id = Integer.toString(i);
                 configItemUIObj.id = id;
                 configItemUIObj.test = Boolean.parseBoolean(child.attributeValue("test"));
                 hashtableConfigUI.put(id, configItemUIObj); //key is "id"
                 i++;
+                //Debug
+
+                if (i> 13){
+                    break;
+                }
 
             }
         } catch (DocumentException e) {

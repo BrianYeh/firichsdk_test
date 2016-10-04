@@ -19,8 +19,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-
-
     <application
         android:name=".FECApplication"
         android:allowBackup="true"
@@ -38,12 +36,22 @@
             -->
         </activity>
         <activity
-            android:name=".IDICCard"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.IDICCard"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.IDICCard" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".UareUSampleJava"
+            android:name="firich.com.firichsdk_test.UareUSampleJava"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.UareUSampleJava" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".GetReaderActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -61,67 +69,120 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainNFCActivity"
+            android:name="firich.com.firichsdk_test.MainNFCActivity"
             android:exported="true">
 
-            <!--
             <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="firich.com.firichsdk_test.MainNFCActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-            -->
         </activity>
         <activity
-            android:name=".MainThermalPrinterActivity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainThermalPrinterActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainThermalPrinterActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainLCMActivity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainLCMActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainLCMActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainCashDrawerActivity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainCashDrawerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainCashDrawerActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainSysKingICCardActivity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainSysKingICCardActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainSysKingICCardActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainRFIDActivity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainRFIDActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainRFIDActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainHIDActivity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainHIDActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainHIDActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainThermalPrinterD10Activity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainThermalPrinterD10Activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainThermalPrinterD10Activity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainRS232Activity"
-            android:exported="true" />
+            android:name="firich.com.firichsdk_test.MainRS232Activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainRS232Activity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <activity android:name=".MainFECTestActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".MainEthernetActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainSDCardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainUSBStorageActivity"
-            android:exported="true" />
-        <activity android:name=".MainCameraAFActivity"
+            android:name="firich.com.firichsdk_test.MainEthernetActivity"
             android:exported="true">
-            <!--
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="firich.com.firichsdk_test.MainEthernetActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-            -->
         </activity>
+        <activity
+            android:name="firich.com.firichsdk_test.MainSDCardActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainSDCardActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="firich.com.firichsdk_test.MainUSBStorageActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainUSBStorageActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="firich.com.firichsdk_test.MainCameraAFActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="firich.com.firichsdk_test.MainCameraAFActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>

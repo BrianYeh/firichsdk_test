@@ -133,9 +133,16 @@ public class MainFECTestActivity extends Activity {
     public void FEC_Test_6_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("6");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
     public void FEC_Test_7_click(View view)
     {
