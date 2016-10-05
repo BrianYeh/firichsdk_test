@@ -40,7 +40,7 @@
                 android:layout_weight="8"
                 android:text="IC Card(SysKing) Test"
                 android:id="@+id/btnTestItem1"
-                android:onClick="FEC_Test_item_1_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_1TestResult"
                 android:layout_width="100sp"
@@ -61,7 +61,7 @@
                 android:layout_weight="8"
                 android:text="Cash Drawer Test"
                 android:id="@+id/btnTestItem2"
-                android:onClick="FEC_Test_item_2_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_2TestResult"
                 android:layout_width="100sp"
@@ -81,7 +81,7 @@
                 android:layout_weight="8"
                 android:text="IDTech IC Card Test"
                 android:id="@+id/btnTestItem3"
-                android:onClick="FEC_Test_item_3_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_3TestResult"
                 android:layout_width="100sp"
@@ -102,7 +102,7 @@
                 android:text="Finger Printer Test"
                 android:id="@+id/btnTestItem4"
 
-                android:onClick="FEC_Test_item_4_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_4TestResult"
                 android:layout_width="100sp"
@@ -134,7 +134,7 @@
                 android:layout_weight="8"
                 android:text="VFD LCM Test"
                 android:id="@+id/btnTestItem5"
-                android:onClick="FEC_Test_item_5_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_5TestResult"
                 android:layout_width="100sp"
@@ -155,7 +155,7 @@
                 android:layout_weight="8"
                 android:text="NFC Test"
                 android:id="@+id/btnTestItem6"
-                android:onClick="FEC_Test_item_6_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_6TestResult"
                 android:layout_width="100sp"
@@ -177,7 +177,7 @@
                 android:layout_gravity="left"
                 android:text="Thermal Printer Test"
                 android:id="@+id/btnTestItem7"
-                android:onClick="FEC_Test_item_7_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_7TestResult"
                 android:layout_width="100sp"
@@ -198,7 +198,7 @@
                 android:layout_weight="8"
                 android:text="RFID Test"
                 android:id="@+id/btnTestItem8"
-                android:onClick="FEC_Test_item_8_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_8TestResult"
                 android:layout_width="100sp"
@@ -220,7 +220,7 @@
                 android:layout_gravity="left"
                 android:text="MSR Test"
                 android:id="@+id/btnTestItem9"
-                android:onClick="FEC_Test_item_9_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_9TestResult"
                 android:layout_width="100sp"
@@ -241,7 +241,7 @@
                 android:layout_gravity="left"
                 android:text="IButton Test"
                 android:id="@+id/btnTestItem10"
-                android:onClick="FEC_Test_item_10_Test_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_10TestResult"
                 android:layout_width="100sp"
@@ -262,7 +262,7 @@
                 android:layout_gravity="left"
                 android:text="2D Barcode Test"
                 android:id="@+id/btnTestItem11"
-                android:onClick="FEC_Test_item_11_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_11TestResult"
                 android:layout_width="100sp"
@@ -282,7 +282,7 @@
                 android:layout_weight="8"
                 android:text="Thermal Printer D10 Test"
                 android:id="@+id/btnTestItem12"
-                android:onClick="FEC_Test_item_12_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_12TestResult"
                 android:layout_width="100sp"
@@ -302,7 +302,7 @@
                 android:layout_weight="8"
                 android:text="RS232 Test"
                 android:id="@+id/btnTestItem13"
-                android:onClick="FEC_Test_item_13_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
                 android:id="@+id/textViewFEC_Test_item_13TestResult"
                 android:layout_width="100sp"
@@ -322,9 +322,9 @@
                 android:layout_weight="8"
                 android:text="Battery Test"
                 android:id="@+id/btnTestItem14"
-                android:onClick="Battery_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewBatteryTestResult"
+                android:id="@+id/textViewFEC_Test_item_14TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -343,9 +343,9 @@
                 android:layout_weight="8"
                 android:text="Display Test"
                 android:id="@+id/btnTestItem15"
-                android:onClick="LCMandBackLight_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewLCMandBackLightTestResult"
+                android:id="@+id/textViewFEC_Test_item_15TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -364,9 +364,9 @@
                 android:layout_weight="8"
                 android:text="Touch Panel Test"
                 android:id="@+id/btnTestItem16"
-                android:onClick="TouchPanel_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewTouchPanelTestResult"
+                android:id="@+id/textViewFEC_Test_item_16TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -384,9 +384,9 @@
                 android:text="Key Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem17"
-                android:onClick="KeyTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewKeyTestResult"
+                android:id="@+id/textViewFEC_Test_item_17TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -404,9 +404,9 @@
                 android:text="Wifi Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem18"
-                android:onClick="WifiTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewWifiTestResult"
+                android:id="@+id/textViewFEC_Test_item_18TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -424,9 +424,9 @@
                 android:text="ASensor Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem19"
-                android:onClick="ASensorTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewASensorTestResult"
+                android:id="@+id/textViewFEC_Test_item_19TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -446,9 +446,9 @@
                 android:text="LightSensor Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem20"
-                android:onClick="LightSensorTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewLightSensorTestResult"
+                android:id="@+id/textViewFEC_Test_item_20TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -466,9 +466,9 @@
                 android:text="GyroscopeSensor Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem21"
-                android:onClick="GyroscopeSensorTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewGyroscopeSensorTestResult"
+                android:id="@+id/textViewFEC_Test_item_21TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -487,9 +487,9 @@
                 android:text="SPEAKER Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem22"
-                android:onClick="SPEAKERTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewSPEAKERTestResult"
+                android:id="@+id/textViewFEC_Test_item_22TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -508,9 +508,9 @@
                 android:text="DMic(MICROPHONE) Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem23"
-                android:onClick="MICROPHONETest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewMICROPHONETestResult"
+                android:id="@+id/textViewFEC_Test_item_23TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -528,9 +528,9 @@
                 android:text="HEADPHONE Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem24"
-                android:onClick="HEADPHONETest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewHEADPHONETestResult"
+                android:id="@+id/textViewFEC_Test_item_24TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -549,9 +549,9 @@
                 android:text="AMIC(HEADSET) Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem25"
-                android:onClick="HEADSETTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewHEADSETTestResult"
+                android:id="@+id/textViewFEC_Test_item_25TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -569,9 +569,9 @@
                 android:text="Back Camera and Flash Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem26"
-                android:onClick="CAMERA_BACKTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewCAMERA_BACKTestResult"
+                android:id="@+id/textViewFEC_Test_item_26TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -589,9 +589,9 @@
                 android:text="Front Camera Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem27"
-                android:onClick="CAMERA_FRONTTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewCAMERA_FRONTTestResult"
+                android:id="@+id/textViewFEC_Test_item_27TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -609,9 +609,9 @@
                 android:text="HDMI Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem28"
-                android:onClick="HDMITest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewHDMITestResult"
+                android:id="@+id/textViewFEC_Test_item_28TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -630,9 +630,9 @@
                 android:text="OTG Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem29"
-                android:onClick="OTGTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewOTGTestResult"
+                android:id="@+id/textViewFEC_Test_item_29TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -650,9 +650,9 @@
                 android:text="GPS Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem30"
-                android:onClick="GPSTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewGPSTestResult"
+                android:id="@+id/textViewFEC_Test_item_30TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -671,9 +671,9 @@
                 android:text="BT Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem31"
-                android:onClick="BTTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewBTTestResult"
+                android:id="@+id/textViewFEC_Test_item_31TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -691,9 +691,9 @@
                 android:text="USB LAN Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem32"
-                android:onClick="ULANTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewULANTestResult"
+                android:id="@+id/textViewFEC_Test_item_32TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -711,9 +711,9 @@
                 android:text="Ethernet Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem33"
-                android:onClick="EthernetTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewEthernetTestResult"
+                android:id="@+id/textViewFEC_Test_item_33TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -731,9 +731,9 @@
                 android:text="STORAGE Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem34"
-                android:onClick="STORAGETest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewSTORAGETestResult"
+                android:id="@+id/textViewFEC_Test_item_34TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -751,9 +751,9 @@
                 android:text="RTC Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem35"
-                android:onClick="RTCTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewRTCTestResult"
+                android:id="@+id/textViewFEC_Test_item_35TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -771,9 +771,9 @@
                 android:text="Device Info Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem36"
-                android:onClick="DEVICE_INFOTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewDEVICE_INFOTestResult"
+                android:id="@+id/textViewFEC_Test_item_36TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -791,9 +791,9 @@
                 android:text="Input SERIAL NUMBER Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem37"
-                android:onClick="SERIAL_NUMBERTest_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewSERIAL_NUMBERTestResult"
+                android:id="@+id/textViewFEC_Test_item_37TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -811,9 +811,9 @@
                 android:text="SDCard"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem38"
-                android:onClick="SDCard_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewSDCardTestResult"
+                android:id="@+id/textViewFEC_Test_item_38TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -832,9 +832,9 @@
                 android:text="USB Storage"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem39"
-                android:onClick="USBStorage_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewUSBStorageTestResult"
+                android:id="@+id/textViewFEC_Test_item_39TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -853,9 +853,9 @@
                 android:text="Camera AF Test"
                 android:layout_weight="8"
                 android:id="@+id/btnTestItem40"
-                android:onClick="CameraAF_Test_click" />
+                android:onClick="FEC_Test_item_click" />
             <TextView
-                android:id="@+id/textViewCameraAFTestResult"
+                android:id="@+id/textViewFEC_Test_item_40TestResult"
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
