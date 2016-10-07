@@ -48,7 +48,7 @@
                 android:ems="10"
                 android:background="#FFFFFF"
                 android:textColor="#000000"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:text="Please input some text here..." />
         </ScrollView>
     </LinearLayout>

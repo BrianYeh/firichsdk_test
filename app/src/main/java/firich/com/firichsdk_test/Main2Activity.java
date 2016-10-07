@@ -540,9 +540,9 @@ public class Main2Activity extends Activity {
 
 
     int normal_init_item =-1;
-    int debug_init_item = 37;
+    int debug_init_item = 9;//37;
     int fec_init_test_item = normal_init_item;
-    //int thundersoft_init_test_item=11;
+   // int fec_init_test_item = debug_init_item;
     int initial_test_item = fec_init_test_item;
     int NextTestItem=initial_test_item+1;
     boolean not_end_test_all = true;
@@ -649,6 +649,9 @@ public class Main2Activity extends Activity {
         int NextTestItemL=0;
         boolean NeedTest = false;
         NextTestItemL = CurrentTestItem+1;
+        //Debug on Android 4.4
+        String strVersion = Build.DISPLAY;
+        boolean contains_android4 = strVersion.contains("4.4.3 2.0.0-rc2.");
         do {
 
             not_end_test_all = (NextTestItemL != end_test_item);
@@ -656,7 +659,17 @@ public class Main2Activity extends Activity {
 
                 NeedTest = fec_test_items_order[NextTestItemL].test;
                 if(NeedTest){
-                    break;
+                    if (!contains_android4) {
+                        break;
+                    }else{
+                        boolean IsTSPackage = fec_test_items_order[NextTestItemL].fec_test_item_package.contains(THUNDER_SOFT_PACKAGE_NAME);
+                        if (IsTSPackage){
+                            NextTestItemL++;// skip thunder soft test item on Freescale platform.
+                            NeedTest = false;
+                        }else{
+                            break;
+                        }
+                    }
                 }else{
                     NextTestItemL++;
                 }
