@@ -13,6 +13,10 @@ public class MainFECTestActivity extends Activity {
 
     // Test items
     private final int FEC_TEST_ALL=0;
+    private final int FEC_IQC_TEST=1;
+    private final int FEC_T0_TEST=2;
+    private final int FEC_T2_TEST=3;
+    private final int FEC_USB_TEST=4;
 
     private final String PACKAGE_NAME = "firich.com.firichsdk_test";
     private String fectest_config_path = "/data/fec_config/STD_config.xml";
@@ -94,7 +98,7 @@ public class MainFECTestActivity extends Activity {
 
         ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
         //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
         startActivityForResult(intent, requestCode);
@@ -103,32 +107,60 @@ public class MainFECTestActivity extends Activity {
     public void FEC_Test_2_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("2");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
 
     public void FEC_Test_3_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("3");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
 
     public void FEC_Test_4_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("4");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
     public void FEC_Test_5_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("5");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
     public void FEC_Test_6_click(View view)
     {
@@ -147,30 +179,58 @@ public class MainFECTestActivity extends Activity {
     public void FEC_Test_7_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("7");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
     public void FEC_Test_8_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("8");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
     public void FEC_Test_9_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("9");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
     public void FEC_Test_10_click(View view)
     {
 
-        Intent intent = new Intent(MainFECTestActivity.this, MainActivity.class);
+        String fectest_config_file_name = "/data/fec_config/fectest_config.xml";
+        STD_configObject = configFile.getConfig("10");
+        fectest_config_file_name = getFEC_config_file_name(STD_configObject);
+
+        ((FECApplication) this.getApplication()).setFEC_config_path(fectest_config_file_name);
+
+        Intent intent = new Intent(MainFECTestActivity.this, Main2Activity.class);
+        //intent.putExtra("config_file",fectest_config_path );
         int requestCode = FEC_TEST_ALL;
-        //startActivityForResult(intent, requestCode);
+        startActivityForResult(intent, requestCode);
     }
 
 }

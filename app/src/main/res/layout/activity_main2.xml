@@ -875,6 +875,7 @@
                 android:textColor="#ffffff"
                 android:text="Copy test log to UDisk."
                 android:layout_weight="8"
+                android:textSize="24sp"
                 android:id="@+id/copyto_udisk"
                 android:onClick="copyto_udisk_click" />
             <TextView

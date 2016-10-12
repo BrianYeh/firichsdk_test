@@ -737,6 +737,7 @@ public class Main2Activity extends Activity {
                 String buttonID = "btnTestItem" + Integer.toString(btnTestItemid);;
                 int resBtnID = getResources().getIdentifier(buttonID, "id", "firich.com.firichsdk_test");
                 Button buttonConfig = (Button) findViewById(resBtnID);
+               // buttonConfig.setTextSize(TypedValue.COMPLEX_UNIT_PX, 24);
                 buttonConfig.setText(fec_test_items_order[id].UIDescription);
             }
         }
