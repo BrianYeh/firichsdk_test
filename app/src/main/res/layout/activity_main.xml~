@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#555555">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#555555"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayoutFactory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="500sp"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:layout_weight="6"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Factory Test"
+            android:textColor="#FFFFFF" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="IC Card(SysKing) Test"
+            android:id="@+id/btnICCardSysKing_Test"
+            android:onClick="IC_Card_SysKing_Test_click" />
+        <TextView
+            android:id="@+id/textViewICCardSysKingTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Cash Drawer Test"
+            android:id="@+id/btnCashDrawer_Test"
+            android:onClick="CashDrawer_Test_click" />
+        <TextView
+            android:id="@+id/textViewCashDrawerTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="IDTech IC Card Test"
+            android:id="@+id/btnIDICCard_Test"
+            android:onClick="ID_ICCard_Test_click" />
+        <TextView
+            android:id="@+id/textViewIDICCardTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Finger Printer Test"
+            android:id="@+id/btnFingerPrinter_Test"
+
+            android:onClick="FingerPrinter_Test_click" />
+        <TextView
+            android:id="@+id/textViewFingerPrintTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_5"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <!--
+        <EditText
+            android:id="@+id/editTextTTY_LCMUSBPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="/dev/ttyUSB2" />
+            -->
+
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="VFD LCM Test"
+            android:id="@+id/btnLCM_Test"
+            android:onClick="VFD_LCM_Test_click" />
+        <TextView
+            android:id="@+id/textViewLCMTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_6"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="NFC Test"
+            android:id="@+id/btnNFC_Test"
+            android:onClick="NFC_Test_click" />
+        <TextView
+            android:id="@+id/textViewNFCTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_7"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_gravity="left"
+            android:text="Thermal Printer Test"
+            android:id="@+id/btnThermalPrinter_Test"
+            android:onClick="ThermalPrinter_Test_click" />
+        <TextView
+            android:id="@+id/textViewThermalPrinterTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_8"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="8"
+            android:text="RFID Test"
+            android:id="@+id/btnRFID_Test"
+            android:onClick="RFID_Test_click" />
+        <TextView
+            android:id="@+id/textViewRFIDTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_9"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_gravity="left"
+            android:text="MSR Test"
+            android:id="@+id/btnHIDMSR_Test"
+            android:onClick="HID_MSR_Test_click" />
+        <TextView
+            android:id="@+id/textViewHIDMSRTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_gravity="left"
+            android:text="IButton Test"
+            android:id="@+id/btnHIDIButton_Test"
+            android:onClick="HID_IButton_Test_click" />
+        <TextView
+            android:id="@+id/textViewHIDIButtonTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_11"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_gravity="left"
+            android:text="2D Barcode Test"
+            android:id="@+id/btnHID2DBarcode_Test"
+            android:onClick="HID_2DBarcode_Test_click" />
+        <TextView
+            android:id="@+id/textViewHID2DBarcodeTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_12"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Thermal Printer D10 Test"
+            android:id="@+id/btnThermalPrinterD10_Test"
+            android:onClick="Thermal_Printer_D10_Test_click" />
+        <TextView
+            android:id="@+id/textViewThermalPrinterD10TestResult"
+            android:layout_width="100sp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_13"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="RS232 Test"
+            android:id="@+id/btnRS232_Test"
+            android:onClick="RS232_device_click" />
+        <TextView
+            android:id="@+id/textViewRS232TestResult"
+            android:layout_width="100sp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_14"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Battery Test"
+            android:id="@+id/btnBattery_Test"
+            android:onClick="Battery_click" />
+        <TextView
+            android:id="@+id/textViewBatteryTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_15"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="LCM and BackLight Test"
+            android:id="@+id/btnLCMandBackLight_Test"
+            android:onClick="LCMandBackLight_click" />
+        <TextView
+            android:id="@+id/textViewLCMandBackLightTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_16"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Touch Panel Test"
+            android:id="@+id/btnTouchPanel_Test"
+            android:onClick="TouchPanel_click" />
+        <TextView
+            android:id="@+id/textViewTouchPanelTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_17"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Key Test"
+            android:layout_weight="8"
+            android:id="@+id/btnKey_Test"
+            android:onClick="KeyTest_click" />
+        <TextView
+            android:id="@+id/textViewKeyTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_18"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Wifi Test"
+            android:layout_weight="8"
+            android:id="@+id/btnWifi_Test"
+            android:onClick="WifiTest_click" />
+        <TextView
+            android:id="@+id/textViewWifiTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_17"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="ASensor Test"
+            android:layout_weight="8"
+            android:id="@+id/btnASensor_Test"
+            android:onClick="ASensorTest_click" />
+        <TextView
+            android:id="@+id/textViewASensorTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_18"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="LightSensor Test"
+            android:layout_weight="8"
+            android:id="@+id/btnLightSensor_Test"
+            android:onClick="LightSensorTest_click" />
+        <TextView
+            android:id="@+id/textViewLightSensorTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_19"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="GyroscopeSensor Test"
+            android:layout_weight="8"
+            android:id="@+id/btnGyroscopeSensor_Test"
+            android:onClick="GyroscopeSensorTest_click" />
+        <TextView
+            android:id="@+id/textViewGyroscopeSensorTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_20"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="SPEAKER Test"
+            android:layout_weight="8"
+            android:id="@+id/btnSPEAKER_Test"
+            android:onClick="SPEAKERTest_click" />
+        <TextView
+            android:id="@+id/textViewSPEAKERTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_21"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="DMic(MICROPHONE) Test"
+            android:layout_weight="8"
+            android:id="@+id/btnMICROPHONE_Test"
+            android:onClick="MICROPHONETest_click" />
+        <TextView
+            android:id="@+id/textViewMICROPHONETestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_22"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="HEADPHONE Test"
+            android:layout_weight="8"
+            android:id="@+id/btnHEADPHONE_Test"
+            android:onClick="HEADPHONETest_click" />
+        <TextView
+            android:id="@+id/textViewHEADPHONETestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_23"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="AMIC(HEADSET) Test"
+            android:layout_weight="8"
+            android:id="@+id/btnHEADSET_Test"
+            android:onClick="HEADSETTest_click" />
+        <TextView
+            android:id="@+id/textViewHEADSETTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_24"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Back Camera and Flash Test"
+            android:layout_weight="8"
+            android:id="@+id/btnCAMERA_BACK_Test"
+            android:onClick="CAMERA_BACKTest_click" />
+        <TextView
+            android:id="@+id/textViewCAMERA_BACKTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_25"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Front Camera Test"
+            android:layout_weight="8"
+            android:id="@+id/btnCAMERA_FRONT_Test"
+            android:onClick="CAMERA_FRONTTest_click" />
+        <TextView
+            android:id="@+id/textViewCAMERA_FRONTTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_26"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="HDMI Test"
+            android:layout_weight="8"
+            android:id="@+id/btnHDMI_Test"
+            android:onClick="HDMITest_click" />
+        <TextView
+            android:id="@+id/textViewHDMITestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_27"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="OTG Test"
+            android:layout_weight="8"
+            android:id="@+id/btnOTG_Test"
+            android:onClick="OTGTest_click" />
+        <TextView
+            android:id="@+id/textViewOTGTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_28"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="GPS Test"
+            android:layout_weight="8"
+            android:id="@+id/btnGPS_Test"
+            android:onClick="GPSTest_click" />
+        <TextView
+            android:id="@+id/textViewGPSTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_29"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="BT Test"
+            android:layout_weight="8"
+            android:id="@+id/btnBT_Test"
+            android:onClick="BTTest_click" />
+        <TextView
+            android:id="@+id/textViewBTTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_30"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="USB LAN Test"
+            android:layout_weight="8"
+            android:id="@+id/ULANnULAN_Test"
+            android:onClick="ULANTest_click" />
+        <TextView
+            android:id="@+id/textViewULANTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_31"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Ethernet Test"
+            android:layout_weight="8"
+            android:id="@+id/Ethernet_Test"
+            android:onClick="EthernetTest_click" />
+        <TextView
+            android:id="@+id/textViewEthernetTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_32"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="STORAGE Test"
+            android:layout_weight="8"
+            android:id="@+id/STORAGEnSTORAGE_Test"
+            android:onClick="STORAGETest_click" />
+        <TextView
+            android:id="@+id/textViewSTORAGETestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_33"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="RTC Test"
+            android:layout_weight="8"
+            android:id="@+id/RTCnRTC_Test"
+            android:onClick="RTCTest_click" />
+        <TextView
+            android:id="@+id/textViewRTCTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_34"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Device Info Test"
+            android:layout_weight="8"
+            android:id="@+id/DEVICE_INFOnDEVICE_INFO_Test"
+            android:onClick="DEVICE_INFOTest_click" />
+        <TextView
+            android:id="@+id/textViewDEVICE_INFOTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_35"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="Input SERIAL NUMBER Test"
+            android:layout_weight="8"
+            android:id="@+id/SERIAL_NUMBERnSERIAL_NUMBER_Test"
+            android:onClick="SERIAL_NUMBERTest_click" />
+        <TextView
+            android:id="@+id/textViewSERIAL_NUMBERTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_36"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="SDCard"
+            android:layout_weight="8"
+            android:id="@+id/SDCard_Test"
+            android:onClick="SDCard_click" />
+        <TextView
+            android:id="@+id/textViewSDCardTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_test_item_37"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:text="USB Storage"
+            android:layout_weight="8"
+            android:id="@+id/USBStorage_Test"
+            android:onClick="USBStorage_click" />
+        <TextView
+            android:id="@+id/textViewUSBStorageTestResult"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="\?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_copyto_udisk"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="600sp"
+            android:layout_height="wrap_content"
+            android:background="#111111"
+            android:textColor="#ffffff"
+            android:text="Copy test log to UDisk."
+            android:layout_weight="8"
+            android:id="@+id/copyto_udisk"
+            android:onClick="copyto_udisk_click" />
+        <TextView
+            android:id="@+id/textViewcopyto_udisk"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Not yet."
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

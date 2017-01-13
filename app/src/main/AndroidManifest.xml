@@ -184,7 +184,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity"
-            android:theme="@style/MyTheme">
+            android:theme="@style/MyTheme"
+            android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
     </application>
 

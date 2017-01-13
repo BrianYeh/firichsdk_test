@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -210,15 +209,16 @@ public class Main2Activity extends Activity {
         if (!IsHIDClass){
 
                 if (!contains_android4) {
-                    String strClassAction = fec_test_items_order[requestCodeL].fec_test_item_package+fec_test_items_order[requestCodeL].fec_test_item_class;
+                    String strClassThunderSoft = strClassL;
                     Intent intent = new Intent();
-                    intent.setAction(strClassAction);
+                    intent.setAction(strClassThunderSoft);
                     startActivityForResult(intent, requestCode);
                 }else if (contains_android4){ // for debug on freescale platform
-                    //NextTestItem = TEST_ITEM_SDCARD-1;
-                    String strClassAction = fec_test_items_order[requestCodeL].fec_test_item_package+fec_test_items_order[requestCodeL].fec_test_item_class;
+                    NextTestItem = TEST_ITEM_SDCARD-1;
+                    String strClass = PACKAGE_NAME + Class_SDCard;
                     Intent intent = new Intent();
-                    intent.setAction(strClassAction);
+                    ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+                    intent.setComponent(cn);
                     startActivityForResult(intent, requestCode);
                 }
         }else {
@@ -413,7 +413,45 @@ public class Main2Activity extends Activity {
     }
 
 
-  
+    public void EthernetTest_click(View view)
+    {
+        int requestCode = TEST_ITEM_ETHERNET;
+        String strClass = PACKAGE_NAME+".MainEthernetActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
+
+    public void SDCard_click(View view)
+    {
+        int requestCode = TEST_ITEM_SDCARD;
+        String strClass = PACKAGE_NAME+".MainSDCardActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
+
+    public void USBStorage_click(View view)
+    {
+        int requestCode = TEST_ITEM_USB_STORAGE;
+        String strClass = PACKAGE_NAME+".MainUSBStorageActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
+
+    public void CameraAF_Test_click(View view)
+    {
+        int requestCode = TEST_ITEM_CAMERA_AF;
+        String strClass = PACKAGE_NAME+".MainCameraAFActivity";
+        Intent intent = new Intent();
+        ComponentName cn = new ComponentName(PACKAGE_NAME, strClass);
+        intent.setComponent(cn);
+        startActivityForResult(intent, requestCode);
+    }
     private static final String THUNDER_SOFT_PACKAGE_NAME = "com.thundersoft.factorytools.hardwaretest";
 
     private final String ACTION_BATTERY = "com.thundersoft.factorytools.hardwaretest.BatteryActivity";
@@ -541,9 +579,9 @@ public class Main2Activity extends Activity {
 
 
     int normal_init_item =-1;
-    int debug_init_item = 9;//37;
+    int debug_init_item = 37;
     int fec_init_test_item = normal_init_item;
-   // int fec_init_test_item = debug_init_item;
+    //int thundersoft_init_test_item=11;
     int initial_test_item = fec_init_test_item;
     int NextTestItem=initial_test_item+1;
     boolean not_end_test_all = true;
@@ -650,9 +688,6 @@ public class Main2Activity extends Activity {
         int NextTestItemL=0;
         boolean NeedTest = false;
         NextTestItemL = CurrentTestItem+1;
-        //Debug on Android 4.4
-        String strVersion = Build.DISPLAY;
-        boolean contains_android4 = strVersion.contains("4.4.3 2.0.0-rc2.");
         do {
 
             not_end_test_all = (NextTestItemL != end_test_item);
@@ -660,17 +695,7 @@ public class Main2Activity extends Activity {
 
                 NeedTest = fec_test_items_order[NextTestItemL].test;
                 if(NeedTest){
-                    if (!contains_android4) {
-                        break;
-                    }else{
-                        boolean IsTSPackage = fec_test_items_order[NextTestItemL].fec_test_item_package.contains(THUNDER_SOFT_PACKAGE_NAME);
-                        if (IsTSPackage){
-                            NextTestItemL++;// skip thunder soft test item on Freescale platform.
-                            NeedTest = false;
-                        }else{
-                            break;
-                        }
-                    }
+                    break;
                 }else{
                     NextTestItemL++;
                 }
@@ -738,7 +763,6 @@ public class Main2Activity extends Activity {
                 String buttonID = "btnTestItem" + Integer.toString(btnTestItemid);;
                 int resBtnID = getResources().getIdentifier(buttonID, "id", "firich.com.firichsdk_test");
                 Button buttonConfig = (Button) findViewById(resBtnID);
-               // buttonConfig.setTextSize(TypedValue.COMPLEX_UNIT_PX, 24);
                 buttonConfig.setText(fec_test_items_order[id].UIDescription);
             }
         }
@@ -839,7 +863,7 @@ public class Main2Activity extends Activity {
 
     public void FEC_Clear_ALL_UI_Test_Result()
     {
-        TextView txtResult =(TextView) findViewById(R.id.textViewFEC_Test_item_1TestResult);
+        TextView txtResult =(TextView) findViewById(R.id.textViewNFCTestResult);
         for (int i=0; i< max_test_items;i++){
             txtResult = getTextViewFromRequestCode(i);
 
@@ -885,14 +909,6 @@ public class Main2Activity extends Activity {
         logUtill.appendLog("["+ date +"]"+ logString);
     }
     */
-    @Override
-    public void onConfigurationChanged(Configuration newConfig){
-        super.onConfigurationChanged(newConfig);
-
-        // Checks the orientation of the screen
-        dump_trace("onConfigurationChanged:");
-    }
-
     /** Called just before the activity is destroyed. */
     @Override
     public void onDestroy() {
