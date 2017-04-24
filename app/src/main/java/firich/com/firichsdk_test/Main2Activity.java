@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,6 +38,9 @@ import java.util.Enumeration;
 
 import firich.com.firichsdk.SerialPort;
 import firich.com.firichsdk.SunComm;
+import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileOutputStream;
 
 //for IDTech IC Card test
 //
@@ -53,6 +58,7 @@ public class Main2Activity extends Activity {
 
 
     private boolean bDebugOn = true;
+    InternallogUtil g_InternallogUtil;
 
     // 測試項目順序和 config file 是一個一對一的 mapping.
     // 修改測試順序,
@@ -702,6 +708,32 @@ public class Main2Activity extends Activity {
         }
         */
     }
+
+
+    configServer g_configServer;
+    configServer.configSettings g_configSettingsObj;
+    private void SetUpdateLogServer()
+    {
+        g_configServer = new configServer();
+
+        g_configServer.dom4jXMLParser();
+        g_configSettingsObj = g_configServer.getConfigSettings("0"); //only one setting
+        /*
+        //int id=0;
+        for (Enumeration<configServer.configSettings> e = g_configServer.getHashtableConfigSettings().elements(); e.hasMoreElements();)
+        {
+            configServer.configSettings configSettingsObject = e.nextElement();
+
+            g_configSettingsObj.strName = configSettingsObject.strName;
+            g_configSettingsObj.strIP = configSettingsObject.strIP;
+            g_configSettingsObj.strPath = configSettingsObject.strPath;
+            g_configSettingsObj.strDomain = configSettingsObject.strDomain;
+            g_configSettingsObj.strUser = configSettingsObject.strUser;
+            g_configSettingsObj.strPassword = configSettingsObject.strPassword;
+        }
+        */
+    }
+
     private void DetermineTestItems()
     {
         fectest_config_path  = ((FECApplication) this.getApplication()).getFEC_config_path();
@@ -789,6 +821,7 @@ public class Main2Activity extends Activity {
         Record_Ethernet_MAc_Address();
 
         DetermineTestItems();
+        SetUpdateLogServer(); //Set Upload server ip, path, domain, user, password....
 
 
 
@@ -902,7 +935,7 @@ public class Main2Activity extends Activity {
 
         dump_trace("The onDestroy() event");
     }
-    InternallogUtil g_InternallogUtil;
+
     public  void RecordFECLog(String logString)
     {
 
@@ -915,24 +948,207 @@ public class Main2Activity extends Activity {
     }
 
 
+    JCIFS_SMBUtil g_JCIFS_SMBUtil;
     public  void copyto_udisk_click(View view)
     {
-        boolean copyToUSBOK=false;
-        copyToUSBOK = g_InternallogUtil.copyTOUSBStorage();
-        if (copyToUSBOK){
-            TextView textViewCopytoudisk = (TextView) findViewById(R.id.textViewcopyto_udisk);
-            textViewCopytoudisk.setText("Copy Done.");
-        }
+        boolean copyOK=false;
+        //TextView textViewCopytoudisk = (TextView) findViewById(R.id.textViewcopyto_udisk);
+        //textViewCopytoudisk.setText("Copying !!");
+
+        this.mHandlerUIMsg = new Handler(); //Brian:
+        PostUIUpdateLog("Copying !!", R.id.textViewcopyto_udisk);
+
+        //copyToUSBOK = g_InternallogUtil.copyTOUSBStorage(); Change to copy to server. 2017/4/24
+
+        JCIFS_Copy_Log_To_Remote_Server();
+
+        //textViewCopytoudisk.setText("Copy Done.");
+
 
     }
 
+    public void JCIFS_Copy_Log_To_Remote_Server()
+    {
+        JCIFS_Thread JCIFS_Threadt = new JCIFS_Thread();
+        JCIFS_Threadt.start();
+    }
+
+    private Handler mHandlerUIMsg = null; //Brian
+    private void PostUIUpdateLog(final String msg, final int TextViewID)
+    {
+        this.mHandlerUIMsg.post(new Runnable()
+        {
+            public void run()
+            {
+                //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                final TextView textViewResultDeviceID = (TextView) findViewById(TextViewID);
+                dump_trace("PostUIUpdateLog:TextViewID="+TextViewID);
+                textViewResultDeviceID.setText(msg);
+            }
+        });
+    }
+
+    //You should almost always run network operations on a thread
+    // http://stackoverflow.com/questions/6343166/how-to-fix-android-os-networkonmainthreadexception/9289190#9289190
+    private class JCIFS_Thread extends Thread {
+        JCIFS_Thread() {
+        }
+
+        public void Test_ListRemoteFiles()
+        {
+            int retryTimes=0;
+            boolean bConnectOK =false;
+            do {
+                g_JCIFS_SMBUtil = new JCIFS_SMBUtil();
+                g_JCIFS_SMBUtil.ListRemoteFiles();
+                bConnectOK = true;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                retryTimes++;
+            } while (!bConnectOK && (retryTimes <3));
+        }
+        public void copy_log_to_Remote()
+        {
+            int retryTimes=0;
+            boolean CopyOK =false;
+            do {
+                g_JCIFS_SMBUtil = new JCIFS_SMBUtil();
+                CopyOK = g_JCIFS_SMBUtil.JCIFS_copy_log_to_Remote();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                retryTimes++;
+            } while (!CopyOK && (retryTimes <3));
+            if (CopyOK){
+                PostUIUpdateLog("Copy Done.", R.id.textViewcopyto_udisk);
+            }else{
+                PostUIUpdateLog("Copy Fail!", R.id.textViewcopyto_udisk);
+            }
+        }
+        public void run() {
+            //Test_ListRemoteFiles();
+            copy_log_to_Remote();
+        }
+    }
+
+    public class JCIFS_SMBUtil{
+        public boolean JCIFS_copy_log_to_Remote()
+        {
+            String targetFolder = "smb://192.168.0.5/sw_rd/Temp/Brian/log/";
+
+            String strIP="192.168.0.5";
+            String strPath="/sw_rd/Temp/Brian/log/";
+            String strDomain="workgroup";
+            String strUser="rd2";
+            String strPassword="firich1446";
+
+            if (!g_configServer.HasConfigServerSetting()){
+                return false;
+            }
+            strIP = g_configSettingsObj.strIP;
+            strPath = g_configSettingsObj.strPath;
+            strDomain = g_configSettingsObj.strDomain;
+            strUser = g_configSettingsObj.strUser;
+            strPassword = g_configSettingsObj.strPassword;
+
+            targetFolder = "smb://"+ strIP + strPath;
+            logUtil logUtiFile = new logUtil();
+            String remoteLogFile = targetFolder+ logUtiFile.getLogFileNameForUploadLogToServer();
+
+            try {
+                //g_JCIFS_SMBUtil.copyFileTo("workgroup", "rd2", "firich1446", g_InternallogUtil.getInternalLogFileName(), remoteLogFile);
+                g_JCIFS_SMBUtil.copyFileTo(strDomain,strUser, strPassword, g_InternallogUtil.getInternalLogFileName(), remoteLogFile);
+                return true;
+            }catch (IOException e) {
+                //  log exception
+                return false;
+            }
+
+        }
+        public void ListRemoteFiles()
+        {
+            NtlmPasswordAuthentication auth =
+                    new NtlmPasswordAuthentication("workgroup", "rd2", "firich1446");
+            String remoteURL = "smb://192.168.0.5/sw_rd/Temp/Brian/";
+            SmbFile dir;
+            try {
+                dir = new SmbFile(remoteURL, auth);
+                for (SmbFile f : dir.listFiles()) {
+                    dump_trace("File name: " + f.getName());
+                   // System.out.println("File name: " + f.getName());
+                }
+            } catch (IOException e) {
+                //  log exception
+            }
+
+
+
+        }
+        public  NtlmPasswordAuthentication createAuth(String domain, String user, String passwd){
+            //StringBuffer sb = new StringBuffer(aUser);
+            //sb.append(':').append(aPasswd);
+            //如果有網域，可以使用
+            //jcifs.Config.setProperty( "jcifs.netbios.wins", "192.168.0.5" );
+
+            return new NtlmPasswordAuthentication(domain, user, passwd);
+            //return new NtlmPasswordAuthentication(sb.toString());
+        }
+
+        public  SmbFile createSmbFile(String domain, String aUser, String aPasswd, String aTarget) throws IOException {
+            NtlmPasswordAuthentication auth = createAuth(domain, aUser, aPasswd);
+            return new SmbFile(aTarget, auth);
+        }
+
+        private  void close(Closeable aCloseable){
+            if( aCloseable == null )
+                return;
+
+            try {
+                aCloseable.close();
+            } catch (IOException e) {
+                //  log exception
+            }
+        }
+
+        public  void copyFileTo(String domain, String aUser, String aPasswd, String aSource, String aTarget) throws IOException {
+            SmbFile sFile = createSmbFile(domain, aUser, aPasswd, aTarget);
+            SmbFileOutputStream sfos = null;
+            FileInputStream fis = null;
+            try {
+                sfos = new SmbFileOutputStream(sFile, false);
+                //fis = new FileInputStream(new File(aSource));
+                //FileInputStream fis = openFileInput(InternalStoragefileName);
+                fis = openFileInput(aSource); //Brain:Open app private internal log file.
+
+                byte[] buf = new byte[1024];
+                int len;
+                while(( len = fis.read(buf) )> 0 ){
+                    sfos.write(buf, 0, len);
+                }
+            } finally {
+                close(sfos);
+                close(fis);
+            }
+        }
+    }
     public class InternallogUtil {
 
         String InternalStoragefileName = "InternalLog.txt";
 
-        public void InternallogUtil()
+        public InternallogUtil()
         {
 
+        }
+        public String getInternalLogFileName()
+        {
+            return  InternalStoragefileName;
         }
         public void appendInternalStorageLog(String strLog)
         {
@@ -952,6 +1168,7 @@ public class Main2Activity extends Activity {
         {
             String strEmpty="";
             FileOutputStream outputStream;
+            dump_trace("Begin: clearInterStorageLog.");
             try {
                 outputStream =  openFileOutput(InternalStoragefileName, Context.MODE_PRIVATE);
                 outputStream.write(strEmpty.getBytes());
@@ -966,19 +1183,37 @@ public class Main2Activity extends Activity {
                 int bytesum = 0;
                 int byteread = 0;
 
+                dump_trace("Begin: copyTOUSBStorage\n");
                 logUtil logUtilUdiskFile = new logUtil();
                 String strUdiskFileName = logUtilUdiskFile.findUDiskFileName();
                 if (logUtilUdiskFile.isFindUdiskFECLogFile()) {
+                    dump_trace("copyTOUSBStorage: isFindUdiskFECLogFile: true\n");
                     FileInputStream fisInternalStorage = openFileInput(InternalStoragefileName);
                     FileOutputStream fs = new FileOutputStream(strUdiskFileName);
                     byte[] buffer = new byte[1444];
                     //byte[] buffer = new byte[14];
                     while ((byteread = fisInternalStorage.read(buffer)) != -1) {
+                        dump_trace("copyTOUSBStorage: fisInternalStorage: byteread:"+ byteread);
                         bytesum += byteread;
                         fs.write(buffer, 0, byteread);
                     }
+                    int nRetry=0;
+                    boolean bUSBLogEmpty= true;
+                    do {
+                        String usbLog = readUSBLog(strUdiskFileName);
+                        if (!usbLog.isEmpty()){
+                            bUSBLogEmpty = false;
+                            break;
+                        }
+                        SleepMiniSecond(500);
+                        nRetry++;
+                    } while( (nRetry <= 5 ) && bUSBLogEmpty);
+
                     fisInternalStorage.close();
                     fs.close();
+                    if (bUSBLogEmpty){
+                        return false;
+                    }
 
                     return true;
                 }else{
@@ -989,6 +1224,34 @@ public class Main2Activity extends Activity {
             }
         }
 
+
+        public String readUSBLog(String strFileNamePath)
+        {
+
+            File file = new File(strFileNamePath);
+
+            StringBuilder text = new StringBuilder();
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+
+                int nLine=0;
+                while ((line = br.readLine()) != null) {
+                    text.append(line);
+                    text.append('\n');
+                    nLine++;
+                    if (nLine >2){
+                        break;
+                    }
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                //You'll need to add proper error handling here
+            }
+            return text.toString();
+        }
 
         public String readInternalStorageLog(int length) {
             byte[] buffer = new byte[length];
