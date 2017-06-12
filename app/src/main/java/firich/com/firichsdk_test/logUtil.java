@@ -16,9 +16,27 @@ import java.util.GregorianCalendar;
 public class logUtil {
 
     boolean findFeclogFileFlag = false;
-    public void logUtil()
+    String strLogFileName="";
+
+    public logUtil()
     {
 
+    }
+    public String getLogFileNameForUploadLogToServer()
+    {
+        //Initialize your Date however you like it.
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String strYear = Integer.toString(year);
+        String strMonth = Integer.toString(month);
+        String strDay = Integer.toString(day);
+        String strDateTime = strYear + "_" + strMonth + "_" + strDay;
+        strLogFileName = "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
+        return strLogFileName;
     }
     public boolean isFindUdiskFECLogFile()
     {
@@ -64,12 +82,15 @@ public class logUtil {
         String strMonth = Integer.toString(month);
         String strDay = Integer.toString(day);
         String strDateTime = strYear + "_" + strMonth + "_" + strDay;
+
         do {
             if (logFile.exists()) {
                 findFeclogFile = true;
                 findFeclogFileFlag = true;
                 //pathReal = strStorage + strDisk + "/" + "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
-                pathReal = strStorage + strDisk + "/log/" + "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
+                strLogFileName = "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
+                //pathReal = strStorage + strDisk + "/log/" + "FEC_Log_"+Build.SERIAL+"_" + strDateTime+".txt";
+                pathReal = strStorage + strDisk + "/log/" + strLogFileName;
                 break;
             }
             diskNumber++;
